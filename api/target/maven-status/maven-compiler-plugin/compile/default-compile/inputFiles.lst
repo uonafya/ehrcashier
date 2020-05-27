@@ -1,0 +1,6 @@
+/home/ricky/ehrcashier/api/src/main/java/org/openmrs/module/ehrcashier/api/dao/EhrcashierDao.java
+/home/ricky/ehrcashier/api/src/main/java/org/openmrs/module/ehrcashier/EhrcashierActivator.java
+/home/ricky/ehrcashier/api/src/main/java/org/openmrs/module/ehrcashier/EhrcashierConfig.java
+/home/ricky/ehrcashier/api/src/main/java/org/openmrs/module/ehrcashier/Item.java
+/home/ricky/ehrcashier/api/src/main/java/org/openmrs/module/ehrcashier/api/EhrcashierService.java
+/home/ricky/ehrcashier/api/src/main/java/org/openmrs/module/ehrcashier/api/impl/EhrcashierServiceImpl.java

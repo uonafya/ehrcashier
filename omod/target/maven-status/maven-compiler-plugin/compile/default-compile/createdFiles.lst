@@ -1,0 +1,3 @@
+org/openmrs/module/ehrcashier/extension/html/AdminList.class
+org/openmrs/module/ehrcashier/web/controller/EhrcashierController.class
+org/openmrs/module/ehrcashier/fragment/controller/UsersFragmentController.class

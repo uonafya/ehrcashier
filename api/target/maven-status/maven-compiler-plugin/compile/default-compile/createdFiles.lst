@@ -1,0 +1,6 @@
+org/openmrs/module/ehrcashier/api/EhrcashierService.class
+org/openmrs/module/ehrcashier/EhrcashierActivator.class
+org/openmrs/module/ehrcashier/api/impl/EhrcashierServiceImpl.class
+org/openmrs/module/ehrcashier/api/dao/EhrcashierDao.class
+org/openmrs/module/ehrcashier/Item.class
+org/openmrs/module/ehrcashier/EhrcashierConfig.class
