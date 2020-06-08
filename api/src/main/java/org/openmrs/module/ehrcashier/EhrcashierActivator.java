@@ -12,26 +12,56 @@ package org.openmrs.module.ehrcashier;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.module.BaseModuleActivator;
+import org.openmrs.module.ModuleActivator;
 
 /**
  * This class contains the logic that is run every time this module is either started or shutdown
  */
 public class EhrcashierActivator extends BaseModuleActivator {
-	
-	private Log log = LogFactory.getLog(this.getClass());
-	
+
+	protected Log log = LogFactory.getLog(getClass());
+
 	/**
-	 * @see #started()
+	 * @see ModuleActivator#willRefreshContext()
+	 */
+	public void willRefreshContext() {
+		log.info("Refreshing Ehrcashier Module");
+	}
+
+	/**
+	 * @see ModuleActivator#contextRefreshed()
+	 */
+	public void contextRefreshed() {
+		log.info("Ehrcashier Module refreshed");
+	}
+
+	/**
+	 * @see ModuleActivator#willStart()
+	 */
+	public void willStart() {
+		log.info("Starting Ehrcashier Module");
+	}
+
+	/**
+	 * @see ModuleActivator#started()
 	 */
 	public void started() {
-		log.info("Started Ehrcashier");
+		log.info("Ehrcashier Module started");
 	}
-	
+
 	/**
-	 * @see #shutdown()
+	 * @see ModuleActivator#willStop()
 	 */
-	public void shutdown() {
-		log.info("Shutdown Ehrcashier");
+	public void willStop() {
+		log.info("Stopping Ehrcashier Module");
 	}
-	
+
+	/**
+	 * @see ModuleActivator#stopped()
+	 */
+	public void stopped() {
+		log.info("Ehrcashier Module stopped");
+	}
+
 }
+
