@@ -2,12 +2,10 @@ package org.openmrs.module.ehrcashier;
 
 import org.openmrs.Patient;
 import org.openmrs.Person;
-
 import java.io.Serializable;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 
 public class PatientWrapper extends Patient implements Serializable {
     private Date lastVisitTime;

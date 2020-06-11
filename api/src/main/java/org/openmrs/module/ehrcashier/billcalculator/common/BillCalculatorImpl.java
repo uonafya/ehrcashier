@@ -1,20 +1,17 @@
 /**
- *  Copyright 2020  HealthIT
  *
- *  This file is part of Billing module.
+ *  This file is part of ehrcashier module.
  *
  *  Cashier module is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 1 of the License, or
  *  (at your option) any later version.
-
-
  *
  **/
 
 package org.openmrs.module.ehrcashier.billcalculator.common;
 
-import org.openmrs.module.billingui.includable.billcalculator.BillCalculator;
+import org.openmrs.module.ehrcashier.billcalculator.BillCalculator;
 
 import java.math.BigDecimal;
 import java.util.Map;
