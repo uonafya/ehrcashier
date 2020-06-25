@@ -29,6 +29,7 @@ public class EhrcashierActivator extends BaseModuleActivator {
 	 */
 	public void started() {
 		log.info("Started Ehrcashier");
+<<<<<<< HEAD
 	}
 	
 	/**
@@ -38,4 +39,15 @@ public class EhrcashierActivator extends BaseModuleActivator {
 		log.info("Shutdown Ehrcashier");
 	}
 	
+=======
+	}
+	
+	/**
+	 * @see #shutdown()
+	 */
+	public void shutdown() {
+		log.info("Shutdown Ehrcashier");
+	}
+	
+>>>>>>> 17a75823f0f9ed570a8d80ecb0d072454f416e74
 }
