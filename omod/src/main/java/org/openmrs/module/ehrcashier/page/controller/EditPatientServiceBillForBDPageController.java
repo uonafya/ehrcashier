@@ -42,10 +42,9 @@ public class EditPatientServiceBillForBDPageController {
                      UiUtils uiUtils,
                      @RequestParam("billId") Integer billId,
                      @RequestParam("patientId") Integer patientId) {
-        pageRequest.getSession().setAttribute(ReferenceApplicationWebConstants.SESSION_ATTRIBUTE_REDIRECT_URL,uiUtils.thisUrl());
-        sessionContext.requireAuthentication();
-        Boolean isPriviledged = Context.hasPrivilege("Access Billing");
-        if(!isPriviledged){
+        BillAccess ba=new BillAccess();
+        boolean auth=ba.authenticate(pageRequest,sessionContext);
+        if(!auth){
             return "redirect: index.htm";
         }
         Patient patient = Context.getPatientService().getPatient(patientId);

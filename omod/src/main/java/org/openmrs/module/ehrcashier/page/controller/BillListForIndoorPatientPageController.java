@@ -46,10 +46,9 @@ public class BillListForIndoorPatientPageController {
                       @RequestParam(value = "voidStatus", required = false) Boolean voidStatus,
                       @RequestParam(value = "selectedCategory", required = false) Integer selectedCategory,
                       HttpServletRequest request, UiUtils uiUtils) {
-        pageRequest.getSession().setAttribute(ReferenceApplicationWebConstants.SESSION_ATTRIBUTE_REDIRECT_URL,uiUtils.thisUrl());
-        sessionContext.requireAuthentication();
-        Boolean isPriviledged = Context.hasPrivilege("Access Billing");
-        if(!isPriviledged){
+        BillAccess ba=new BillAccess();
+        boolean auth=ba.authenticate(pageRequest,sessionContext);
+        if(!auth){
             return "redirect: index.htm";
         }
         long admitMili = 0;

@@ -28,10 +28,9 @@ public class ListOfOrderPageController {
                       UiUtils ui,
                       @RequestParam("patientId") Integer patientId,
                       @RequestParam(value = "date", required = false) String dateStr) {
-        pageRequest.getSession().setAttribute(ReferenceApplicationWebConstants.SESSION_ATTRIBUTE_REDIRECT_URL,ui.thisUrl());
-        sessionContext.requireAuthentication();
-        Boolean isPriviledged = Context.hasPrivilege("Access Billing");
-        if(!isPriviledged){
+        BillAccess ba=new BillAccess();
+        boolean auth=ba.authenticate(pageRequest,sessionContext);
+        if(!auth){
             return "redirect: index.htm";
         }
         BillingService billingService = Context

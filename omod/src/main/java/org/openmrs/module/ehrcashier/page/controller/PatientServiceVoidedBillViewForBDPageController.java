@@ -40,10 +40,9 @@ public class PatientServiceVoidedBillViewForBDPageController {
                       @RequestParam(value = "pageSize", required = false) Integer pageSize,
                       @RequestParam(value = "currentPage", required = false) Integer currentPage,
                       HttpServletRequest request, UiUtils uiUtils) {
-        pageRequest.getSession().setAttribute(ReferenceApplicationWebConstants.SESSION_ATTRIBUTE_REDIRECT_URL,ui.thisUrl());
-        sessionContext.requireAuthentication();
-        Boolean isPriviledged = Context.hasPrivilege("Access Billing");
-        if(!isPriviledged){
+        BillAccess ba=new BillAccess();
+        boolean auth=ba.authenticate(pageRequest,sessionContext);
+        if(!auth){
             return "redirect: index.htm";
         }
         BillingService billingService = Context.getService(BillingService.class);

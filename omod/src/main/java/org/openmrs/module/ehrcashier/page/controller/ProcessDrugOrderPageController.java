@@ -32,10 +32,9 @@ public class ProcessDrugOrderPageController {
                       PageRequest pageRequest,
                       @RequestParam("orderId") Integer orderId, PageModel pageModel,
                       UiUtils uiUtils) {
-        pageRequest.getSession().setAttribute(ReferenceApplicationWebConstants.SESSION_ATTRIBUTE_REDIRECT_URL,uiUtils.thisUrl());
-        sessionContext.requireAuthentication();
-        Boolean isPriviledged = Context.hasPrivilege("Access Billing");
-        if(!isPriviledged){
+        BillAccess ba=new BillAccess();
+        boolean auth=ba.authenticate(pageRequest,sessionContext);
+        if(!auth){
             return "redirect: index.htm";
         }
         pageModel.addAttribute("userLocation", Context.getAdministrationService().getGlobalProperty("hospital.location_user"));

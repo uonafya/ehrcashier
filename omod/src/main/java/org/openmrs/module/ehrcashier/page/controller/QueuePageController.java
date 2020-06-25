@@ -18,10 +18,9 @@ public class QueuePageController {
             PageRequest pageRequest,
             UiUtils ui
     ){
-        pageRequest.getSession().setAttribute(ReferenceApplicationWebConstants.SESSION_ATTRIBUTE_REDIRECT_URL,ui.thisUrl());
-        sessionContext.requireAuthentication();
-        Boolean isPriviledged = Context.hasPrivilege("Access Billing");
-        if(!isPriviledged){
+        BillAccess ba=new BillAccess();
+        boolean auth=ba.authenticate(pageRequest,sessionContext);
+        if(!auth){
             return "redirect: index.htm";
         }
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");

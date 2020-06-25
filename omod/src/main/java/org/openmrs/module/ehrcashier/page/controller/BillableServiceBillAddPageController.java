@@ -49,10 +49,9 @@ public class BillableServiceBillAddPageController {
                       @RequestParam(value = "encounterId", required = false) Integer encounterId,
                       @RequestParam(value = "typeOfPatient", required = false) String typeOfPatient,
                       @RequestParam(value = "lastBillId", required = false) String lastBillId) {
-        pageRequest.getSession().setAttribute(ReferenceApplicationWebConstants.SESSION_ATTRIBUTE_REDIRECT_URL,ui.thisUrl());
-        sessionContext.requireAuthentication();
-        Boolean isPriviledged = Context.hasPrivilege("Access Billing");
-        if(!isPriviledged){
+        BillAccess ba=new BillAccess();
+        boolean auth=ba.authenticate(pageRequest,sessionContext);
+        if(!auth){
             return "redirect: index.htm";
         }
         Patient patient = Context.getPatientService().getPatient(patientId);
