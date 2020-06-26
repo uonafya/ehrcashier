@@ -31,7 +31,6 @@
 			<groupId>org.openmrs.module</groupId>
 			<artifactId>htmlformentry-api</artifactId>
 		</dependency>
-<<<<<<< HEAD
 
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
@@ -124,8 +123,7 @@
 			<artifactId>uiframework-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
-=======
->>>>>>> 17a75823f0f9ed570a8d80ecb0d072454f416e74
+
 	</dependencies>
 
 	<build>
