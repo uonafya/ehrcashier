@@ -11,25 +11,23 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-
 package org.openmrs.module.ehrcashier.billcalculator.common;
 
 import org.openmrs.module.ehrcashier.billcalculator.BillCalculator;
-
 import java.math.BigDecimal;
 import java.util.Map;
 
 public class BillCalculatorImpl implements BillCalculator {
-
+	
 	/**
 	 * Return 100%
 	 */
 	public BigDecimal getRate(Map<String, Object> parameters) {
 		return new BigDecimal(1);
 	}
-
+	
 	public boolean isFreeBill(Map<String, Object> parameters) {
-
+		
 		return false;
 	}
 }
