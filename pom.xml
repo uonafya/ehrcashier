@@ -30,7 +30,6 @@
 
 	<properties>
 		<openMRSVersion>1.12.0</openMRSVersion>
-		<!-- Module dependencies -->
 		<appframeworkVersion>2.2.1</appframeworkVersion>
 		<calculationVersion>1.0</calculationVersion>
 		<htmlformentryVersion>2.3</htmlformentryVersion>

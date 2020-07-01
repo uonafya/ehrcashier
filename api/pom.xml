@@ -11,7 +11,7 @@
 	<packaging>jar</packaging>
 	<name>Ehrcashier API</name>
 	<description>API project for Ehrcashier</description>
-<<<<<<< HEAD
+
 
 	<dependencies>
 		<!-- Begin OpenMRS modules -->
@@ -140,6 +140,5 @@
 	</testResources>
 	</build>
 
-=======
->>>>>>> 17a75823f0f9ed570a8d80ecb0d072454f416e74
+
 </project>
