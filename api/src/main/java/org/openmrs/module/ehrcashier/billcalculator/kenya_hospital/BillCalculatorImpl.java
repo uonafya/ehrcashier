@@ -17,9 +17,9 @@ package org.openmrs.module.ehrcashier.billcalculator.kenya_hospital;
 import org.openmrs.Concept;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.ehrcashier.billcalculator.BillCalculatorForBD;
-import org.openmrs.module.hospitalcore.concept.TestTree;
-import org.openmrs.module.hospitalcore.model.PatientServiceBillItem;
-
+/*import org.openmrs.module.hospitalcore.concept.TestTree;
+*import org.openmrs.module.hospitalcore.model.PatientServiceBillItem;
+*/
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
@@ -78,7 +78,7 @@ public class BillCalculatorImpl implements BillCalculatorForBD {
 	 * 
 	 * @return
 	 */
-	//ghanshyam 3-june-2013 New Requirement #1632 Orders from dashboard must be appear in billing queue.User must be able to generate bills from this queue
+	//#1632 Orders from dashboard must be appear in billing queue.User must be able to generate bills from this queue
 	@SuppressWarnings("unchecked")
 	public int isFreeBill(String billType) {
 		
