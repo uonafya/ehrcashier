@@ -17,9 +17,9 @@ package org.openmrs.module.ehrcashier.billcalculator.kenya_hospital;
 import org.openmrs.Concept;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.ehrcashier.billcalculator.BillCalculatorForBD;
-/*import org.openmrs.module.hospitalcore.concept.TestTree;
-*import org.openmrs.module.hospitalcore.model.PatientServiceBillItem;
-*/
+import org.openmrs.module.hospitalcore.concept.TestTree;
+import org.openmrs.module.hospitalcore.model.PatientServiceBillItem;
+
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;

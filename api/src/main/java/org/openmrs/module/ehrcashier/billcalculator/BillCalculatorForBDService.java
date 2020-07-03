@@ -17,9 +17,9 @@ package org.openmrs.module.ehrcashier.billcalculator;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-/*import org.openmrs.module.hospitalcore.util.GlobalPropertyUtil;
-*import org.openmrs.module.hospitalcore.util.HospitalCoreConstants;
-*/
+import org.openmrs.module.hospitalcore.util.GlobalPropertyUtil;
+import org.openmrs.module.hospitalcore.util.HospitalCoreConstants;
+
 import java.math.BigDecimal;
 import java.util.Map;
 
