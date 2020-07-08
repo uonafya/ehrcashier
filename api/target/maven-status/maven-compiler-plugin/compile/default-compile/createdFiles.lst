@@ -1,0 +1,16 @@
+org/openmrs/module/ehrcashier/PatientWrapper.class
+org/openmrs/module/ehrcashier/EhrcashierActivator.class
+org/openmrs/module/ehrcashier/billcalculator/BillCalculatorForBD.class
+org/openmrs/module/ehrcashier/api/dao/EhrcashierDao.class
+org/openmrs/module/ehrcashier/Item.class
+org/openmrs/module/ehrcashier/billcalculator/common/BillCalculatorImpl.class
+org/openmrs/module/ehrcashier/billcalculator/kenya_hospital/BillCalculatorImpl.class
+org/openmrs/module/ehrcashier/billcalculator/BillCalculatorForBDService.class
+org/openmrs/module/ehrcashier/api/EhrcashierService.class
+org/openmrs/module/ehrcashier/api/impl/EhrcashierServiceImpl.class
+org/openmrs/module/ehrcashier/metadata/EhrcashierMetadata$_Privilege.class
+org/openmrs/module/ehrcashier/metadata/EhrcashierMetadata.class
+org/openmrs/module/ehrcashier/billcalculator/BillCalculatorService.class
+org/openmrs/module/ehrcashier/billcalculator/BillCalculator.class
+org/openmrs/module/ehrcashier/metadata/EhrcashierMetadata$_Role.class
+org/openmrs/module/ehrcashier/EhrcashierConfig.class

@@ -34,6 +34,11 @@
 
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
+			<artifactId>referenceapplication-api</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openmrs.module</groupId>
 			<artifactId>htmlwidgets-api</artifactId>
 		</dependency>
 
@@ -64,6 +69,11 @@
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
 			<artifactId>uiframework-api</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openmrs.module</groupId>
+			<artifactId>hospitalcore-api</artifactId>
 		</dependency>
 
 		<dependency>

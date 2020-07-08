@@ -35,42 +35,40 @@ import java.util.List;
 import java.util.logging.Logger;
 
 public class BillingQueueFragmentController {
-
-    public SimpleObject getBillingQueue(
-            @RequestParam(value = "date", required = false) String dateStr,
-            @RequestParam(value = "searchKey", required = false) String searchKey,
-            @RequestParam(value = "currentPage", required = false) Integer currentPage,
-            //to work with current selector
-            @RequestParam(value = "pgSize", required = false) Integer pgSize,
-            PageModel model, UiUtils ui) {
-        BillingService billingService = Context.getService(BillingService.class);
-
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        Date date = null;
-        try {
-            date = sdf.parse(dateStr);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        // 21/11/2014 to work with size selector for OPDQueue
-        List<PatientSearch> patientSearchResult = billingService.searchListOfPatient(date, searchKey, currentPage, pgSize);
-
-        List<SimpleObject> getpatient = null;
-        if (patientSearchResult != null) {
-
-            getpatient = SimpleObject.fromCollection(getpatient, ui, "date", "searchKey", "page", "pgSize", "id", "name");
-        }
-
-
-        if (currentPage == null) currentPage = 1;
-        int total = billingService.countSearchListOfPatient(date, searchKey, currentPage);
-        PagingUtil pagingUtil = new PagingUtil(pgSize, currentPage, total);
-        model.addAttribute("pagingUtil", pagingUtil);
-        model.addAttribute("patientList", patientSearchResult);
-        model.addAttribute("date", dateStr);
-
-
-        return SimpleObject.create(getpatient);
-    }
+	
+	public SimpleObject getBillingQueue(@RequestParam(value = "date", required = false) String dateStr,
+	        @RequestParam(value = "searchKey", required = false) String searchKey,
+	        @RequestParam(value = "currentPage", required = false) Integer currentPage,
+	        //to work with current selector
+	        @RequestParam(value = "pgSize", required = false) Integer pgSize, PageModel model, UiUtils ui) {
+		BillingService billingService = Context.getService(BillingService.class);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		Date date = null;
+		try {
+			date = sdf.parse(dateStr);
+		}
+		catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		// 21/11/2014 to work with size selector for OPDQueue
+		List<PatientSearch> patientSearchResult = billingService.searchListOfPatient(date, searchKey, currentPage, pgSize);
+		
+		List<SimpleObject> getpatient = null;
+		if (patientSearchResult != null) {
+			
+			getpatient = SimpleObject.fromCollection(getpatient, ui, "date", "searchKey", "page", "pgSize", "id", "name");
+		}
+		
+		if (currentPage == null)
+			currentPage = 1;
+		int total = billingService.countSearchListOfPatient(date, searchKey, currentPage);
+		PagingUtil pagingUtil = new PagingUtil(pgSize, currentPage, total);
+		model.addAttribute("pagingUtil", pagingUtil);
+		model.addAttribute("patientList", patientSearchResult);
+		model.addAttribute("date", dateStr);
+		
+		return SimpleObject.create(getpatient);
+	}
 }
