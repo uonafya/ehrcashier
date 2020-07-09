@@ -49,7 +49,8 @@
 		<webservices.restVersion>2.1</webservices.restVersion>
 		<logicVersion>0.5.2</logicVersion>
 		<uilibraryVersion>2.0.4</uilibraryVersion>
-		<inventoryappVersion>1.0.2-SNAPSHOT</inventoryappVersion>
+		<inventoryVersion>2.0.10-SNAPSHOT</inventoryVersion>
+		<appuiVersion>1.14.0-SNAPSHOT</appuiVersion>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -88,6 +89,13 @@
 
 			<dependency>
 				<groupId>org.openmrs.module</groupId>
+				<artifactId>appui-api</artifactId>
+				<version>${appuiVersion}</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
 				<artifactId>htmlformentry-api</artifactId>
 				<version>${htmlformentryVersion}</version>
 				<scope>provided</scope>
@@ -102,8 +110,8 @@
 
 			<dependency>
 				<groupId>org.openmrs.module</groupId>
-				<artifactId>inventoryapp-api</artifactId>
-				<version>${inventoryappVersion}</version>
+				<artifactId>inventory-api</artifactId>
+				<version>${inventoryVersion}</version>
 				<scope>provided</scope>
 			</dependency>
 

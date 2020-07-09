@@ -29,13 +29,18 @@
 
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
+			<artifactId>appui-api</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openmrs.module</groupId>
 			<artifactId>htmlformentry-api</artifactId>
 		</dependency>
 
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
-			<artifactId>inventoryapp-api</artifactId>
-			<version>1.0.2-SNAPSHOT</version>
+			<artifactId>inventory-api</artifactId>
+			<version>2.0.10-SNAPSHOT</version>
 			<type>jar</type>
 			<scope>provided</scope>
 		</dependency>
