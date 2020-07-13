@@ -46,7 +46,7 @@ public class BillableServiceBillAddPageController {
 	        @RequestParam(value = "typeOfPatient", required = false) String typeOfPatient,
 	        @RequestParam(value = "lastBillId", required = false) String lastBillId) {
 		BillAccess ba = new BillAccess();
-		boolean auth = ba.authenticate(pageRequest, sessionContext);
+		boolean auth = ba.authenticate(pageRequest, sessionContext, ui);
 		if (!auth) {
 			return "redirect: index.htm";
 		}

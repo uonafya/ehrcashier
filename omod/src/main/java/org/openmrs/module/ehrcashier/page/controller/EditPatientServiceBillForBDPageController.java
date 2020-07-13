@@ -36,10 +36,10 @@ public class EditPatientServiceBillForBDPageController {
 	
 	private Log logger = LogFactory.getLog(getClass());
 	
-	public String get(PageModel model, UiSessionContext sessionContext, PageRequest pageRequest, UiUtils uiUtils,
+	public String get(PageModel model, UiSessionContext sessionContext, PageRequest pageRequest, UiUtils ui,
 	        @RequestParam("billId") Integer billId, @RequestParam("patientId") Integer patientId) {
 		BillAccess ba = new BillAccess();
-		boolean auth = ba.authenticate(pageRequest, sessionContext);
+		boolean auth = ba.authenticate(pageRequest, sessionContext, ui);
 		if (!auth) {
 			return "redirect: index.htm";
 		}
@@ -71,7 +71,7 @@ public class EditPatientServiceBillForBDPageController {
 			}
 		}
 		
-		List<SimpleObject> simpleObjects = SimpleObject.fromCollection(billItems, uiUtils, "patientServiceBillItemId",
+		List<SimpleObject> simpleObjects = SimpleObject.fromCollection(billItems, ui, "patientServiceBillItemId",
 		    "service.conceptId", "service.name", "quantity", "amount", "unitPrice");
 		
 		String billingItems = SimpleObject.create("billingItems", simpleObjects).toJson();
@@ -104,7 +104,7 @@ public class EditPatientServiceBillForBDPageController {
 	
 	public String post(PageModel pageModel, Object command, BindingResult bindingResult, HttpServletRequest request,
 	        @RequestParam("patientId") Integer patientId, @RequestParam("billId") Integer billId,
-	        @RequestParam("action") String action, UiUtils uiUtils) {
+	        @RequestParam("action") String action, UiUtils ui) {
 		String bills = request.getParameter("bill");
 		JSONObject obj = new JSONObject(bills);
 		JSONArray billItems = obj.getJSONArray("billItems");
@@ -119,9 +119,9 @@ public class EditPatientServiceBillForBDPageController {
 		
 		BillCalculatorForBDService calculator = new BillCalculatorForBDService();
 		
-		if (StringUtils.isNotBlank(obj.getString("comment"))) {
+		/*if (StringUtils.isNotBlank(obj.getString("comment"))) {
 			bill.setDescription(obj.getString("comment"));
-		}
+		}*/
 		
 		if (StringUtils.isNotBlank(action)) {
 			if (action.equalsIgnoreCase("void")) {
@@ -144,7 +144,7 @@ public class EditPatientServiceBillForBDPageController {
 				Map<String, Object> redirectParams = new HashMap<String, Object>();
 				redirectParams.put("patientId", patientId);
 				redirectParams.put("billId", billId);
-				return "redirect:" + uiUtils.pageLink("ehrcashier", "billableServiceBillListForBD", redirectParams);
+				return "redirect:" + ui.pageLink("ehrcashier", "billableServiceBillListForBD", redirectParams);
 			}
 		}
 		
@@ -326,7 +326,7 @@ public class EditPatientServiceBillForBDPageController {
 		redirectParams.put("patientId", patientId);
 		redirectParams.put("billId", billId);
 		
-		return "redirect:" + uiUtils.pageLink("ehrcashier", "billableServiceBillListForBD", redirectParams);
+		return "redirect:" + ui.pageLink("ehrcashier", "billableServiceBillListForBD", redirectParams);
 	}
 	
 }

@@ -28,9 +28,9 @@ import java.util.List;
 public class ProcessDrugOrderPageController {
 	
 	public String get(PageModel model, UiSessionContext sessionContext, PageRequest pageRequest,
-	        @RequestParam("orderId") Integer orderId, PageModel pageModel, UiUtils uiUtils) {
+	        @RequestParam("orderId") Integer orderId, PageModel pageModel, UiUtils ui) {
 		BillAccess ba = new BillAccess();
-		boolean auth = ba.authenticate(pageRequest, sessionContext);
+		boolean auth = ba.authenticate(pageRequest, sessionContext, ui);
 		if (!auth) {
 			return "redirect: index.htm";
 		}
@@ -134,7 +134,7 @@ public class ProcessDrugOrderPageController {
 			model.addAttribute("waiverComment", listDrugIssue.get(0).getStoreDrugPatient().getComment());
 		}
 		
-		List<SimpleObject> dispensedDrugs = SimpleObject.fromCollection(listDrugIssue, uiUtils, "quantity",
+		List<SimpleObject> dispensedDrugs = SimpleObject.fromCollection(listDrugIssue, ui, "quantity",
 		    "transactionDetail.costToPatient", "transactionDetail.drug.name", "transactionDetail.formulation.name",
 		    "transactionDetail.formulation.dozage", "transactionDetail.frequency.name", "transactionDetail.noOfDays",
 		    "transactionDetail.comments", "transactionDetail.dateExpiry");
@@ -160,9 +160,9 @@ public class ProcessDrugOrderPageController {
 				listOfNotDispensedOrder = inventoryService.listOfNotDispensedOrder(patientId, issueDate, encounterId);
 			}
 			
-			List<SimpleObject> notDispensed = SimpleObject.fromCollection(listOfNotDispensedOrder, uiUtils,
-			    "inventoryDrug.name", "inventoryDrugFormulation.name", "inventoryDrugFormulation.dozage", "frequency.name",
-			    "noOfDays", "comments");
+			List<SimpleObject> notDispensed = SimpleObject
+			        .fromCollection(listOfNotDispensedOrder, ui, "inventoryDrug.name", "inventoryDrugFormulation.name",
+			            "inventoryDrugFormulation.dozage", "frequency.name", "noOfDays", "comments");
 			model.addAttribute("listOfNotDispensedOrder", SimpleObject.create("listOfNotDispensedOrder", notDispensed)
 			        .toJson());
 			//TODO ends here
@@ -221,7 +221,7 @@ public class ProcessDrugOrderPageController {
 		return null;
 	}
 	
-	public String post(HttpServletRequest request, PageModel pageModel, UiUtils uiUtils) {
+	public String post(HttpServletRequest request, PageModel pageModel, UiUtils ui) {
 		pageModel.addAttribute("userLocation", Context.getAdministrationService()
 		        .getGlobalProperty("hospital.location_user"));
 		String drugOrder = request.getParameter("drugOrder");
@@ -337,7 +337,7 @@ public class ProcessDrugOrderPageController {
 			inventoryStoreDrugPatient.setComment(comment);
 			inventoryService.saveStoreDrugPatient(inventoryStoreDrugPatient);
 			
-			List<SimpleObject> dispensedDrugs = SimpleObject.fromCollection(listDrugIssue, uiUtils, "quantity",
+			List<SimpleObject> dispensedDrugs = SimpleObject.fromCollection(listDrugIssue, ui, "quantity",
 			    "transactionDetail.costToPatient", "transactionDetail.drug.name", "transactionDetail.formulation.name",
 			    "transactionDetail.formulation.dozage", "transactionDetail.frequency.name", "transactionDetail.noOfDays",
 			    "transactionDetail.comments", "transactionDetail.dateExpiry");
@@ -361,7 +361,7 @@ public class ProcessDrugOrderPageController {
 					listOfNotDispensedOrder = inventoryService.listOfNotDispensedOrder(patientId, issueDate, encounterId);
 				}
 				
-				List<SimpleObject> notDispensed = SimpleObject.fromCollection(listOfNotDispensedOrder, uiUtils,
+				List<SimpleObject> notDispensed = SimpleObject.fromCollection(listOfNotDispensedOrder, ui,
 				    "inventoryDrug.name", "inventoryDrugFormulation.name", "inventoryDrugFormulation.dozage",
 				    "frequency.name", "noOfDays", "comments");
 				pageModel.addAttribute("listOfNotDispensedOrder",
@@ -409,6 +409,6 @@ public class ProcessDrugOrderPageController {
 				}
 			}
 		}
-		return "redirect:" + uiUtils.pageLink("ehrcashier", "billingQueue");
+		return "redirect:" + ui.pageLink("ehrcashier", "billingQueue");
 	}
 }

@@ -9,7 +9,6 @@ import org.openmrs.module.hospitalcore.BillingService;
 import org.openmrs.module.hospitalcore.HospitalCoreService;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.PatientSearch;
-import org.openmrs.module.referenceapplication.ReferenceApplicationWebConstants;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.page.PageModel;
 import org.openmrs.ui.framework.page.PageRequest;
@@ -25,7 +24,7 @@ public class ListOfOrderPageController {
 	public String get(PageModel model, UiSessionContext sessionContext, PageRequest pageRequest, UiUtils ui,
 	        @RequestParam("patientId") Integer patientId, @RequestParam(value = "date", required = false) String dateStr) {
 		BillAccess ba = new BillAccess();
-		boolean auth = ba.authenticate(pageRequest, sessionContext);
+		boolean auth = ba.authenticate(pageRequest, sessionContext, ui);
 		if (!auth) {
 			return "redirect: index.htm";
 		}

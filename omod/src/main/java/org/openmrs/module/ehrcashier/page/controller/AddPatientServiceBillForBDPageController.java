@@ -6,7 +6,6 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.hospitalcore.BillingService;
 import org.openmrs.module.hospitalcore.model.BillableService;
-import org.openmrs.module.referenceapplication.ReferenceApplicationWebConstants;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.page.PageModel;
 import org.openmrs.ui.framework.page.PageRequest;
@@ -25,7 +24,7 @@ public class AddPatientServiceBillForBDPageController {
 	        @RequestParam(value = "typeOfPatient", required = false) String typeOfPatient,
 	        @RequestParam(value = "lastBillId", required = false) String lastBillId, UiUtils uiUtils) {
 		BillAccess ba = new BillAccess();
-		boolean auth = ba.authenticate(pageRequest, sessionContext);
+		boolean auth = ba.authenticate(pageRequest, sessionContext, ui);
 		if (!auth) {
 			return "redirect: index.htm";
 		}

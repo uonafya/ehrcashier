@@ -11,7 +11,6 @@ import org.openmrs.module.hospitalcore.model.PatientServiceBill;
 import org.openmrs.module.hospitalcore.util.PagingUtil;
 import org.openmrs.module.hospitalcore.util.PatientUtils;
 import org.openmrs.module.hospitalcore.util.RequestUtil;
-import org.openmrs.module.referenceapplication.ReferenceApplicationWebConstants;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.page.PageModel;
 import org.openmrs.ui.framework.page.PageRequest;
@@ -36,7 +35,7 @@ public class PatientServiceVoidedBillViewForBDPageController {
 	        @RequestParam(value = "currentPage", required = false) Integer currentPage, HttpServletRequest request,
 	        UiUtils uiUtils) {
 		BillAccess ba = new BillAccess();
-		boolean auth = ba.authenticate(pageRequest, sessionContext);
+		boolean auth = ba.authenticate(pageRequest, sessionContext, ui);
 		if (!auth) {
 			return "redirect: index.htm";
 		}
@@ -89,7 +88,7 @@ public class PatientServiceVoidedBillViewForBDPageController {
 		Map<String, Object> redirectParams = new HashMap<String, Object>();
 		redirectParams.put("patientId", patientId);
 		redirectParams.put("billId", billId);
-		return "redirect:" + uiUtils.pageLink("billingui", "billableServiceBillListForBD", redirectParams);
+		return "redirect:" + uiUtils.pageLink("ehrcashier", "billableServiceBillListForBD", redirectParams);
 	}
 	
 }

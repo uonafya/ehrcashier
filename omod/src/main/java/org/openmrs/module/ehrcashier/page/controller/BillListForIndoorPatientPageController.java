@@ -2,7 +2,12 @@ package org.openmrs.module.ehrcashier.page.controller;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.openmrs.*;
+import org.openmrs.Concept;
+import org.openmrs.ConceptAnswer;
+import org.openmrs.Patient;
+import org.openmrs.PersonAttribute;
+import org.openmrs.PersonAttributeType;
+import org.openmrs.User;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appui.UiSessionContext;
@@ -11,9 +16,17 @@ import org.openmrs.module.hospitalcore.BillingConstants;
 import org.openmrs.module.hospitalcore.BillingService;
 import org.openmrs.module.hospitalcore.HospitalCoreService;
 import org.openmrs.module.hospitalcore.IpdService;
-import org.openmrs.module.hospitalcore.model.*;
-import org.openmrs.module.hospitalcore.util.*;
-import org.openmrs.module.referenceapplication.ReferenceApplicationWebConstants;
+import org.openmrs.module.hospitalcore.model.IndoorPatientServiceBill;
+import org.openmrs.module.hospitalcore.model.IndoorPatientServiceBillItem;
+import org.openmrs.module.hospitalcore.model.IpdPatientAdmissionLog;
+import org.openmrs.module.hospitalcore.model.IpdPatientAdmitted;
+import org.openmrs.module.hospitalcore.model.PatientServiceBill;
+import org.openmrs.module.hospitalcore.model.PatientServiceBillItem;
+import org.openmrs.module.hospitalcore.util.ConceptAnswerComparator;
+import org.openmrs.module.hospitalcore.util.Money;
+import org.openmrs.module.hospitalcore.util.PagingUtil;
+import org.openmrs.module.hospitalcore.util.PatientUtils;
+import org.openmrs.module.hospitalcore.util.RequestUtil;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.page.PageModel;
 import org.openmrs.ui.framework.page.PageRequest;
@@ -22,7 +35,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class BillListForIndoorPatientPageController {
 	
@@ -41,9 +60,9 @@ public class BillListForIndoorPatientPageController {
 	        @RequestParam(value = "itemID", required = false) Integer itemID,
 	        @RequestParam(value = "voidStatus", required = false) Boolean voidStatus,
 	        @RequestParam(value = "selectedCategory", required = false) Integer selectedCategory,
-	        HttpServletRequest request, UiUtils uiUtils) {
+	        HttpServletRequest request, UiUtils ui) {
 		BillAccess ba = new BillAccess();
-		boolean auth = ba.authenticate(pageRequest, sessionContext);
+		boolean auth = ba.authenticate(pageRequest, sessionContext, ui);
 		if (!auth) {
 			return "redirect: index.htm";
 		}
@@ -207,10 +226,10 @@ public class BillListForIndoorPatientPageController {
 				model.addAttribute("billList", bills);
 			}
 			model.addAttribute("requestForDischargeStatus", requestForDischargeStatus);
-			return "redirect:" + uiUtils.pageLink("ehrcashier", "billListForIndoorPatient");
+			return "redirect:" + ui.pageLink("ehrcashier", "billListForIndoorPatient");
 			
 		} else {
-			return "redirect:" + uiUtils.pageLink("ehrcashier", "billableServiceBillListForBD");
+			return "redirect:" + ui.pageLink("ehrcashier", "billableServiceBillListForBD");
 		}
 		
 	}
