@@ -49,7 +49,7 @@
 		<webservices.restVersion>2.1</webservices.restVersion>
 		<logicVersion>0.5.2</logicVersion>
 		<uilibraryVersion>2.0.4</uilibraryVersion>
-		<inventoryVersion>2.0.10-SNAPSHOT</inventoryVersion>
+		<inventoryVersion>2.0.13</inventoryVersion>
 		<appuiVersion>1.14.0-SNAPSHOT</appuiVersion>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -110,7 +110,7 @@
 
 			<dependency>
 				<groupId>org.openmrs.module</groupId>
-				<artifactId>inventory-api</artifactId>
+				<artifactId>inventory-omod</artifactId>
 				<version>${inventoryVersion}</version>
 				<scope>provided</scope>
 			</dependency>
