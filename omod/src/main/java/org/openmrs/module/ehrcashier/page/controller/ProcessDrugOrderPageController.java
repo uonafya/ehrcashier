@@ -12,7 +12,6 @@ import org.openmrs.module.hospitalcore.util.ActionValue;
 import org.openmrs.module.hospitalcore.util.FlagStates;
 import org.openmrs.module.inventory.InventoryService;
 import org.openmrs.module.inventory.util.DateUtils;
-import org.openmrs.module.referenceapplication.ReferenceApplicationWebConstants;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.page.PageModel;

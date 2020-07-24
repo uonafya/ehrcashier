@@ -1,7 +1,6 @@
 package org.openmrs.module.ehrcashier.page.controller;
 
 import org.openmrs.module.appui.UiSessionContext;
-import org.openmrs.module.referenceapplication.ReferenceApplicationWebConstants;
 import org.openmrs.ui.framework.page.PageRequest;
 import org.openmrs.api.context.Context;
 import org.openmrs.ui.framework.UiUtils;
