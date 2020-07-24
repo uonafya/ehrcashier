@@ -42,10 +42,8 @@ public class PatientServiceVoidedBillViewForBDPageController {
 		BillingService billingService = Context.getService(BillingService.class);
 		Patient patient = Context.getPatientService().getPatient(patientId);
 		Map<String, String> attributes = PatientUtils.getAttributes(patient);
-		//ghanshyam 25-02-2013 New Requirement #966[Billing]Add Paid Bill/Add Free Bill for Bangladesh module
 		BillCalculatorForBDService calculator = new BillCalculatorForBDService();
 		PatientServiceBill bill = billingService.getPatientServiceBillById(billId);
-		//ghanshyam 25-02-2013 New Requirement #966[Billing]Add Paid Bill/Add Free Bill for Bangladesh module
 		if (bill.getFreeBill().equals(1)) {
 			String billType = "free";
 			bill.setFreeBill(calculator.isFreeBill(billType));
@@ -67,7 +65,7 @@ public class PatientServiceVoidedBillViewForBDPageController {
 			    billingService.listPatientServiceBillByPatient(pagingUtil.getStartPos(), pagingUtil.getPageSize(), patient));
 		}
 		if (billId != null) {
-			//ghanshyam 25-02-2013 New Requirement #966[Billing]Add Paid Bill/Add Free Bill for Bangladesh module
+			
 			if (bill.getFreeBill().equals(1)) {
 				String billType = "free";
 				bill.setFreeBill(calculator.isFreeBill(billType));

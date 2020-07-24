@@ -35,7 +35,7 @@
 		<htmlformentryVersion>2.3</htmlformentryVersion>
 		<htmlwidgetsVersion>1.6.6</htmlwidgetsVersion>
 		<hospitalcoreVersion>1.0.0-SNAPSHOT</hospitalcoreVersion>
-		<referenceapplicationVersion>2.6.0</referenceapplicationVersion>
+		<!--referenceapplicationVersion>2.6.0</referenceapplicationVersion-->
 		<idgenVersion>2.6</idgenVersion>
 		<metadatadeployVersion>1.2</metadatadeployVersion>
 		<metadatasharingVersion>1.1.8</metadatasharingVersion>
@@ -43,8 +43,8 @@
 		<serializationxstreamVersion>0.2.7</serializationxstreamVersion>
 		<uiframeworkVersion>3.3.1</uiframeworkVersion>
 		<kenyacoreVersion>2.4.1</kenyacoreVersion>
-		<kenyauiVersion>2.1.2</kenyauiVersion>
-		<kenyaemrVersion>17.0.3</kenyaemrVersion>
+		<kenyauiVersion>2.1.1</kenyauiVersion>
+		<kenyaemrVersion>17.1.0</kenyaemrVersion>
 		<jodaTimeVersion>2.9.1</jodaTimeVersion>
 		<webservices.restVersion>2.1</webservices.restVersion>
 		<logicVersion>0.5.2</logicVersion>
@@ -73,12 +73,12 @@
 				<scope>provided</scope>
 			</dependency>
 
-			<dependency>
+			<!--dependency>
 				<groupId>org.openmrs.module</groupId>
 				<artifactId>referenceapplication-api</artifactId>
 				<version>${referenceapplicationVersion}</version>
 				<scope>provided</scope>
-			</dependency>
+			</dependency-->
 
 			<dependency>
 				<groupId>org.openmrs.module</groupId>
