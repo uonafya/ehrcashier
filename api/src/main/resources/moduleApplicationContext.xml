@@ -25,6 +25,14 @@
 
     <context:component-scan base-package="org.openmrs.module.ehrcashier" />
 
+    <bean id="ehrcashier.app.ehrcashier.queue" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
+        <constructor-arg value="ehrcashier.queue" />
+        <constructor-arg value="Billing" />
+        <constructor-arg value="ehrcashier/billingQueue.page" />
+        <constructor-arg value="ehrcashier:apps/cashier.png" />
+        <constructor-arg value="1800" />
+    </bean>
+
     <!-- Wraps EhrcashierService methods in DB transactions and OpenMRS interceptors,
     which set audit info like dateCreated, changedBy, etc.-->
     <bean id="ehrcashier.EhrcashierService"

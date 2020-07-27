@@ -7,7 +7,7 @@
 	<name>${project.parent.name}</name>
 	<version>${project.parent.version}</version>
 	<package>org.openmrs.module.ehrcashier</package>
-	<author>ricky</author>
+	<author>HealthIT</author>
 	<description>
 			${project.parent.description}
 	</description>
@@ -19,22 +19,16 @@
 	
 	<require_version>1.12.0</require_version>
 
-	<require_modules>
-		<require_module version="3.8">
-			org.openmrs.module.uiframework
-		</require_module>
-
-		<require_module version="1.0.0-SNAPSHOT">
-			org.openmrs.module.hospitalcore
-		</require_module>
-
-	</require_modules>
 
 	<!-- Extensions -->
 	<extension>
 		<point>org.openmrs.admin.list</point>
 		<class>org.openmrs.module.ehrcashier.extension.html.AdminList</class>
 	</extension>
+
+	<require_modules>
+		<require_module version="${kenyaemrVersion}">org.openmrs.module.kenyaemr</require_module>
+	</require_modules>
 
 	<aware_of_modules>
 		<aware_of_module>org.openmrs.module.legacyui</aware_of_module>
