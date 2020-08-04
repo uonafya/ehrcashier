@@ -181,7 +181,7 @@
 	</div>
 	
 	<div class="other-col">
-		<label for="receiptId">From Date:</label><br/>
+		<label for="receiptId">Receipt No:</label><br/>
 		<input type="text" name="receiptId" class="searchFieldChange" id="receiptId" placeholder="Receipt No."/>
 	</div>	
 </div>

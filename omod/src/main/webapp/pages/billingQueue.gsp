@@ -317,7 +317,7 @@
 <body>
 	<div class="clear"></div>
 	<div class="container">
-		<div class="example">
+		<!--div class="example">
 			<ul id="breadcrumbs">
 				<li>
 					<a href="${ui.pageLink('referenceapplication','home')}">
@@ -334,7 +334,7 @@
 					Cashier Module
 				</li>
 			</ul>
-		</div>
+		</div-->
 		
 		<div class="patient-header new-patient-header">
 			<div class="demographics">
@@ -468,7 +468,7 @@
                 </div>
 
 				<div id="ambulanceTab">
-					${ui.includeFragment("ehrcashierui", "ambulanceBilling")}
+					${ui.includeFragment("ehrcashier", "ambulanceBilling")}
 				</div>
 
 				<div id="tabs-4">
