@@ -24,17 +24,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 public class BillableServiceBillAddFragmentController {
-
-    /**
-     * Handles the get and post requests by default
-     */
-    public void controller(){
-    }
-
-    public List<SimpleObject> loadBillableServices(@RequestParam(value = "name") String name,
-                                                   UiUtils uiUtils){
-        BillingService billingService = Context.getService(BillingService.class);
-        List<BillableService> services = billingService.searchService(name);
-        return SimpleObject.fromCollection(services, uiUtils, "conceptId", "name", "shortName", "price");
-    }
+	
+	/**
+	 * Handles the get and post requests by default
+	 */
+	public void controller() {
+	}
+	
+	public List<SimpleObject> loadBillableServices(@RequestParam(value = "name") String name, UiUtils uiUtils) {
+		BillingService billingService = Context.getService(BillingService.class);
+		List<BillableService> services = billingService.searchService(name);
+		return SimpleObject.fromCollection(services, uiUtils, "conceptId", "name", "shortName", "price");
+	}
 }

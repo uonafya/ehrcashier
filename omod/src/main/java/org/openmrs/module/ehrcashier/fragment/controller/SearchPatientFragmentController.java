@@ -31,91 +31,90 @@ import java.util.List;
 import java.util.regex.Matcher;
 
 public class SearchPatientFragmentController {
-    /**
-     * The controller method handles both the GET and POST requests if none is
-     * explicitly defined
-     */
-    public void controller() {
-    }
-
-    /**
-     * Searches for and returns a list of patients given the Bill Id, Patient Identifier or Patient details(firstname,lastname.gender...e.t.c)
-     * @param phrase
-     * @param currentPage
-     * @param pageSize
-     * @param uiUtils
-     * @param request
-     * @return
-     */
-    public List<SimpleObject> searchSystemPatient(
-            @RequestParam(value = "phrase", required = false) String phrase,
-            @RequestParam(value = "currentPage", required = false) Integer currentPage,
-            @RequestParam(value = "pageSize", required = false) Integer pageSize,
-            UiUtils uiUtils, HttpServletRequest request) {
-        String prefix = Context.getAdministrationService().getGlobalProperty(
-                HospitalCoreConstants.PROPERTY_IDENTIFIER_PREFIX);
-
-        String gender = request.getParameter("gender");
-        if (gender.equalsIgnoreCase("any")) {
-            gender = null;
-        }
-        Integer age = getInt(request.getParameter("age"));
-        Integer ageRange = getInt(request.getParameter("ageRange"));
-        String relativeName = request.getParameter("relativeName");
-        String lastDayOfVisit = request.getParameter("lastDayOfVisit");
-        Integer lastVisitRange = getInt(request.getParameter("lastVisit"));
-        String maritalStatus = request.getParameter("patientMaritalStatus");
-        String phoneNumber = request.getParameter("phoneNumber");
-        String nationalId = request.getParameter("nationalId");
-        String fileNumber = request.getParameter("fileNumber");
-        HospitalCoreService hcs = (HospitalCoreService) Context
-                .getService(HospitalCoreService.class);
-        BillingService billingService = (BillingService) Context.getService(BillingService.class);
-        List<Patient> patients = new ArrayList<Patient>();
-
-        int billId;
-
-        try {
-            billId = Integer.parseInt(phrase);
-            PatientServiceBill patientServiceBill = billingService.getPatientServiceBillById(billId);
-            Patient patient1 = patientServiceBill.getPatient();
-            patients.add(patient1);
-        } catch (NumberFormatException e) {
-            patients = hcs.searchPatient(phrase, gender, age, ageRange, lastDayOfVisit, lastVisitRange, relativeName
-                    , maritalStatus, phoneNumber, nationalId, fileNumber
-            );
-            e.printStackTrace();
-        }
-
-
-        List<PatientWrapper> wrapperList = patientsWithLastVisit(patients);
-
-        return SimpleObject.fromCollection(wrapperList, uiUtils, "patientId", "wrapperIdentifier", "names", "age", "gender", "formartedVisitDate");
-    }
-
-    /**
-     * Converts a String representation of a number to its interger equivalent, otherwise returns 0
-     *
-     * @param value - the String to parse
-     * @return the integer equivalent of the string, otherwise returns a 0
-     */
-    private Integer getInt(String value) {
-        try {
-            Integer number = Integer.parseInt(value);
-            return number;
-        } catch (Exception e) {
-            return 0;
-        }
-    }
-
-    private List<PatientWrapper> patientsWithLastVisit(List<Patient> patients) {
-        HospitalCoreService hcs = Context.getService(HospitalCoreService.class);
-        List<PatientWrapper> wrappers = new ArrayList<PatientWrapper>();
-        for (Patient patient : patients) {
-            wrappers.add(new PatientWrapper(patient, hcs.getLastVisitTime(patient)));
-        }
-        return wrappers;
-    }
-
-
+	
+	/**
+	 * The controller method handles both the GET and POST requests if none is explicitly defined
+	 */
+	public void controller() {
+	}
+	
+	/**
+	 * Searches for and returns a list of patients given the Bill Id, Patient Identifier or Patient
+	 * details(firstname,lastname.gender...e.t.c)
+	 * 
+	 * @param phrase
+	 * @param currentPage
+	 * @param pageSize
+	 * @param uiUtils
+	 * @param request
+	 * @return
+	 */
+	public List<SimpleObject> searchSystemPatient(@RequestParam(value = "phrase", required = false) String phrase,
+	        @RequestParam(value = "currentPage", required = false) Integer currentPage,
+	        @RequestParam(value = "pageSize", required = false) Integer pageSize, UiUtils uiUtils, HttpServletRequest request) {
+		String prefix = Context.getAdministrationService().getGlobalProperty(
+		    HospitalCoreConstants.PROPERTY_IDENTIFIER_PREFIX);
+		
+		String gender = request.getParameter("gender");
+		if (gender.equalsIgnoreCase("any")) {
+			gender = null;
+		}
+		Integer age = getInt(request.getParameter("age"));
+		Integer ageRange = getInt(request.getParameter("ageRange"));
+		String relativeName = request.getParameter("relativeName");
+		String lastDayOfVisit = request.getParameter("lastDayOfVisit");
+		Integer lastVisitRange = getInt(request.getParameter("lastVisit"));
+		String maritalStatus = request.getParameter("patientMaritalStatus");
+		String phoneNumber = request.getParameter("phoneNumber");
+		String nationalId = request.getParameter("nationalId");
+		String fileNumber = request.getParameter("fileNumber");
+		HospitalCoreService hcs = (HospitalCoreService) Context.getService(HospitalCoreService.class);
+		BillingService billingService = (BillingService) Context.getService(BillingService.class);
+		List<Patient> patients = new ArrayList<Patient>();
+		
+		int billId;
+		
+		try {
+			billId = Integer.parseInt(phrase);
+			PatientServiceBill patientServiceBill = billingService.getPatientServiceBillById(billId);
+			Patient patient1 = patientServiceBill.getPatient();
+			patients.add(patient1);
+		}
+		catch (NumberFormatException e) {
+			patients = hcs.searchPatient(phrase, gender, age, ageRange, lastDayOfVisit, lastVisitRange, relativeName,
+			    maritalStatus, phoneNumber, nationalId, fileNumber);
+			e.printStackTrace();
+		}
+		
+		List<PatientWrapper> wrapperList = patientsWithLastVisit(patients);
+		
+		return SimpleObject.fromCollection(wrapperList, uiUtils, "patientId", "wrapperIdentifier", "names", "age", "gender",
+		    "formartedVisitDate");
+	}
+	
+	/**
+	 * Converts a String representation of a number to its interger equivalent, otherwise returns 0
+	 * 
+	 * @param value - the String to parse
+	 * @return the integer equivalent of the string, otherwise returns a 0
+	 */
+	private Integer getInt(String value) {
+		try {
+			Integer number = Integer.parseInt(value);
+			return number;
+		}
+		catch (Exception e) {
+			return 0;
+		}
+	}
+	
+	private List<PatientWrapper> patientsWithLastVisit(List<Patient> patients) {
+		HospitalCoreService hcs = Context.getService(HospitalCoreService.class);
+		List<PatientWrapper> wrappers = new ArrayList<PatientWrapper>();
+		for (Patient patient : patients) {
+			wrappers.add(new PatientWrapper(patient, hcs.getLastVisitTime(patient)));
+		}
+		return wrappers;
+	}
+	
 }

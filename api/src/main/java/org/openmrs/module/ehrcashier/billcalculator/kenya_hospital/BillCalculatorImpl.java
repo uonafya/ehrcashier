@@ -78,7 +78,7 @@ public class BillCalculatorImpl implements BillCalculatorForBD {
 	 * 
 	 * @return
 	 */
-	//ghanshyam 3-june-2013 New Requirement #1632 Orders from dashboard must be appear in billing queue.User must be able to generate bills from this queue
+	//#1632 Orders from dashboard must be appear in billing queue.User must be able to generate bills from this queue
 	@SuppressWarnings("unchecked")
 	public int isFreeBill(String billType) {
 		

@@ -25,4 +25,5 @@
 	<bean class="org.openmrs.ui.framework.StandardModuleUiConfiguration">
 		<property name="moduleId" value="ehrcashier"/>
 	</bean>
+
 </beans>
