@@ -42,13 +42,13 @@
 		<serializationxstreamVersion>0.2.7</serializationxstreamVersion>
 		<uiframeworkVersion>3.11.0</uiframeworkVersion>
 		<kenyacoreVersion>2.4.1</kenyacoreVersion>
-		<kenyauiVersion>2.1.2</kenyauiVersion>
-		<kenyaemrVersion>17.1.0</kenyaemrVersion>
+		<kenyauiVersion>2.1.1</kenyauiVersion>
+		<kenyaemrVersion>17.0.3</kenyaemrVersion>
 		<jodaTimeVersion>2.9.1</jodaTimeVersion>
 		<webservices.restVersion>2.1</webservices.restVersion>
 		<logicVersion>0.5.2</logicVersion>
 		<uilibraryVersion>2.0.4</uilibraryVersion>
-		<inventoryVersion>2.0.13</inventoryVersion>
+		<inventoryVersion>1.0.0-SNAPSHOT</inventoryVersion>
 		<appuiVersion>1.14.0-SNAPSHOT</appuiVersion>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -102,7 +102,7 @@
 
 			<dependency>
 				<groupId>org.openmrs.module</groupId>
-				<artifactId>inventory-omod</artifactId>
+				<artifactId>ehrinventory-omod</artifactId>
 				<version>${inventoryVersion}</version>
 				<scope>provided</scope>
 			</dependency>
