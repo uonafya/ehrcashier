@@ -468,7 +468,7 @@
                 </div>
 
 				<div id="ambulanceTab">
-					${ui.includeFragment("ehrcashierui", "ambulanceBilling")}
+					${ui.includeFragment("ehrcashier", "ambulanceBilling")}
 				</div>
 
 				<div id="tabs-4">

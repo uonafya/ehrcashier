@@ -24,33 +24,10 @@ public class EhrcashierServiceImpl extends BaseOpenmrsService implements Ehrcash
 	
 	EhrcashierDao dao;
 	
-	UserService userService;
-	
 	/**
 	 * Injected in moduleApplicationContext.xml
 	 */
 	public void setDao(EhrcashierDao dao) {
 		this.dao = dao;
-	}
-	
-	/**
-	 * Injected in moduleApplicationContext.xml
-	 */
-	public void setUserService(UserService userService) {
-		this.userService = userService;
-	}
-	
-	@Override
-	public Item getItemByUuid(String uuid) throws APIException {
-		return dao.getItemByUuid(uuid);
-	}
-	
-	@Override
-	public Item saveItem(Item item) throws APIException {
-		if (item.getOwner() == null) {
-			item.setOwner(userService.getUser(1));
-		}
-		
-		return dao.saveItem(item);
 	}
 }
