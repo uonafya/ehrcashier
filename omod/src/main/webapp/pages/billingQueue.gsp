@@ -2,11 +2,11 @@
     ui.decorateWith("appui", "standardEmrPage", [title: "Cashier Module"])
     
 	ui.includeCss("ehrcashier", "jquery.dataTables.min.css")
-    ui.includeCss("registration", "onepcssgrid.css")
+    ui.includeCss("ehrcashier", "onepcssgrid.css")
 	
     ui.includeJavascript("ehrcashier", "moment.js")
     ui.includeJavascript("ehrcashier", "jquery.dataTables.min.js")
-	ui.includeJavascript("laboratoryapp", "jq.browser.select.js")
+	ui.includeJavascript("ehrcashier", "jq.browser.select.js")
 	
     def props = ["identifier", "fullname", "age", "gender", "action"]
 %>
