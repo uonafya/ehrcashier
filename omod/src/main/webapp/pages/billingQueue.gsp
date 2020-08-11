@@ -8,7 +8,7 @@
     ui.includeJavascript("ehrcashier", "jquery.dataTables.min.js")
 	ui.includeJavascript("ehrcashier", "jq.browser.select.js")
 	
-    def props = ["identifier", "fullname", "age", "gender", "action"]
+    def props = ["identifier", "fullname", "age", "gendergit", "action"]
 %>
 <head>
 	<script>
@@ -317,31 +317,7 @@
 <body>
 	<div class="clear"></div>
 	<div class="container">
-		<div class="example">
-			<ul id="breadcrumbs">
-				<li>
-					<a href="${ui.pageLink('kenyaemr','userHome')}">
-						<i class="icon-home small"></i></a>
-				</li>
-				
-				<li>
-					<i class="icon-chevron-right link"></i>
-					<a>Billing UI</a>
-				</li>
-				
-				<li>
-					<i class="icon-chevron-right link"></i>
-					Cashier Module
-				</li>
-			</ul>
-		</div>
-		
 		<div class="patient-header new-patient-header">
-			<div class="demographics">
-				<h1 class="name" style="border-bottom: 1px solid #ddd;">
-					<span>CASHIER DASHBOARD &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
-				</h1>
-			</div>
 
 			<div class="identifiers">
 				<em>&nbsp; &nbsp; Current Time:</em>
