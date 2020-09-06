@@ -7,6 +7,7 @@
     ui.includeJavascript("ehrcashier", "moment.js")
     ui.includeJavascript("ehrcashier", "jquery.dataTables.min.js")
 	ui.includeJavascript("ehrcashier", "jq.browser.select.js")
+	ui.includeJavascript("ehrcashier", "knockout-3.4.0.js")
 	
     def props = ["identifier", "fullname", "age", "gendergit", "action"]
 %>
