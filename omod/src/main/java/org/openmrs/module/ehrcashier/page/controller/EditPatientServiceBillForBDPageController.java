@@ -11,6 +11,7 @@ import org.openmrs.Order;
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appui.UiSessionContext;
+import org.openmrs.module.ehrcashier.EhrCashierConstants;
 import org.openmrs.module.ehrcashier.billcalculator.BillCalculatorForBDService;
 import org.openmrs.module.hospitalcore.BillingService;
 import org.openmrs.module.hospitalcore.HospitalCoreService;
@@ -20,6 +21,7 @@ import org.openmrs.module.hospitalcore.model.PatientServiceBillItem;
 import org.openmrs.module.hospitalcore.util.HospitalCoreUtils;
 import org.openmrs.module.hospitalcore.util.Money;
 import org.openmrs.module.hospitalcore.util.PatientUtils;
+import org.openmrs.module.kenyaui.annotation.AppPage;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.page.PageModel;
@@ -31,6 +33,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.*;
 
+@AppPage(EhrCashierConstants.APP_EHRCASHIER)
 public class EditPatientServiceBillForBDPageController {
 	
 	private Log logger = LogFactory.getLog(getClass());

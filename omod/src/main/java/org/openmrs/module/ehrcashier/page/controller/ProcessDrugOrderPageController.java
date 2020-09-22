@@ -6,12 +6,14 @@ import org.json.JSONObject;
 import org.openmrs.*;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appui.UiSessionContext;
+import org.openmrs.module.ehrcashier.EhrCashierConstants;
 import org.openmrs.module.hospitalcore.HospitalCoreService;
 import org.openmrs.module.hospitalcore.model.*;
 import org.openmrs.module.hospitalcore.util.ActionValue;
 import org.openmrs.module.hospitalcore.util.FlagStates;
 import org.openmrs.module.ehrinventory.InventoryService;
 import org.openmrs.module.ehrinventory.util.DateUtils;
+import org.openmrs.module.kenyaui.annotation.AppPage;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.page.PageModel;
@@ -24,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@AppPage(EhrCashierConstants.APP_EHRCASHIER)
 public class ProcessDrugOrderPageController {
 	
 	public String get(PageModel model, UiSessionContext sessionContext, PageRequest pageRequest,

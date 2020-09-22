@@ -11,6 +11,7 @@ import org.openmrs.User;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appui.UiSessionContext;
+import org.openmrs.module.ehrcashier.EhrCashierConstants;
 import org.openmrs.module.ehrcashier.billcalculator.BillCalculatorForBDService;
 import org.openmrs.module.hospitalcore.BillingConstants;
 import org.openmrs.module.hospitalcore.BillingService;
@@ -27,6 +28,7 @@ import org.openmrs.module.hospitalcore.util.Money;
 import org.openmrs.module.hospitalcore.util.PagingUtil;
 import org.openmrs.module.hospitalcore.util.PatientUtils;
 import org.openmrs.module.hospitalcore.util.RequestUtil;
+import org.openmrs.module.kenyaui.annotation.AppPage;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.page.PageModel;
 import org.openmrs.ui.framework.page.PageRequest;
@@ -44,6 +46,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+@AppPage(EhrCashierConstants.APP_EHRCASHIER)
 public class BillableServiceBillListForBDPageController {
 	
 	public String get(PageModel model, UiSessionContext sessionContext, PageRequest pageRequest, UiUtils ui,

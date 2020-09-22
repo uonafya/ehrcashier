@@ -2,6 +2,8 @@ package org.openmrs.module.ehrcashier.page.controller;
 
 import org.apache.commons.lang.StringUtils;
 import org.openmrs.module.appui.UiSessionContext;
+import org.openmrs.module.ehrcashier.EhrCashierConstants;
+import org.openmrs.module.kenyaui.annotation.AppPage;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.page.PageModel;
 import org.openmrs.ui.framework.page.PageRequest;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
+@AppPage(EhrCashierConstants.APP_EHRCASHIER)
 public class PatientServiceBillForBDPageController {
 	
 	public String get(PageModel model, UiSessionContext sessionContext, PageRequest pageRequest,

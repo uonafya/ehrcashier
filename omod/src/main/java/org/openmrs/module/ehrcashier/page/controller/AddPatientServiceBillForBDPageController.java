@@ -4,8 +4,10 @@ import org.apache.commons.lang.StringUtils;
 import org.openmrs.Concept;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appui.UiSessionContext;
+import org.openmrs.module.ehrcashier.EhrCashierConstants;
 import org.openmrs.module.hospitalcore.BillingService;
 import org.openmrs.module.hospitalcore.model.BillableService;
+import org.openmrs.module.kenyaui.annotation.AppPage;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.page.PageModel;
 import org.openmrs.ui.framework.page.PageRequest;
@@ -15,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@AppPage(EhrCashierConstants.APP_EHRCASHIER)
 public class AddPatientServiceBillForBDPageController {
 	
 	public String get(PageModel pageModel, UiSessionContext sessionContext, PageRequest pageRequest, UiUtils ui,

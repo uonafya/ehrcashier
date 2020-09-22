@@ -5,6 +5,8 @@ import org.apache.commons.logging.LogFactory;
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appui.UiSessionContext;
+import org.openmrs.module.ehrcashier.EhrCashierConstants;
+import org.openmrs.module.kenyaui.annotation.AppPage;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.page.PageModel;
 import org.openmrs.ui.framework.page.PageRequest;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
+@AppPage(EhrCashierConstants.APP_EHRCASHIER)
 public class MainPageController {
 	
 	private Log log = LogFactory.getLog(this.getClass());

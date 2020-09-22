@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * This class configured as controller using annotation and mapped with the URL of
  * 'module/ehrcashier/ehrcashierLink.form'.
  */
-@Controller("${rootrootArtifactId}.EhrcashierController")
+@Controller("ehrcashier.EhrcashierController")
 @RequestMapping(value = "module/ehrcashier/ehrcashier.form")
 public class EhrcashierController {
 	

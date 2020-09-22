@@ -5,10 +5,12 @@ import org.openmrs.Patient;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appui.UiSessionContext;
+import org.openmrs.module.ehrcashier.EhrCashierConstants;
 import org.openmrs.module.hospitalcore.BillingService;
 import org.openmrs.module.hospitalcore.HospitalCoreService;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.PatientSearch;
+import org.openmrs.module.kenyaui.annotation.AppPage;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.page.PageModel;
 import org.openmrs.ui.framework.page.PageRequest;
@@ -19,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+@AppPage(EhrCashierConstants.APP_EHRCASHIER)
 public class ListOfOrderPageController {
 	
 	public String get(PageModel model, UiSessionContext sessionContext, PageRequest pageRequest, UiUtils ui,
