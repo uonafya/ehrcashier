@@ -83,7 +83,7 @@
             this.searchPatient(0, this.pageSize);
         },
         visitAddPatientBill: function(patientId){
-            window.location.href = emr.pageLink("ehrcashier", "billableServiceBillListForBD", {
+            window.location.href = ui.pageLink("ehrcashier", "billableServiceBillListForBD", {
                 "patientId": patientId
             });
         }

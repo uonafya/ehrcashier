@@ -1,5 +1,5 @@
 <%
-    ui.decorateWith("appui", "standardEmrPage", [title: "Service Bills"])
+	ui.decorateWith("kenyaemr", "standardPage")
     ui.includeCss("uicommons", "styleguide/index.css")
     ui.includeCss("ehrcashier", "paging.css")
 

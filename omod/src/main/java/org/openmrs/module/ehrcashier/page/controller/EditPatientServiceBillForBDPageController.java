@@ -84,13 +84,22 @@ public class EditPatientServiceBillForBDPageController {
 		model.addAttribute("bill", bill);
 		model.addAttribute("billId", billId);
 		model.addAttribute("patient", patient);
-		model.addAttribute("category", patient.getAttribute(14));
+		model.addAttribute(
+		    "category",
+		    patient.getAttribute(Context.getPersonService().getPersonAttributeTypeByUuid(
+		        "09cd268a-f0f5-11ea-99a8-b3467ddbf779")));
 		model.addAttribute("age", patient.getAge());
 		
-		if (patient.getAttribute(43) == null) {
+		if (patient.getAttribute(Context.getPersonService().getPersonAttributeTypeByUuid(
+		    "09cd268a-f0f5-11ea-99a8-b3467ddbf779")) == null) {
 			model.addAttribute("fileNumber", "");
-		} else if (StringUtils.isNotBlank(patient.getAttribute(43).getValue())) {
-			model.addAttribute("fileNumber", "(File: " + patient.getAttribute(43) + ")");
+		} else if (StringUtils.isNotBlank(patient.getAttribute(
+		    Context.getPersonService().getPersonAttributeTypeByUuid("09cd268a-f0f5-11ea-99a8-b3467ddbf779")).getValue())) {
+			model.addAttribute(
+			    "fileNumber",
+			    "(File: "
+			            + patient.getAttribute(Context.getPersonService().getPersonAttributeTypeByUuid(
+			                "09cd268a-f0f5-11ea-99a8-b3467ddbf779")) + ")");
 		} else {
 			model.addAttribute("fileNumber", "");
 		}

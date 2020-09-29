@@ -1,5 +1,5 @@
 <%
-    ui.decorateWith("appui", "standardEmrPage", [title: "Cashier : Drug Order"])
+    ui.decorateWith("kenyaemr", "standardPage")
     ui.includeJavascript("ehrcashier", "jq.print.js")
     ui.includeCss("ehrconfigs", "jquery.dataTables.min.css")
     ui.includeCss("ehrconfigs", "onepcssgrid.css")

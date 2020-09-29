@@ -1,3 +1,3 @@
 <%
-    ui.decorateWith("appui", "standardEmrPage", [title: "Cashier : View Voided Bill"])
+    ui.decorateWith("kenyaemr", "standardPage")
 %>

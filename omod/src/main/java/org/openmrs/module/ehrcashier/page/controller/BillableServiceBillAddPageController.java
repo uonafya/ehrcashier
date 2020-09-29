@@ -83,10 +83,16 @@ public class BillableServiceBillAddPageController {
 		pageModel.addAttribute("lastBillId", lastBillId);
 		pageModel.addAttribute("previousVisit", hcs.getLastVisitTime(patient));
 		
-		if (patient.getAttribute(43) == null) {
+		if (patient.getAttribute(Context.getPersonService().getPersonAttributeTypeByUuid(
+		    "09cd268a-f0f5-11ea-99a8-b3467ddbf779")) == null) {
 			pageModel.addAttribute("fileNumber", "");
-		} else if (StringUtils.isNotBlank(patient.getAttribute(43).getValue())) {
-			pageModel.addAttribute("fileNumber", "(File: " + patient.getAttribute(43) + ")");
+		} else if (StringUtils.isNotBlank(patient.getAttribute(
+		    Context.getPersonService().getPersonAttributeTypeByUuid("09cd268a-f0f5-11ea-99a8-b3467ddbf779")).getValue())) {
+			pageModel.addAttribute(
+			    "fileNumber",
+			    "(File: "
+			            + patient.getAttribute(Context.getPersonService().getPersonAttributeTypeByUuid(
+			                "09cd268a-f0f5-11ea-99a8-b3467ddbf779")) + ")");
 		} else {
 			pageModel.addAttribute("fileNumber", "");
 		}
@@ -240,11 +246,11 @@ public class BillableServiceBillAddPageController {
 				PersonAttributeType personAttributePCT = hcs.getPersonAttributeTypeByName("Paying Category Type");
 				PersonAttributeType personAttributeNPCT = hcs.getPersonAttributeTypeByName("Non-Paying Category Type");
 				PersonAttributeType personAttributeSSCT = hcs.getPersonAttributeTypeByName("Special Scheme Category Type");
-				if (attributeType.getPersonAttributeTypeId() == personAttributePCT.getPersonAttributeTypeId()) {
+				if (attributeType.getPersonAttributeTypeId().equals(personAttributePCT.getPersonAttributeTypeId())) {
 					patientSubCategory = pa.getValue();
-				} else if (attributeType.getPersonAttributeTypeId() == personAttributeNPCT.getPersonAttributeTypeId()) {
+				} else if (attributeType.getPersonAttributeTypeId().equals(personAttributeNPCT.getPersonAttributeTypeId())) {
 					patientSubCategory = pa.getValue();
-				} else if (attributeType.getPersonAttributeTypeId() == personAttributeSSCT.getPersonAttributeTypeId()) {
+				} else if (attributeType.getPersonAttributeTypeId().equals(personAttributeSSCT.getPersonAttributeTypeId())) {
 					patientSubCategory = pa.getValue();
 				}
 			}

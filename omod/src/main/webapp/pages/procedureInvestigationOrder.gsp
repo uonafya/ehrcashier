@@ -1,5 +1,5 @@
 <%
-    ui.decorateWith("appui", "standardEmrPage", [title: "Procedures / Investigations Order"])
+	ui.decorateWith("kenyaemr", "standardPage")
     ui.includeCss("uicommons", "styleguide/index.css")
 	ui.includeCss("ehrconfigs", "jquery.dataTables.min.css")
 	ui.includeCss("ehrconfigs", "onepcssgrid.css")

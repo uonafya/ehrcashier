@@ -120,7 +120,10 @@ public class BillableServiceBillListForBDPageController {
 			model.addAttribute("encounterId", encounterId);
 			model.addAttribute("patientId", patientId);
 			
-			model.addAttribute("category", patient.getAttribute(14));
+			model.addAttribute(
+			    "category",
+			    patient.getAttribute(Context.getPersonService().getPersonAttributeTypeByUuid(
+			        "09cd268a-f0f5-11ea-99a8-b3467ddbf779")));
 			
 			HospitalCoreService hcs = Context.getService(HospitalCoreService.class);
 			List<PersonAttribute> pas = hcs.getPersonAttributes(patient.getId());
@@ -142,10 +145,16 @@ public class BillableServiceBillListForBDPageController {
 				}
 			}
 			
-			if (patient.getAttribute(43) == null) {
+			if (patient.getAttribute(Context.getPersonService().getPersonAttributeTypeByUuid(
+			    "09cd268a-f0f5-11ea-99a8-b3467ddbf779")) == null) {
 				model.addAttribute("fileNumber", "");
-			} else if (StringUtils.isNotBlank(patient.getAttribute(43).getValue())) {
-				model.addAttribute("fileNumber", "(File: " + patient.getAttribute(43) + ")");
+			} else if (StringUtils.isNotBlank(patient.getAttribute(
+			    Context.getPersonService().getPersonAttributeTypeByUuid("09cd268a-f0f5-11ea-99a8-b3467ddbf779")).getValue())) {
+				model.addAttribute(
+				    "fileNumber",
+				    "(File: "
+				            + patient.getAttribute(Context.getPersonService().getPersonAttributeTypeByUuid(
+				                "09cd268a-f0f5-11ea-99a8-b3467ddbf779")) + ")");
 			} else {
 				model.addAttribute("fileNumber", "");
 			}
@@ -165,7 +174,8 @@ public class BillableServiceBillListForBDPageController {
 					if (ipdPatientAdmitted.getBed() != null) {
 						model.addAttribute("bed", ipdPatientAdmitted.getBed());
 					}
-					PersonAttribute fileNumber = patient.getAttribute(43);
+					PersonAttribute fileNumber = patient.getAttribute(Context.getPersonService()
+					        .getPersonAttributeTypeByUuid("09cd268a-f0f5-11ea-99a8-b3467ddbf779"));
 					if (fileNumber != null) {
 						model.addAttribute("fileNumber", fileNumber.getValue());
 					}

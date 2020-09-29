@@ -21,10 +21,10 @@
 
 
 	<!-- Extensions -->
-	<extension>
+	<!--<extension>
 		<point>org.openmrs.admin.list</point>
 		<class>org.openmrs.module.ehrcashier.extension.html.AdminList</class>
-	</extension>
+	</extension>-->
 
 	<require_modules>
 		<require_module version="${kenyaemrVersion}">org.openmrs.module.kenyaemr</require_module>

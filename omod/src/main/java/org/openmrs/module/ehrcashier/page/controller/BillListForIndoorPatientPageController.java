@@ -120,8 +120,14 @@ public class BillListForIndoorPatientPageController {
 			model.addAttribute("ChildCatId", ChildCatId);
 			model.addAttribute("categoryList", categoryList);
 			
-			model.addAttribute("category", patient.getAttribute(14));
-			model.addAttribute("fileNumber", patient.getAttribute(43));
+			model.addAttribute(
+			    "category",
+			    patient.getAttribute(Context.getPersonService().getPersonAttributeTypeByUuid(
+			        "09cd268a-f0f5-11ea-99a8-b3467ddbf779")));
+			model.addAttribute(
+			    "fileNumber",
+			    patient.getAttribute(Context.getPersonService().getPersonAttributeTypeByUuid(
+			        "09cd268a-f0f5-11ea-99a8-b3467ddbf779")));
 			
 			if (patient.getGender().equals("M")) {
 				model.addAttribute("gender", "Male");
@@ -138,7 +144,8 @@ public class BillListForIndoorPatientPageController {
 					if (ipdPatientAdmitted.getBed() != null) {
 						model.addAttribute("bed", ipdPatientAdmitted.getBed());
 					}
-					PersonAttribute fileNumber = patient.getAttribute(43);
+					PersonAttribute fileNumber = patient.getAttribute(Context.getPersonService()
+					        .getPersonAttributeTypeByUuid("09cd268a-f0f5-11ea-99a8-b3467ddbf779"));
 					if (fileNumber != null) {
 						model.addAttribute("fileNumber", fileNumber.getValue());
 					}

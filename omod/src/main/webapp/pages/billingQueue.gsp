@@ -1,5 +1,5 @@
 <%
-    ui.decorateWith("appui", "standardEmrPage", [title: "Cashier Module"])
+	ui.decorateWith("kenyaemr", "standardPage")
 
 	ui.includeCss("ehrconfigs", "jquery.dataTables.min.css")
 	ui.includeCss("ehrconfigs", "onepcssgrid.css")
@@ -327,6 +327,24 @@
 <body>
 	<div class="clear"></div>
 	<div class="container">
+		<div class="example">
+			<ul id="breadcrumbs">
+				<li>
+					<a href="${ui.pageLink('kenyaemr','userHome')}">
+						<i class="icon-home small"></i></a>
+				</li>
+
+				<li>
+					<i class="icon-chevron-right link"></i>
+					<a>Billing UI</a>
+				</li>
+
+				<li>
+					<i class="icon-chevron-right link"></i>
+					Cashier Module
+				</li>
+			</ul>
+		</div>
 		<div class="patient-header new-patient-header">
 
 			<div class="identifiers">
