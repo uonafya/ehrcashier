@@ -18,7 +18,7 @@
 	ui.includeJavascript("ehrconfigs", "jquery.simplemodal.1.4.4.min.js")
 	ui.includeCss("ehrconfigs", "referenceapplication.css")
 
-    def props = ["identifier", "fullname", "age", "gendergit", "action"]
+	def props = ["identifier", "fullname", "age", "gender", "action"]
 %>
 <head>
 	<script>
@@ -54,7 +54,7 @@
 					  def pageLink = ui.pageLink("ehrcashier", "listOfOrder") %>
 					row += '<td> <a href="${pageLink}?patientId=' + item.patientId + '&date=' + date + '"> <i class="icon-signin small"> </i>GO</a> </td>';
 					<% } else { if (it == "gender"){%>
-						if (item.${ it } == "M"){
+						if (item.${ it } === "M"){
 							row += '<td>Male</td>';
 						}
 						else {
@@ -95,9 +95,6 @@
                 success: function (data) {
                     pData = data;
                     updateQueueTable(data, alerts);
-
-//                    jQuery("#billingqueue").show(0);
-//                    jQuery("#billingqueue").html(data);
                 },
 
             });
@@ -113,7 +110,7 @@
 
             var lastValue = '';
             jq("#searchKey").on('change keyup paste mouseup', function () {
-                if (jq(this).val() != lastValue) {
+                if (jq(this).val() !== lastValue) {
                     lastValue = jq(this).val();
                     getBillingQueue(1);
                 }
