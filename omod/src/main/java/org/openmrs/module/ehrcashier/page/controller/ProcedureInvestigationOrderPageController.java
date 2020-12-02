@@ -6,6 +6,7 @@ import org.openmrs.Patient;
 import org.openmrs.PersonAttribute;
 import org.openmrs.PersonAttributeType;
 import org.openmrs.api.PatientService;
+import org.openmrs.api.PersonService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.ehrcashier.EhrCashierConstants;
@@ -137,11 +138,11 @@ public class ProcedureInvestigationOrderPageController {
 			PersonAttributeType personAttributePCT = hcs.getPersonAttributeTypeByName("Paying Category Type");
 			PersonAttributeType personAttributeNPCT = hcs.getPersonAttributeTypeByName("Non-Paying Category Type");
 			PersonAttributeType personAttributeSSCT = hcs.getPersonAttributeTypeByName("Special Scheme Category Type");
-			if (attributeType.getPersonAttributeTypeId() == personAttributePCT.getPersonAttributeTypeId()) {
+			if (attributeType.getPersonAttributeTypeId().equals(personAttributePCT.getPersonAttributeTypeId())) {
 				patientCategory = pa.getValue();
-			} else if (attributeType.getPersonAttributeTypeId() == personAttributeNPCT.getPersonAttributeTypeId()) {
+			} else if (attributeType.getPersonAttributeTypeId().equals(personAttributeNPCT.getPersonAttributeTypeId())) {
 				patientCategory = pa.getValue();
-			} else if (attributeType.getPersonAttributeTypeId() == personAttributeSSCT.getPersonAttributeTypeId()) {
+			} else if (attributeType.getPersonAttributeTypeId().equals(personAttributeSSCT.getPersonAttributeTypeId())) {
 				patientCategory = pa.getValue();
 			} else {
 				//TO-DO temporarily set to general paying
@@ -216,14 +217,16 @@ public class ProcedureInvestigationOrderPageController {
 		}
 		bill.setComment(waiverComment);
 		bill.setPaymentMode(paymentMode);
-		if (patientCategory.equals("PRISONER") || patientCategory.equals("STUDENT SCHEME")) {
+		if ((patientCategory != null && patientCategory.equals("PRISONER"))
+		        || (patientCategory != null && patientCategory.equals("STUDENT SCHEME"))) {
 			bill.setPatientCategory("EXEMPTED PATIENT");
 			bill.setComment("");
 		}
 		
 		bill.setPatientSubCategory(patientCategory);
-		
-		PersonAttribute pCat = patient.getAttribute(45);
+		PersonService personService = Context.getPersonService();
+		PersonAttribute pCat = patient.getAttribute(personService
+		        .getPersonAttributeTypeByUuid("0a8ae818-f06a-11ea-ab82-2f183f30d954"));
 		
 		if (pCat != null && pCat.getValue().equals("NHIF CIVIL SERVANT")) {
 			bill.setPatientCategory("NHIF Patient");

@@ -10,7 +10,6 @@
 
 	ui.includeJavascript("ehrconfigs", "knockout-3.4.0.js")
 	ui.includeJavascript("ehrconfigs", "jquery-ui-1.9.2.custom.min.js")
-	ui.includeJavascript("ehrconfigs", "underscore-min.js")
 	ui.includeJavascript("ehrconfigs", "emr.js")
 	ui.includeCss("ehrconfigs", "jquery-ui-1.9.2.custom.min.css")
 	// toastmessage plugin: https://github.com/akquinet/jquery-toastmessage-plugin/wiki

@@ -127,23 +127,26 @@ public class BillableServiceBillListForBDPageController {
 			
 			HospitalCoreService hcs = Context.getService(HospitalCoreService.class);
 			List<PersonAttribute> pas = hcs.getPersonAttributes(patient.getId());
-			
+			String paymentSubCategory = "";
+			String paymentCategory = "";
 			for (PersonAttribute pa : pas) {
 				PersonAttributeType attributeType = pa.getAttributeType();
 				PersonAttributeType personAttributePCT = hcs.getPersonAttributeTypeByName("Paying Category Type");
 				PersonAttributeType personAttributeNPCT = hcs.getPersonAttributeTypeByName("Non-Paying Category Type");
 				PersonAttributeType personAttributeSSCT = hcs.getPersonAttributeTypeByName("Special Scheme Category Type");
-				if (attributeType.getPersonAttributeTypeId() == personAttributePCT.getPersonAttributeTypeId()) {
-					model.addAttribute("paymentSubCategory", pa.getValue());
-					model.addAttribute("paymentCategoryName", "PAYING");
-				} else if (attributeType.getPersonAttributeTypeId() == personAttributeNPCT.getPersonAttributeTypeId()) {
-					model.addAttribute("paymentSubCategory", pa.getValue());
-					model.addAttribute("paymentCategoryName", "NON-PAYING");
+				if (attributeType.getPersonAttributeTypeId().equals(personAttributePCT.getPersonAttributeTypeId())) {
+					paymentSubCategory = pa.getValue();
+					paymentCategory = "PAYING";
+				} else if (attributeType.getPersonAttributeTypeId().equals(personAttributeNPCT.getPersonAttributeTypeId())) {
+					paymentSubCategory = pa.getValue();
+					paymentCategory = "NON-PAYING";
 				} else if (attributeType.getPersonAttributeTypeId() == personAttributeSSCT.getPersonAttributeTypeId()) {
-					model.addAttribute("paymentSubCategory", pa.getValue());
-					model.addAttribute("paymentCategoryName", "SPECIAL SCHEMES");
+					paymentSubCategory = pa.getValue();
+					paymentCategory = "SPECIAL SCHEMES";
 				}
 			}
+			model.addAttribute("paymentSubCategory", paymentSubCategory);
+			model.addAttribute("paymentCategoryName", paymentCategory);
 			
 			if (patient.getAttribute(Context.getPersonService().getPersonAttributeTypeByUuid(
 			    "09cd268a-f0f5-11ea-99a8-b3467ddbf779")) == null) {
