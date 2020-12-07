@@ -232,12 +232,21 @@ public class BillableServiceBillListForBDPageController {
 					
 				}
 			}
+			String address1 = "";
+			String village = "";
+			if (patient.getPersonAddress() != null) {
+				if (patient.getPersonAddress().getAddress1() != null) {
+					address1 = patient.getPersonAddress().getAddress1();
+				}
+				if (patient.getPersonAddress().getCityVillage() != null) {
+					village = patient.getPersonAddress().getCityVillage();
+				}
+			}
 			model.addAttribute("pagingUtil", pagingUtil);
 			model.addAttribute("patient", patient);
 			model.addAttribute("listBill",
 			    billingService.listPatientServiceBillByPatient(pagingUtil.getStartPos(), pagingUtil.getPageSize(), patient));
-			model.addAttribute("address", patient.getPersonAddress().getAddress1() + ", "
-			        + patient.getPersonAddress().getCityVillage());
+			model.addAttribute("address", address1 + ", " + village);
 		}
 		
 		User user = Context.getAuthenticatedUser();
