@@ -26,7 +26,7 @@ public class MainPageController {
 		if (!auth) {
 			return "redirect: index.htm";
 		}
-		String prefix = Context.getAdministrationService().getGlobalProperty("registration.identifier_prefix");
+		String prefix = Context.getAdministrationService().getGlobalProperty("ehrconfigs.identifier_prefix");
 		model.addAttribute("idPrefix", prefix);
 		return null;
 	}
@@ -34,7 +34,7 @@ public class MainPageController {
 	/*@RequestMapping(method=RequestMethod.POST)*/
 	public void submit(PageModel model, @RequestParam("identifier") String identifier) {
 		
-		String prefix = Context.getAdministrationService().getGlobalProperty("registration.identifier_prefix");
+		String prefix = Context.getAdministrationService().getGlobalProperty("ehrconfigs.identifier_prefix");
 		if (identifier.contains("-") && !identifier.contains(prefix)) {
 			identifier = prefix + identifier;
 		}

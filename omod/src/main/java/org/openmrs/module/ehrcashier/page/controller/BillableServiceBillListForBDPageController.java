@@ -28,6 +28,7 @@ import org.openmrs.module.hospitalcore.util.Money;
 import org.openmrs.module.hospitalcore.util.PagingUtil;
 import org.openmrs.module.hospitalcore.util.PatientUtils;
 import org.openmrs.module.hospitalcore.util.RequestUtil;
+import org.openmrs.module.kenyaemr.api.KenyaEmrService;
 import org.openmrs.module.kenyaui.annotation.AppPage;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.page.PageModel;
@@ -269,8 +270,7 @@ public class BillableServiceBillListForBDPageController {
 			model.addAttribute("paymentMode", bill.getPaymentMode());
 			model.addAttribute("cashier", bill.getCreator().getGivenName());
 			model.addAttribute("bill", bill);
-			model.addAttribute("userLocation", Context.getAdministrationService()
-			        .getGlobalProperty("hospital.location_user"));
+			model.addAttribute("userLocation", Context.getService(KenyaEmrService.class).getDefaultLocation().getName());
 		}
 		return null;
 	}
@@ -369,11 +369,11 @@ public class BillableServiceBillListForBDPageController {
 				PersonAttributeType personAttributePCT = hcs.getPersonAttributeTypeByName("Paying Category Type");
 				PersonAttributeType personAttributeNPCT = hcs.getPersonAttributeTypeByName("Non-Paying Category Type");
 				PersonAttributeType personAttributeSSCT = hcs.getPersonAttributeTypeByName("Special Scheme Category Type");
-				if (attributeType.getPersonAttributeTypeId() == personAttributePCT.getPersonAttributeTypeId()) {
+				if (attributeType.getPersonAttributeTypeId().equals(personAttributePCT.getPersonAttributeTypeId())) {
 					patientSubCategory = pa.getValue();
-				} else if (attributeType.getPersonAttributeTypeId() == personAttributeNPCT.getPersonAttributeTypeId()) {
+				} else if (attributeType.getPersonAttributeTypeId().equals(personAttributeNPCT.getPersonAttributeTypeId())) {
 					patientSubCategory = pa.getValue();
-				} else if (attributeType.getPersonAttributeTypeId() == personAttributeSSCT.getPersonAttributeTypeId()) {
+				} else if (attributeType.getPersonAttributeTypeId().equals(personAttributeSSCT.getPersonAttributeTypeId())) {
 					patientSubCategory = pa.getValue();
 				}
 			}
@@ -395,6 +395,7 @@ public class BillableServiceBillListForBDPageController {
 			}
 			Map<String, Object> params = new HashMap<String, Object>();
 			params.put("patientId", patientId);
+			assert bill != null;
 			params.put("billId", bill.getPatientServiceBillId());
 			params.put("encounterId", encounterId);
 			params.put("admissionLogId", admissionLogId);

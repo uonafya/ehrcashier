@@ -13,6 +13,7 @@ import org.openmrs.module.hospitalcore.util.ActionValue;
 import org.openmrs.module.hospitalcore.util.FlagStates;
 import org.openmrs.module.ehrinventory.InventoryService;
 import org.openmrs.module.ehrinventory.util.DateUtils;
+import org.openmrs.module.kenyaemr.api.KenyaEmrService;
 import org.openmrs.module.kenyaui.annotation.AppPage;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
@@ -36,8 +37,7 @@ public class ProcessDrugOrderPageController {
 		if (!auth) {
 			return "redirect: index.htm";
 		}
-		pageModel.addAttribute("userLocation", Context.getAdministrationService()
-		        .getGlobalProperty("hospital.location_user"));
+		pageModel.addAttribute("userLocation", Context.getService(KenyaEmrService.class).getDefaultLocation().getName());
 		InventoryService inventoryService = Context.getService(InventoryService.class);
 		List<Role> role = new ArrayList<Role>(Context.getAuthenticatedUser().getAllRoles());
 		
@@ -401,11 +401,13 @@ public class ProcessDrugOrderPageController {
 					PersonAttributeType personAttributeNPCT = hcs.getPersonAttributeTypeByName("Non-Paying Category Type");
 					PersonAttributeType personAttributeSSCT = hcs
 					        .getPersonAttributeTypeByName("Special Scheme Category Type");
-					if (attributeType.getPersonAttributeTypeId() == personAttributePCT.getPersonAttributeTypeId()) {
+					if (attributeType.getPersonAttributeTypeId().equals(personAttributePCT.getPersonAttributeTypeId())) {
 						pageModel.addAttribute("paymentSubCategory", pa.getValue());
-					} else if (attributeType.getPersonAttributeTypeId() == personAttributeNPCT.getPersonAttributeTypeId()) {
+					} else if (attributeType.getPersonAttributeTypeId().equals(
+					    personAttributeNPCT.getPersonAttributeTypeId())) {
 						pageModel.addAttribute("paymentSubCategory", pa.getValue());
-					} else if (attributeType.getPersonAttributeTypeId() == personAttributeSSCT.getPersonAttributeTypeId()) {
+					} else if (attributeType.getPersonAttributeTypeId().equals(
+					    personAttributeSSCT.getPersonAttributeTypeId())) {
 						pageModel.addAttribute("paymentSubCategory", pa.getValue());
 					}
 				}

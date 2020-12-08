@@ -362,6 +362,7 @@ public class BillListForIndoorPatientPageController {
 				ipdService.saveIpdPatientAdmissionLog(ipdPatientAdmissionLog);
 				ipdService.saveIpdPatientAdmitted(ipdPatientAdmitted);
 			}
+			assert bill != null;
 			return "redirect:/module/billing/indoorPatientServiceBill.list?patientId=" + patientId + "&billId="
 			        + bill.getPatientServiceBillId() + "&encounterId=" + encounterId + "&admissionLogId=" + admissionLogId;
 		} else {
