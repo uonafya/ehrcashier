@@ -39,7 +39,7 @@ import java.util.List;
  * Functional Class to pull the list of unpaid for drug orders from pharmacy that are to be paid for
  */
 
-public class SubStoreIssueDrugListFragmentControl {
+public class SubStoreIssueDrugListFragmentController {
 	
 	public void controller() {
 		

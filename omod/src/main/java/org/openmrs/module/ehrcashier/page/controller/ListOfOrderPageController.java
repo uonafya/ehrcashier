@@ -26,11 +26,7 @@ public class ListOfOrderPageController {
 	
 	public String get(PageModel model, UiSessionContext sessionContext, PageRequest pageRequest, UiUtils ui,
 	        @RequestParam("patientId") Integer patientId, @RequestParam(value = "date", required = false) String dateStr) {
-		BillAccess ba = new BillAccess();
-		boolean auth = ba.authenticate(pageRequest, sessionContext, ui);
-		if (!auth) {
-			return "redirect: index.htm";
-		}
+		
 		BillingService billingService = Context.getService(BillingService.class);
 		PatientService patientService = Context.getPatientService();
 		Patient patient = patientService.getPatient(patientId);

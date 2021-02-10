@@ -35,7 +35,7 @@ public class BillCalculatorForBDService implements BillCalculatorForBD {
 	 */
 	public BillCalculatorForBDService() {
 		
-		String hospitalName = GlobalPropertyUtil.getString(HospitalCoreConstants.PROPERTY_HOSPITAL_NAME, "");
+		String hospitalName = "common";
 		if (StringUtils.isBlank(hospitalName)) {
 			hospitalName = "common";
 			logger.warn("CAN'T FIND THE HOSPITAL NAME. ALL TESTS WILL BE CHARGED 100%");

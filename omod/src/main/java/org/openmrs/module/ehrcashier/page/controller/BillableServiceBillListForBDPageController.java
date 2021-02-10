@@ -141,7 +141,7 @@ public class BillableServiceBillListForBDPageController {
 				} else if (attributeType.getPersonAttributeTypeId().equals(personAttributeNPCT.getPersonAttributeTypeId())) {
 					paymentSubCategory = pa.getValue();
 					paymentCategory = "NON-PAYING";
-				} else if (attributeType.getPersonAttributeTypeId() == personAttributeSSCT.getPersonAttributeTypeId()) {
+				} else if (attributeType.getPersonAttributeTypeId().equals(personAttributeSSCT.getPersonAttributeTypeId())) {
 					paymentSubCategory = pa.getValue();
 					paymentCategory = "SPECIAL SCHEMES";
 				}
@@ -366,14 +366,9 @@ public class BillableServiceBillListForBDPageController {
 			String patientSubCategory = null;
 			for (PersonAttribute pa : pas) {
 				PersonAttributeType attributeType = pa.getAttributeType();
-				PersonAttributeType personAttributePCT = hcs.getPersonAttributeTypeByName("Paying Category Type");
-				PersonAttributeType personAttributeNPCT = hcs.getPersonAttributeTypeByName("Non-Paying Category Type");
-				PersonAttributeType personAttributeSSCT = hcs.getPersonAttributeTypeByName("Special Scheme Category Type");
+				PersonAttributeType personAttributePCT = hcs.getPersonAttributeTypeByName("Payment Category");
+				
 				if (attributeType.getPersonAttributeTypeId().equals(personAttributePCT.getPersonAttributeTypeId())) {
-					patientSubCategory = pa.getValue();
-				} else if (attributeType.getPersonAttributeTypeId().equals(personAttributeNPCT.getPersonAttributeTypeId())) {
-					patientSubCategory = pa.getValue();
-				} else if (attributeType.getPersonAttributeTypeId().equals(personAttributeSSCT.getPersonAttributeTypeId())) {
 					patientSubCategory = pa.getValue();
 				}
 			}

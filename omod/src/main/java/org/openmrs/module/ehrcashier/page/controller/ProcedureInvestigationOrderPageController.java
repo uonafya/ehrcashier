@@ -135,14 +135,9 @@ public class ProcedureInvestigationOrderPageController {
 		String patientCategory = null;
 		for (PersonAttribute pa : pas) {
 			PersonAttributeType attributeType = pa.getAttributeType();
-			PersonAttributeType personAttributePCT = hcs.getPersonAttributeTypeByName("Paying Category Type");
-			PersonAttributeType personAttributeNPCT = hcs.getPersonAttributeTypeByName("Non-Paying Category Type");
-			PersonAttributeType personAttributeSSCT = hcs.getPersonAttributeTypeByName("Special Scheme Category Type");
+			PersonAttributeType personAttributePCT = hcs.getPersonAttributeTypeByName("Payment Category");
+			
 			if (attributeType.getPersonAttributeTypeId().equals(personAttributePCT.getPersonAttributeTypeId())) {
-				patientCategory = pa.getValue();
-			} else if (attributeType.getPersonAttributeTypeId().equals(personAttributeNPCT.getPersonAttributeTypeId())) {
-				patientCategory = pa.getValue();
-			} else if (attributeType.getPersonAttributeTypeId().equals(personAttributeSSCT.getPersonAttributeTypeId())) {
 				patientCategory = pa.getValue();
 			} else {
 				//TO-DO temporarily set to general paying

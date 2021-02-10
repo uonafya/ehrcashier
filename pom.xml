@@ -51,6 +51,7 @@
 		<uilibraryVersion>2.0.4</uilibraryVersion>
 		<inventoryVersion>1.0.0-SNAPSHOT</inventoryVersion>
 		<appuiVersion>1.8.0</appuiVersion>
+		<ehrconfigsVersion>1.0.0-SNAPSHOT</ehrconfigsVersion>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -218,6 +219,12 @@
 				<version>${webservicesRestVersion}</version>
 				<classifier>tests</classifier>
 				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>ehrconfigs-api</artifactId>
+				<version>${ehrconfigsVersion}</version>
+				<scope>provided</scope>
 			</dependency>
 			<!-- End OpenMRS modules -->
 
