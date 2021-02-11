@@ -44,7 +44,7 @@ public class BillCalculatorForBDService implements BillCalculatorForBD {
 		hospitalName = hospitalName.toLowerCase();
 		String qualifiedName = "org.openmrs.module.ehrcashier.billcalculator." + hospitalName + ".BillCalculatorImpl";
 		try {
-			calculator = (BillCalculatorForBD) Class.forName(qualifiedName).newInstance();
+			//calculator = (BillCalculatorForBD) Class.forName(qualifiedName).newInstance();
 		}
 		catch (Exception e) {
 			e.printStackTrace();

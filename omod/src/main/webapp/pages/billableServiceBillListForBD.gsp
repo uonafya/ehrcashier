@@ -481,7 +481,6 @@
             <button type="button" class="task"
                     onclick="window.location.href = 'addPatientServiceBillForBD.page?patientId=${patient.patientId}&billType=paid&lastBillId=${bill?.patientServiceBillId}'"
                     style="margin-left: -3px">Add Paid Bill</button>
-            <button type="button" class="cancel">Add Free Bill</button>
             <% } %>
             <% if (bill != null) { %>
 
@@ -533,8 +532,7 @@
                     </td>
                     <td class='<% if (bill?.voided) { %>retired <% } %>'>
                         <% if (bill?.voided == false || (bill?.printed == true && canEdit == true)) { %>
-                        <a href="editPatientServiceBillForBD.page?billId=${bill?.patientServiceBillId}&patientId=${
-                                patient.patientId}">
+                        <a href="editPatientServiceBillForBD.page?billId=${bill?.patientServiceBillId}&patientId=${patient.patientId}">
                             ${bill?.patientServiceBillId}</a>
 
                         <% } else { %>
