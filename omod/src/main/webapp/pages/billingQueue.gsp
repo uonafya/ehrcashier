@@ -355,7 +355,6 @@
 					<li><a href="#tabs-2">IPD Queue</a></li>
                     <li><a href="#pharmacyTab">Pharmacy</a></li>
 					<li><a href="#ambulanceTab">Ambulance</a></li>
-					<li><a href="#tabs-4">Tender</a></li>
 					<li><a href="#tabs-5">Misc Service</a></li>
 					<li><a href="#tabs-7">Search Patient Bill</a></li>
 				</ul>
@@ -472,47 +471,6 @@
 					${ui.includeFragment("ehrcashier", "ambulanceBilling")}
 				</div>
 
-				<div id="tabs-4">
-					<h2>Tender Billing</h2>
-					
-					<a class="button confirm" style="float: right; margin: 8px 5px 0 0;">
-						Get Companies
-					</a>
-					
-					<a class="button task" style="float: right; margin: 8px 5px 0 0;">
-						Add Company
-					</a>
-					
-					<div class="formfactor onerow">
-						<div class="lone-col">
-							<label for="username4">Enter Company's Name:</label>
-							<input id="username4" type="text" name="username" placeholder="Name:">
-						</div>
-					</div>
-					
-					<section>
-						<div>
-							<table cellpadding="5" cellspacing="0" width="100%" id="queueList4">
-								<thead>
-								<tr align="center">
-									<th>Company Name</th>
-									<th>Description</th>
-								</tr>
-								</thead>
-								<tbody>
-								<tr align="center">
-									<td>Name</td>
-									<td>Description</td>
-								</tr>
-								<tr align="left">
-									<td colspan="7">No Result</td>
-								</tr>
-								</tbody>
-							</table>
-						</div>
-					</section>
-				</div>
-				
 				<div id="tabs-5">
 					<h2>Misc Service Billing</h2>
 					
@@ -545,7 +503,7 @@
 										<td>Name</td>
 										<td>Description</td>
 									</tr>
-									
+
 									<tr align="left">
 										<td colspan="7">No Result</td>
 									</tr>
