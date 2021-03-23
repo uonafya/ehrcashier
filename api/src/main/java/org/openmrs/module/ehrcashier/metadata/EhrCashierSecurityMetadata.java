@@ -23,7 +23,7 @@ public class EhrCashierSecurityMetadata extends AbstractMetadataBundle {
 	
 	public static final class _Role {
 		
-		public static final String CASHIER = "Cashier";
+		public static final String CASHIER = "EHR Cashier";
 		
 	}
 	

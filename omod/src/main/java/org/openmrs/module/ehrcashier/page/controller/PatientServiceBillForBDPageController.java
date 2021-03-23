@@ -29,11 +29,7 @@ public class PatientServiceBillForBDPageController {
 	        @RequestParam(value = "voidStatus", required = false) Boolean voidStatus,
 	        @RequestParam(value = "selectedCategory", required = false) Integer selectedCategory,
 	        HttpServletRequest request, UiUtils ui) {
-		BillAccess ba = new BillAccess();
-		boolean auth = ba.authenticate(pageRequest, sessionContext, ui);
-		if (!auth) {
-			return "redirect: index.htm";
-		}
+		
 		Map<String, Object> redirectParams = new HashMap<String, Object>();
 		redirectParams.put("encounterId", encounterId);
 		redirectParams.put("patientId", patientId);

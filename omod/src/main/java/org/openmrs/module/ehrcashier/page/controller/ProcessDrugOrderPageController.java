@@ -32,11 +32,7 @@ public class ProcessDrugOrderPageController {
 	
 	public String get(PageModel model, UiSessionContext sessionContext, PageRequest pageRequest,
 	        @RequestParam("orderId") Integer orderId, PageModel pageModel, UiUtils ui) {
-		BillAccess ba = new BillAccess();
-		boolean auth = ba.authenticate(pageRequest, sessionContext, ui);
-		if (!auth) {
-			return "redirect: index.htm";
-		}
+		
 		pageModel.addAttribute("userLocation", Context.getService(KenyaEmrService.class).getDefaultLocation().getName());
 		InventoryService inventoryService = Context.getService(InventoryService.class);
 		List<Role> role = new ArrayList<Role>(Context.getAuthenticatedUser().getAllRoles());

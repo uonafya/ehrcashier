@@ -41,11 +41,7 @@ public class ProcedureInvestigationOrderPageController {
 	public String get(PageModel model, UiSessionContext sessionContext, PageRequest pageRequest, UiUtils ui,
 	        @RequestParam("patientId") Integer patientId, @RequestParam("encounterId") Integer encounterId,
 	        @RequestParam(value = "date", required = false) String dateStr) {
-		BillAccess ba = new BillAccess();
-		boolean auth = ba.authenticate(pageRequest, sessionContext, ui);
-		if (!auth) {
-			return "redirect: index.htm";
-		}
+		
 		BillingService billingService = Context.getService(BillingService.class);
 		List<BillableService> serviceOrderList = billingService.listOfServiceOrder(patientId, encounterId);
 		model.addAttribute("serviceOrderList", serviceOrderList);

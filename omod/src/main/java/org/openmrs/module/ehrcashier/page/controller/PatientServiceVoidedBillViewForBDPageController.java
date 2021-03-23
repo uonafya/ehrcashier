@@ -37,11 +37,7 @@ public class PatientServiceVoidedBillViewForBDPageController {
 	        @RequestParam(value = "pageSize", required = false) Integer pageSize,
 	        @RequestParam(value = "currentPage", required = false) Integer currentPage, HttpServletRequest request,
 	        UiUtils uiUtils) {
-		BillAccess ba = new BillAccess();
-		boolean auth = ba.authenticate(pageRequest, sessionContext, ui);
-		if (!auth) {
-			return "redirect: index.htm";
-		}
+		
 		BillingService billingService = Context.getService(BillingService.class);
 		Patient patient = Context.getPatientService().getPatient(patientId);
 		Map<String, String> attributes = PatientUtils.getAttributes(patient);

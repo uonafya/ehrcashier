@@ -61,11 +61,7 @@ public class BillableServiceBillListForBDPageController {
 	        @RequestParam(value = "itemID", required = false) Integer itemID,
 	        @RequestParam(value = "voidStatus", required = false) Boolean voidStatus,
 	        @RequestParam(value = "selectedCategory", required = false) Integer selectedCategory, HttpServletRequest request) {
-		BillAccess ba = new BillAccess();
-		boolean auth = ba.authenticate(pageRequest, sessionContext, ui);
-		if (!auth) {
-			return "redirect: index.htm";
-		}
+		
 		long admitMili = 0;
 		model.addAttribute("bill", null);
 		model.addAttribute("initialtotal", 0);

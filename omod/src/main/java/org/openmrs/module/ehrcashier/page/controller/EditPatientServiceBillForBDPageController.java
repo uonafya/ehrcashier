@@ -40,11 +40,7 @@ public class EditPatientServiceBillForBDPageController {
 	
 	public String get(PageModel model, UiSessionContext sessionContext, PageRequest pageRequest, UiUtils ui,
 	        @RequestParam("billId") Integer billId, @RequestParam("patientId") Integer patientId) {
-		BillAccess ba = new BillAccess();
-		boolean auth = ba.authenticate(pageRequest, sessionContext, ui);
-		if (!auth) {
-			return "redirect: index.htm";
-		}
+		
 		Patient patient = Context.getPatientService().getPatient(patientId);
 		Map<String, String> attributes = PatientUtils.getAttributes(patient);
 		
@@ -310,7 +306,7 @@ public class EditPatientServiceBillForBDPageController {
 		}
 		String waiverNumber = obj.getString("waiverNumber");
 		
-		if (waiverNumber != null && waiverNumber != "") {
+		if (waiverNumber != null && !waiverNumber.equals("")) {
 			bill.setPatientCategory("Waiver Number - " + waiverNumber);
 		}
 		

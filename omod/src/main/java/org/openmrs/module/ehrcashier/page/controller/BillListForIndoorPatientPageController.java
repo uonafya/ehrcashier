@@ -64,11 +64,7 @@ public class BillListForIndoorPatientPageController {
 	        @RequestParam(value = "voidStatus", required = false) Boolean voidStatus,
 	        @RequestParam(value = "selectedCategory", required = false) Integer selectedCategory,
 	        HttpServletRequest request, UiUtils ui) {
-		BillAccess ba = new BillAccess();
-		boolean auth = ba.authenticate(pageRequest, sessionContext, ui);
-		if (!auth) {
-			return "redirect: index.htm";
-		}
+		
 		long admitMili = 0;
 		BillingService billingService = Context.getService(BillingService.class);
 		
@@ -338,11 +334,11 @@ public class BillListForIndoorPatientPageController {
 				PersonAttributeType personAttributePCT = hcs.getPersonAttributeTypeByName("Paying Category Type");
 				PersonAttributeType personAttributeNPCT = hcs.getPersonAttributeTypeByName("Non-Paying Category Type");
 				PersonAttributeType personAttributeSSCT = hcs.getPersonAttributeTypeByName("Special Scheme Category Type");
-				if (attributeType.getPersonAttributeTypeId() == personAttributePCT.getPersonAttributeTypeId()) {
+				if (attributeType.getPersonAttributeTypeId().equals(personAttributePCT.getPersonAttributeTypeId())) {
 					patientSubCategory = pa.getValue();
-				} else if (attributeType.getPersonAttributeTypeId() == personAttributeNPCT.getPersonAttributeTypeId()) {
+				} else if (attributeType.getPersonAttributeTypeId().equals(personAttributeNPCT.getPersonAttributeTypeId())) {
 					patientSubCategory = pa.getValue();
-				} else if (attributeType.getPersonAttributeTypeId() == personAttributeSSCT.getPersonAttributeTypeId()) {
+				} else if (attributeType.getPersonAttributeTypeId().equals(personAttributeSSCT.getPersonAttributeTypeId())) {
 					patientSubCategory = pa.getValue();
 				}
 			}

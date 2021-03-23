@@ -21,11 +21,6 @@ public class MainPageController {
 	
 	/*@RequestMapping(method= RequestMethod.GET)*/
 	public String get(PageModel model, UiSessionContext sessionContext, PageRequest pageRequest, UiUtils ui) {
-		BillAccess ba = new BillAccess();
-		boolean auth = ba.authenticate(pageRequest, sessionContext, ui);
-		if (!auth) {
-			return "redirect: index.htm";
-		}
 		String prefix = Context.getAdministrationService().getGlobalProperty("ehrconfigs.identifier_prefix");
 		model.addAttribute("idPrefix", prefix);
 		return null;

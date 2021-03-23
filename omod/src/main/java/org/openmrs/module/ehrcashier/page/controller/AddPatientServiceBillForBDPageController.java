@@ -26,11 +26,7 @@ public class AddPatientServiceBillForBDPageController {
 	        @RequestParam(value = "encounterId", required = false) Integer encounterId,
 	        @RequestParam(value = "typeOfPatient", required = false) String typeOfPatient,
 	        @RequestParam(value = "lastBillId", required = false) String lastBillId, UiUtils uiUtils) {
-		BillAccess ba = new BillAccess();
-		boolean auth = ba.authenticate(pageRequest, sessionContext, ui);
-		if (!auth) {
-			return "redirect: index.htm";
-		}
+		
 		BillingService billingService = Context.getService(BillingService.class);
 		List<BillableService> services = billingService.getAllServices();
 		Map<Integer, BillableService> mapServices = new HashMap<Integer, BillableService>();
