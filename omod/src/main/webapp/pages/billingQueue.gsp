@@ -503,7 +503,7 @@
 				</div>
 
 				<div id="tabs-2">
-					${ui.includeFragment("billingui", "ipdBillingQueue")}
+					${ui.includeFragment("ehrcashier", "ipdBillingQueue")}
 
 				</div>
                 <div id="pharmacyTab">
