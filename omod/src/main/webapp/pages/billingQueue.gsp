@@ -103,7 +103,7 @@
 					<% ipdprops.each {
 				   if(it == ipdprops.last()){
 
-					  def pageLink = ui.pageLink("billingui", "billableServiceBillListForBD") %>
+					  def pageLink = ui.pageLink("ehrcashier", "billableServiceBillListForBD") %>
 					row += '<td> <a href="${pageLink}?patientId=' + item.id + '&date=' + date + '"> <i class="icon-signin small"> </i>GO</a> </td>';
 					<% } else { if (it == "gender"){%>
 					if (item.${ it } == "M"){
@@ -160,7 +160,7 @@
 			var pgSize = jq("#ipdSizeSelector").val();
 			jQuery.ajax({
 				type: "GET",
-				url: "${ui.actionLink('billingui','ipdBillingQueue','getBillingQueue')}",
+				url: "${ui.actionLink('ehrcashier','ipdBillingQueue','getBillingQueue')}",
 				dataType: "json",
 				data: ({
 					date: date,
