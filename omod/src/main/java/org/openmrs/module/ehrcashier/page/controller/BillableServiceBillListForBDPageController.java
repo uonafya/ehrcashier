@@ -66,6 +66,7 @@ public class BillableServiceBillListForBDPageController {
 		model.addAttribute("bill", null);
 		model.addAttribute("initialtotal", 0);
 		BillingService billingService = Context.getService(BillingService.class);
+		PatientService patientService = Context.getService(PatientService.class);
 		
 		Patient patient = Context.getPatientService().getPatient(patientId);
 		Map<String, String> attributes = PatientUtils.getAttributes(patient);
