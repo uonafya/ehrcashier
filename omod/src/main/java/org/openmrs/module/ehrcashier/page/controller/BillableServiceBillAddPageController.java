@@ -11,6 +11,7 @@ import org.openmrs.Patient;
 import org.openmrs.PersonAttribute;
 import org.openmrs.PersonAttributeType;
 import org.openmrs.api.PatientService;
+import org.openmrs.api.PersonService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.ehrcashier.EhrCashierConstants;
@@ -236,6 +237,10 @@ public class BillableServiceBillAddPageController {
 			HospitalCoreService hcs = Context.getService(HospitalCoreService.class);
 			List<PersonAttribute> pas = hcs.getPersonAttributes(patientId);
 			String patientSubCategory = null;
+			PersonService personService = Context.getPersonService();
+			
+			PersonAttributeType paymentSubCategory = personService
+			        .getPersonAttributeTypeByUuid("972a32aa-6159-11eb-bc2d-9785fed39154");
 			
 			for (PersonAttribute pa : pas) {
 				PersonAttributeType attributeType = pa.getAttributeType();
@@ -250,7 +255,7 @@ public class BillableServiceBillAddPageController {
 					patientSubCategory = pa.getValue();
 				}
 			}
-			bill.setPatientSubCategory(patientSubCategory);
+			bill.setPatientSubCategory(patient.getAttribute(paymentSubCategory).getValue());
 			
 			bill.setPaymentMode(paymentMode);
 			
@@ -263,6 +268,7 @@ public class BillableServiceBillAddPageController {
 			params.put("patientId", patientId);
 			params.put("billId", bill.getPatientServiceBillId());
 			params.put("billType", billType);
+			params.put("encounterId", encounterId);
 			
 			return "redirect:" + uiUtils.pageLink("ehrcashier", "patientServiceBillForBD", params);
 			

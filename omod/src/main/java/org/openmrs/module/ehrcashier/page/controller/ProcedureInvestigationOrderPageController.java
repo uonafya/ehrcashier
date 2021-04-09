@@ -128,18 +128,10 @@ public class ProcedureInvestigationOrderPageController {
 		OpdTestOrder opdTestOrder = new OpdTestOrder();
 		HospitalCoreService hcs = Context.getService(HospitalCoreService.class);
 		List<PersonAttribute> pas = hcs.getPersonAttributes(patientId);
-		String patientCategory = null;
-		for (PersonAttribute pa : pas) {
-			PersonAttributeType attributeType = pa.getAttributeType();
-			PersonAttributeType personAttributePCT = hcs.getPersonAttributeTypeByName("Payment Category");
-			
-			if (attributeType.getPersonAttributeTypeId().equals(personAttributePCT.getPersonAttributeTypeId())) {
-				patientCategory = pa.getValue();
-			} else {
-				//TO-DO temporarily set to general paying
-				
-			}
-		}
+		
+		PersonService personService = Context.getPersonService();
+		PersonAttributeType paymentSubCategory = personService
+		        .getPersonAttributeTypeByUuid("972a32aa-6159-11eb-bc2d-9785fed39154");
 		
 		for (Integer i = 1; i <= indCount; i++) {
 			selectservice = request.getParameter(i.toString() + "selectservice");
@@ -206,20 +198,27 @@ public class ProcedureInvestigationOrderPageController {
 			BigDecimal wavAmt = new BigDecimal(0);
 			bill.setWaiverAmount(wavAmt);
 		}
+		
+		PersonAttributeType paymentCategory = personService
+		        .getPersonAttributeTypeByUuid("09cd268a-f0f5-11ea-99a8-b3467ddbf779");
+		String patientCategory = patient.getAttribute(paymentSubCategory).getValue();
+		if (paymentMode.isEmpty()) {
+			paymentMode = patient.getAttribute(paymentCategory).getValue();
+		}
 		bill.setComment(waiverComment);
 		bill.setPaymentMode(paymentMode);
-		if ((patientCategory != null && patientCategory.equals("PRISONER"))
-		        || (patientCategory != null && patientCategory.equals("STUDENT SCHEME"))) {
+		if ((patientCategory != null && patientCategory.equals("Patient in prison"))
+		        || (patientCategory != null && patientCategory.equals("Student"))) {
 			bill.setPatientCategory("EXEMPTED PATIENT");
 			bill.setComment("");
 		}
 		
 		bill.setPatientSubCategory(patientCategory);
-		PersonService personService = Context.getPersonService();
-		PersonAttribute pCat = patient.getAttribute(personService
-		        .getPersonAttributeTypeByUuid("0a8ae818-f06a-11ea-ab82-2f183f30d954"));
 		
-		if (pCat != null && pCat.getValue().equals("NHIF CIVIL SERVANT")) {
+		PersonAttribute pCat = patient.getAttribute(personService
+		        .getPersonAttributeTypeByUuid("972a32aa-6159-11eb-bc2d-9785fed39154"));
+		
+		if (pCat != null && pCat.getValue().equals("NHIF patient")) {
 			bill.setPatientCategory("NHIF Patient");
 		}
 		
@@ -229,6 +228,7 @@ public class ProcedureInvestigationOrderPageController {
 		redirectParams.put("patientId", patientId);
 		redirectParams.put("billId", bill.getPatientServiceBillId());
 		redirectParams.put("billType", billType);
+		redirectParams.put("encounterId", encounterId);
 		return "redirect:" + uiUtils.pageLink("ehrcashier", "patientServiceBillForBD", redirectParams);
 	}
 }
