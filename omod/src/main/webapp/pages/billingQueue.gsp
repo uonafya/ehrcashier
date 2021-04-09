@@ -90,10 +90,10 @@
 
 			if (data.length == 0){
 				tbody.append('<tr align="center"><td colspan="5">No patient found</td></tr>');
-				jq("#selection").hide();
+				jq("#ipdselection").hide();
 
 				if (alerts){
-					jq().toastmessage('showErrorToast', "No Records found in the Billing OPD Queue!");
+					jq().toastmessage('showErrorToast', "No Records found in the Billing IPD Queue!");
 				}
 			}
 			else {
@@ -124,7 +124,7 @@
 					tbody.append(row);
 				}
 
-				jq("#selection").show();
+				jq("#ipdselection").show();
 			}
 		}
 
@@ -195,7 +195,6 @@
                 }
 
             });
-
 			jq("#ipdSearchKey").on('change keyup paste mouseup', function () {
 				if (jq(this).val() != lastValue) {
 					lastValue = jq(this).val();
@@ -206,6 +205,9 @@
 			
 			jq('#datetime').on("change", function (dateText) {
 				getBillingQueue(1);
+			});
+			jq('#datetime').on("change", function (dateText) {
+				getIpdBillingQueue(1);
 			});
 			
 			getBillingQueue(1, false);
