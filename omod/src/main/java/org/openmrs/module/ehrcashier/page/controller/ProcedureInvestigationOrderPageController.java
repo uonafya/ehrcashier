@@ -177,7 +177,10 @@ public class ProcedureInvestigationOrderPageController {
 				bill.addBillItem(item);
 				
 				opdTestOrder = billingService.getOpdTestOrder(encounterId, service.getConceptId());
-				opdTestOrder.setBillingStatus(1);
+				if (opdTestOrder != null) {
+					opdTestOrder.setBillingStatus(1);
+				}
+				System.out.println("Some of the this is here >>" + opdTestOrder);
 				patientDashboardService.saveOrUpdateOpdOrder(opdTestOrder);
 				
 			} else {
