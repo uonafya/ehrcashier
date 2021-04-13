@@ -2,7 +2,7 @@
 	ui.decorateWith("kenyaemr", "standardPage")
     ui.includeCss("ehrcashier", "paging.css")
 
-    ui.includeJavascript("ehrconfigs", "moment.js")
+    ui.includeJavascript("ehrcashier", "moment.js")
     ui.includeJavascript("ehrcashier", "paging.js")
     ui.includeJavascript("ehrcashier", "common.js")
     ui.includeJavascript("ehrcashier", "jq.print.js")
