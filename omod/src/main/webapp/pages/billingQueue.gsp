@@ -19,6 +19,7 @@
 	ui.includeCss("ehrconfigs", "referenceapplication.css")
 
 	def props = ["identifier", "fullname", "age", "gender", "action"]
+	def ipdprops = ["patientIdentifier", "patientName", "gender", "action"]
 %>
 <head>
 	<script>
@@ -76,6 +77,56 @@
 			}
         }
 
+		//update the IPDqueue table
+		function updateIpdQueueTable(data, alerts) {
+			var date = moment(jq("#datetime-field").val()).format('DD/MM/YYYY');
+			jq('#ipdQueueList > tbody > tr').remove();
+			var tbody = jq('#ipdQueueList > tbody');
+
+			if(typeof alerts === 'undefined'){
+				alerts = true;
+			}
+
+			if (data.length == 0){
+				tbody.append('<tr align="center"><td colspan="5">No patient found</td></tr>');
+				jq("#ipdselection").hide();
+
+				if (alerts){
+					jq().toastmessage('showErrorToast', "No Records found in the Billing IPD Queue!");
+				}
+			}
+			else {
+				for (index in data) {
+					var item = data[index];
+					var row = '<tr>';
+					<% ipdprops.each {
+				   if(it == ipdprops.last()){
+
+					  def pageLink = ui.pageLink("ehrcashier", "") %>
+					row += '<td> <a href="${pageLink}?patientId=' + item.id + '&date=' + date + '"> <i class="icon-signin small"> </i>GO</a> </td>';
+					<% } else { if (it == "gender"){%>
+					if (item.${ it } == "M"){
+						row += '<td>Male</td>';
+					}
+					else {
+						row += '<td>Female</td>';
+					}
+					<%}else if (it == "age"){ %>
+					row += '<td>' + item.${ it } + ' years </td>';
+					<%}else{ %>
+					row += '<td>' + item.${ it } + '</td>';
+					<% }%>
+
+					<% }
+				   } %>
+					row += '</tr>';
+					tbody.append(row);
+				}
+
+				jq("#ipdselection").show();
+			}
+		}
+
         // get queue
         function getBillingQueue(currentPage, alerts) {
             this.currentPage = currentPage;
@@ -100,6 +151,30 @@
             });
         }
 
+		// get ipd queue
+		function getIpdBillingQueue(currentPage, alerts) {
+			this.currentPage = currentPage;
+			var date = moment(jq("#datetime-field").val()).format('DD/MM/YYYY');
+			var searchKey = jq("#ipdSearchKey").val();
+			var pgSize = jq("#ipdSizeSelector").val();
+			jQuery.ajax({
+				type: "GET",
+				url: "${ui.actionLink('ehrcashier','ipdBillingQueue','getIpdBillingQueue')}",
+				dataType: "json",
+				data: ({
+					date: date,
+					searchKey: searchKey,
+					currentPage: currentPage,
+					pgSize: pgSize
+				}),
+				success: function (data) {
+					pData = data;
+					updateIpdQueueTable(data, alerts);
+				},
+
+			});
+		}
+
         jq(function () {
             jq("#tabs").tabs();
 			
@@ -107,6 +182,9 @@
             jq("#getOpdPatients").click(function () {
                 getBillingQueue(1);
             });
+			jq("#getIpdPatients").click(function () {
+				getIpdBillingQueue(1);
+			});
 
             var lastValue = '';
             jq("#searchKey").on('change keyup paste mouseup', function () {
@@ -116,13 +194,24 @@
                 }
 
             });
+			jq("#ipdSearchKey").on('change keyup paste mouseup', function () {
+				if (jq(this).val() != lastValue) {
+					lastValue = jq(this).val();
+					getIpdBillingQueue(1);
+				}
+
+			});
 			
 			jq('#datetime').on("change", function (dateText) {
 				getBillingQueue(1);
 			});
+			jq('#datetime').on("change", function (dateText) {
+				getIpdBillingQueue(1);
+			});
 			
 			getBillingQueue(1, false);
-        });
+			getIpdBillingQueue(1, false);
+		});
     </script>
 
     <style>
@@ -415,53 +504,7 @@
 				</div>
 
 				<div id="tabs-2">
-					<h2>Inpatient Patient Queue</h2>
-					
-					<a class="button confirm" style="float: right; margin: 8px 5px 0 0;">
-						Get Patients
-					</a>
-					
-					<div class="formfactor onerow">
-						<div class="lone-col">
-							<label for="username">Filter Patient in Queue</label>
-							<input id="username" type="text" name="username" placeholder="Enter Patient Name/ID:">
-						</div>
-					</div>
-					
-					<section>
-						<div>
-							<table cellpadding="5" cellspacing="0" width="100%" id="queueList2">
-								<thead>
-								<tr align="center">
-									<th>S.No</th>
-									<th>Admission Date</th>
-									<th>Patient ID</th>
-									<th>Name</th>
-									<th>Age</th>
-									<th>Admission Ward</th>
-									<th>Select Action</th>
-								</tr>
-								</thead>
-								<tbody>
-								<tr align="center">
-									<td>S.No</td>
-									<td>Admission Date</td>
-									<td>Patient ID</td>
-									<td>Name</td>
-									<td>Age</td>
-									<td>Admission Ward</td>
-
-									<td><button class="button confirm">Add Bill</button>
-										<button class="button confirm">View Bill</button>
-									</td>
-								</tr>
-								<tr align="center">
-									<td colspan="7">No patient found</td>
-								</tr>
-								</tbody>
-							</table>
-						</div>
-					</section>
+					${ui.includeFragment("ehrcashier", "ipdBillingQueue")}
 				</div>
                 <div id="pharmacyTab">
                     ${ui.includeFragment("ehrcashier", "subStoreIssueDrugList")}
