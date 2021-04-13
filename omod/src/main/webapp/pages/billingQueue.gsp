@@ -102,7 +102,7 @@
 					<% ipdprops.each {
 				   if(it == ipdprops.last()){
 
-					  def pageLink = ui.pageLink("ehrcashier", "") %>
+					  def pageLink = ui.pageLink("ehrcashier", "billableServiceBillListForBD") %>
 					row += '<td> <a href="${pageLink}?patientId=' + item.id + '&date=' + date + '"> <i class="icon-signin small"> </i>GO</a> </td>';
 					<% } else { if (it == "gender"){%>
 					if (item.${ it } == "M"){

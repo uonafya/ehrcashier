@@ -3,10 +3,10 @@
 
 
     ui.includeJavascript("ehrcashier", "paging.js")
-    ui.includeJavascript("ehrconfigs", "moment.js")
+    ui.includeJavascript("ehrcashier", "moment.js")
     ui.includeJavascript("ehrcashier", "common.js")
     ui.includeJavascript("ehrcashier", "jquery.PrintArea.js")
-    ui.includeJavascript("ehrconfigs", "knockout-3.4.0.js")
+    ui.includeJavascript("ehrcashier", "knockout-3.4.0.js")
     ui.includeJavascript("ehrconfigs", "jquery-ui-1.9.2.custom.min.js")
     ui.includeJavascript("ehrconfigs", "underscore-min.js")
     ui.includeJavascript("ehrconfigs", "emr.js")
