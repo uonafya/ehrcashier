@@ -7,12 +7,7 @@
     ui.includeJavascript("ehrcashier", "common.js")
     ui.includeJavascript("ehrcashier", "jquery.PrintArea.js")
     ui.includeJavascript("ehrcashier", "knockout-3.4.0.js")
-    ui.includeJavascript("ehrconfigs", "jquery-ui-1.9.2.custom.min.js")
-    ui.includeJavascript("ehrconfigs", "underscore-min.js")
-    ui.includeJavascript("ehrconfigs", "emr.js")
-    ui.includeJavascript("ehrconfigs", "jquery.simplemodal.1.4.4.min.js")
 
-    ui.includeCss("ehrconfigs", "jquery-ui-1.9.2.custom.min.css")
     ui.includeCss("ehrcashier", "paging.css")
     ui.includeCss("ehrconfigs", "referenceapplication.css")
 
@@ -174,18 +169,6 @@
             jq('#datafield').show();
         }
         numberDataTables();
-    }
-    function formatAccounting(nStr) {
-        nStr = parseFloat(nStr).toFixed(2);
-        nStr += '';
-        x = nStr.split('.');
-        x1 = x[0];
-        x2 = x.length > 1 ? '.' + x[1] : '';
-        var rgx = /(\\d+)(\\d{3})/;
-        while (rgx.test(x1)) {
-            x1 = x1.replace(rgx, '\$1' + ',' + '\$2');
-        }
-        return x1 + x2;
     }
 
     function numberDataTables() {
