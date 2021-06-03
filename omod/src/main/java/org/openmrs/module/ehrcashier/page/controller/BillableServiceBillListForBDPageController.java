@@ -105,10 +105,14 @@ public class BillableServiceBillListForBDPageController {
 				Collections.sort(categoryList, new ConceptAnswerComparator());
 			}
 			
-			Integer nhifCatId = Context.getConceptService().getConceptByName("NHIF PATIENT").getConceptId();
-			Integer generalCatId = Context.getConceptService().getConceptByName("GENERAL PATIENT").getConceptId();
-			Integer exemptedCatId = Context.getConceptService().getConceptByName("EXEMPTED PATIENT").getConceptId();
-			Integer ChildCatId = Context.getConceptService().getConceptByName("CHILD LESS THAN 5 YEARS").getConceptId();
+			Integer nhifCatId = Context.getConceptService().getConceptByUuid("1917AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+			        .getConceptId();
+			Integer generalCatId = Context.getConceptService().getConceptByUuid("7849233a-80c0-4e6d-a407-7380bff0c302")
+			        .getConceptId();
+			Integer exemptedCatId = Context.getConceptService().getConceptByUuid("f76b3b24-85a6-4af7-9dfe-4de5945a4f24")
+			        .getConceptId();
+			Integer ChildCatId = Context.getConceptService().getConceptByUuid("163714AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+			        .getConceptId();
 			model.addAttribute("nhifCatId", nhifCatId);
 			model.addAttribute("generalCatId", generalCatId);
 			model.addAttribute("exemptedCatId", exemptedCatId);
