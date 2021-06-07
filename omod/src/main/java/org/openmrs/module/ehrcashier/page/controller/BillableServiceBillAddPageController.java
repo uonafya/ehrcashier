@@ -238,9 +238,9 @@ public class BillableServiceBillAddPageController {
 			List<PersonAttribute> pas = hcs.getPersonAttributes(patientId);
 			String patientSubCategory = null;
 			PersonService personService = Context.getPersonService();
-
+			
 			PersonAttributeType paymentSubCategory = personService
-					.getPersonAttributeTypeByUuid("972a32aa-6159-11eb-bc2d-9785fed39154");
+			        .getPersonAttributeTypeByUuid("972a32aa-6159-11eb-bc2d-9785fed39154");
 			
 			for (PersonAttribute pa : pas) {
 				PersonAttributeType attributeType = pa.getAttributeType();
