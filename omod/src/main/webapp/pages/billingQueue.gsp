@@ -444,7 +444,7 @@
 					<li><a href="#tabs-2">IPD Queue</a></li>
                     <li><a href="#pharmacyTab">Pharmacy</a></li>
 					<li><a href="#ambulanceTab">Ambulance</a></li>
-					<li><a href="#tabs-5">Misc Service</a></li>
+					<li><a href="#tabs-5">Walkin-Patients</a></li>
 					<li><a href="#tabs-7">Search Patient Bill</a></li>
 				</ul>
 
@@ -515,45 +515,7 @@
 				</div>
 
 				<div id="tabs-5">
-					<h2>Misc Service Billing</h2>
-					
-					<a class="button confirm" style="float: right; margin: 8px 5px 0 0;">
-						Get Services
-					</a>
-					
-					<a class="button task" style="float: right; margin: 8px 5px 0 0;">
-						Add Service
-					</a>
-					
-					<div class="formfactor onerow">
-						<div class="lone-col">
-							<label for="username5">Enter Service Name:</label>
-							<input id ="username5" type="text" name="username" placeholder="Name:">
-						</div>
-					</div>
-					
-					<section>
-						<div>
-							<table cellpadding="5" cellspacing="0" width="100%" id="queueList45">
-								<thead>
-									<tr align="center">
-										<th>Service Name</th>
-										<th>Description</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr align="center">
-										<td>Name</td>
-										<td>Description</td>
-									</tr>
-
-									<tr align="left">
-										<td colspan="7">No Result</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</section>
+					${ui.includeFragment("ehrcashier", "walkinCashierQueue")}
 				</div>
 				
 
