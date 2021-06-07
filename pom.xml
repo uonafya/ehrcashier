@@ -49,9 +49,9 @@
 		<webservices.restVersion>2.1</webservices.restVersion>
 		<logicVersion>0.5.2</logicVersion>
 		<uilibraryVersion>2.0.4</uilibraryVersion>
-		<inventoryVersion>1.0.0-SNAPSHOT</inventoryVersion>
+		<inventoryVersion>1.0.0</inventoryVersion>
 		<appuiVersion>1.8.0</appuiVersion>
-		<ehrconfigsVersion>1.0.0-SNAPSHOT</ehrconfigsVersion>
+		<ehrconfigsVersion>1.0.0</ehrconfigsVersion>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
