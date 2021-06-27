@@ -76,7 +76,10 @@ public class BillableServiceBillAddPageController {
 		}
 		pageModel.addAttribute("age", patient.getAge());
 		pageModel.addAttribute("currentDate", new Date());
-		pageModel.addAttribute("category", patient.getAttribute(14));
+		pageModel.addAttribute(
+		    "category",
+		    patient.getAttribute(Context.getPersonService().getPersonAttributeTypeByUuid(
+		        "09cd268a-f0f5-11ea-99a8-b3467ddbf779")));
 		pageModel.addAttribute("lastBillId", lastBillId);
 		pageModel.addAttribute("previousVisit", hcs.getLastVisitTime(patient));
 		
