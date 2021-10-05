@@ -5,6 +5,7 @@ import org.apache.commons.lang.math.NumberUtils;
 import org.openmrs.Patient;
 import org.openmrs.PersonAttribute;
 import org.openmrs.PersonAttributeType;
+import org.openmrs.Role;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.PersonService;
 import org.openmrs.api.context.Context;
@@ -30,10 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @AppPage(EhrCashierConstants.APP_EHRCASHIER)
 public class ProcedureInvestigationOrderPageController {
@@ -78,6 +76,17 @@ public class ProcedureInvestigationOrderPageController {
 		if (patient.getGender().equals("F")) {
 			model.addAttribute("gender", "Female");
 		}
+		List<Role> roles = new ArrayList<Role>(Context.getAuthenticatedUser().getAllRoles());
+		boolean hasRoleWave = false;
+		
+		for (Role currentRole : roles) {
+			if ((!(currentRole.isRetired()) && currentRole.getName().equals("can wave"))) {
+				System.out.println("Waiver role is ======>" + currentRole.getName());
+				hasRoleWave = true;
+				break;
+			}
+		}
+		model.addAttribute("canWave", hasRoleWave);
 		
 		model.addAttribute("patientSearch", patientSearch);
 		model.addAttribute("date", dateStr);
