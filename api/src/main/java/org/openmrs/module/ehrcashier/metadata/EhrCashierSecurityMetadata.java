@@ -19,11 +19,16 @@ public class EhrCashierSecurityMetadata extends AbstractMetadataBundle {
 	public static final class _Privilege {
 		
 		public static final String CASHIER_MODULE_APP = "App: ehrcashier.billing";
+		
+		public static final String BILL_WAIVER = "Bill waiver";
+		
 	}
 	
 	public static final class _Role {
 		
 		public static final String CASHIER = "EHR Cashier";
+		
+		public static final String CAN_WAVE = "Can Wave bills";
 		
 	}
 	
@@ -37,5 +42,8 @@ public class EhrCashierSecurityMetadata extends AbstractMetadataBundle {
 		install(role(_Role.CASHIER, "Can access Key EHR Cashier module App",
 		    idSet(org.openmrs.module.kenyaemr.metadata.SecurityMetadata._Role.API_PRIVILEGES_VIEW_AND_EDIT),
 		    idSet(_Privilege.CASHIER_MODULE_APP)));
+		install(role(EhrCashierSecurityMetadata._Role.CAN_WAVE, "Can wave bills",
+		    idSet(EhrCashierSecurityMetadata._Role.CAN_WAVE), idSet(EhrCashierSecurityMetadata._Privilege.BILL_WAIVER)));
+		
 	}
 }

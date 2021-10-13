@@ -83,7 +83,7 @@ public class ProcedureInvestigationOrderPageController {
 		boolean hasRoleWave = false;
 		
 		for (Role currentRole : roles) {
-			if ((!(currentRole.isRetired()) && currentRole.getName().equals("can wave"))) {
+			if ((!(currentRole.isRetired()) && currentRole.getName().equals("Can Wave bills"))) {
 				System.out.println("Waiver role is ======>" + currentRole.getName());
 				hasRoleWave = true;
 				break;
