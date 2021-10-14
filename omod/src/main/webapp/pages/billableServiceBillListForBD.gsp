@@ -531,7 +531,7 @@
                         ${index + 1}
                     </td>
                     <td class='<% if (bill?.voided) { %>retired <% } %>'>
-                        <% if (bill?.voided == false || (bill?.printed == true && canEdit == true)) { %>
+                        <% if ((bill?.printed == true && canEdit == true)) { %>
                         <a href="editPatientServiceBillForBD.page?billId=${bill?.patientServiceBillId}&patientId=${patient.patientId}">
                             ${bill?.patientServiceBillId}</a>
 

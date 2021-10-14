@@ -3,6 +3,7 @@
     ui.includeCss("ehrconfigs", "jquery.dataTables.min.css")
     ui.includeCss("ehrconfigs", "onepcssgrid.css")
     ui.includeJavascript("ehrconfigs", "moment.js")
+    ui.includeJavascript("ehrcashier", "moment.js")
     ui.includeJavascript("ehrconfigs", "jquery.dataTables.min.js")
     ui.includeJavascript("ehrconfigs", "jq.browser.select.js")
     ui.includeJavascript("ehrconfigs", "knockout-3.4.0.js")
