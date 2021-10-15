@@ -19,7 +19,7 @@
 
 <script type="text/javascript">
     jq(document).ready(function () {
-        function strReplace(word) {5
+        function strReplace(word) {
             var res = word.replace("[", "");
             res = res.replace("]", "");
             return res;
@@ -534,7 +534,6 @@
                         <% if ((bill?.printed == true && canEdit == true)) { %>
                         <a href="editPatientServiceBillForBD.page?billId=${bill?.patientServiceBillId}&patientId=${patient.patientId}">
 						<i class="icon-edit " style="color:blue"></i>${bill?.patientServiceBillId}</a>
-
                         <% } else { %>
                         ${bill?.patientServiceBillId}
                         <% } %>

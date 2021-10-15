@@ -30,8 +30,9 @@ public class EhrCashierSecurityMetadata extends AbstractMetadataBundle {
 		public static final String CASHIER = "EHR Cashier";
 		
 		public static final String CAN_WAVE = "Can Wave bills";
+		
 		public static final String CAN_EDIT_BILL = "Edit Bill";
-
+		
 	}
 	
 	/**
