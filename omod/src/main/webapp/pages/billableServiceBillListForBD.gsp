@@ -19,7 +19,7 @@
 
 <script type="text/javascript">
     jq(document).ready(function () {
-        function strReplace(word) {
+        function strReplace(word) {5
             var res = word.replace("[", "");
             res = res.replace("]", "");
             return res;
@@ -111,10 +111,10 @@
 		color: darkgrey;
 	}
 
-	#breadcrumbs a, #breadcrumbs a:link, #breadcrumbs a:visited {
+	/*#breadcrumbs a, #breadcrumbs a:link, #breadcrumbs a:visited {
 		text-decoration: none;
 	}
-
+*/
 	.new-patient-header .demographics .gender-age {
 		font-size: 14px;
 		margin-left: -55px;
@@ -533,7 +533,7 @@
                     <td class='<% if (bill?.voided) { %>retired <% } %>'>
                         <% if ((bill?.printed == true && canEdit == true)) { %>
                         <a href="editPatientServiceBillForBD.page?billId=${bill?.patientServiceBillId}&patientId=${patient.patientId}">
-                            ${bill?.patientServiceBillId}</a>
+						<i class="icon-edit " style="color:blue"></i>${bill?.patientServiceBillId}</a>
 
                         <% } else { %>
                         ${bill?.patientServiceBillId}
