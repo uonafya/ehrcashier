@@ -531,9 +531,9 @@
                         ${index + 1}
                     </td>
                     <td class='<% if (bill?.voided) { %>retired <% } %>'>
-                        <% if ((bill?.printed == true && canEdit == true)) { %>
-                        <a href="editPatientServiceBillForBD.page?billId=${bill?.patientServiceBillId}&patientId=${patient.patientId}">
-						<i class="icon-edit " style="color:blue"></i>${bill?.patientServiceBillId}</a>
+                        <% if (bill?.voided == false || (bill?.printed == true && canEdit == true)) { %>
+                        <a  class="button task"href="editPatientServiceBillForBD.page?billId=${bill?.patientServiceBillId}&patientId=${patient.patientId}">
+						<i class="icon-edit" style="color:white"></i>${bill?.patientServiceBillId}</a>
                         <% } else { %>
                         ${bill?.patientServiceBillId}
                         <% } %>

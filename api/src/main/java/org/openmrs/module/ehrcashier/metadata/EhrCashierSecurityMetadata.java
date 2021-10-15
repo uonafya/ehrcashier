@@ -31,7 +31,7 @@ public class EhrCashierSecurityMetadata extends AbstractMetadataBundle {
 		
 		public static final String CAN_WAVE = "Can Wave bills";
 		
-		public static final String CAN_EDIT_BILL = "Edit Bill";
+		public static final String CAN_EDIT_BILL = "EHR Edit Bill";
 		
 	}
 	
@@ -41,7 +41,7 @@ public class EhrCashierSecurityMetadata extends AbstractMetadataBundle {
 	@Override
 	public void install() {
 		install(privilege(_Privilege.CASHIER_MODULE_APP, "Able to access EHR Cashier module features"));
-		install(privilege(BillingConstants.PRIV_EDIT_BILL_ONCE_PRINTED, "Able to edit Bill once printed"));
+		//		install(privilege(BillingConstants.PRIV_EDIT_BILL_ONCE_PRINTED, "Able to edit Bill once printed"));
 		
 		install(role(_Role.CASHIER, "Can access Key EHR Cashier module App",
 		    idSet(org.openmrs.module.kenyaemr.metadata.SecurityMetadata._Role.API_PRIVILEGES_VIEW_AND_EDIT),
