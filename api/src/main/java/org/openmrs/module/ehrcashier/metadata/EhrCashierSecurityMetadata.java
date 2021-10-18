@@ -46,8 +46,11 @@ public class EhrCashierSecurityMetadata extends AbstractMetadataBundle {
 		install(role(_Role.CASHIER, "Can access Key EHR Cashier module App",
 		    idSet(org.openmrs.module.kenyaemr.metadata.SecurityMetadata._Role.API_PRIVILEGES_VIEW_AND_EDIT),
 		    idSet(_Privilege.CASHIER_MODULE_APP)));
-		install(role(EhrCashierSecurityMetadata._Role.CAN_WAVE, "Can wave bills",
-		    idSet(EhrCashierSecurityMetadata._Role.CAN_WAVE), idSet(EhrCashierSecurityMetadata._Privilege.BILL_WAIVER)));
+		
+		install(role(_Role.CAN_WAVE, "Can wave bills",
+		    idSet(org.openmrs.module.kenyaemr.metadata.SecurityMetadata._Role.API_PRIVILEGES_VIEW_AND_EDIT),
+		    idSet(_Privilege.BILL_WAIVER)));
+		
 		install(role(_Role.CAN_EDIT_BILL, "Edit Bill",
 		    idSet(org.openmrs.module.kenyaemr.metadata.SecurityMetadata._Role.API_PRIVILEGES_VIEW_AND_EDIT),
 		    idSet(BillingConstants.PRIV_EDIT_BILL_ONCE_PRINTED)));
