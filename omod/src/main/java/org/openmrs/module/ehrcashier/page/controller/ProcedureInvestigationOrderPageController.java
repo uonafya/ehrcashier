@@ -5,12 +5,14 @@ import org.apache.commons.lang.math.NumberUtils;
 import org.openmrs.Patient;
 import org.openmrs.PersonAttribute;
 import org.openmrs.PersonAttributeType;
+import org.openmrs.Role;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.PersonService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.ehrcashier.EhrCashierConstants;
 import org.openmrs.module.ehrcashier.billcalculator.BillCalculatorForBDService;
+import org.openmrs.module.ehrcashier.metadata.EhrCashierSecurityMetadata;
 import org.openmrs.module.hospitalcore.BillingService;
 import org.openmrs.module.hospitalcore.HospitalCoreService;
 import org.openmrs.module.hospitalcore.PatientDashboardService;
@@ -27,12 +29,12 @@ import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.page.PageModel;
 import org.openmrs.ui.framework.page.PageRequest;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 
 @AppPage(EhrCashierConstants.APP_EHRCASHIER)
@@ -78,6 +80,16 @@ public class ProcedureInvestigationOrderPageController {
 		if (patient.getGender().equals("F")) {
 			model.addAttribute("gender", "Female");
 		}
+		List<Role> roles = new ArrayList<Role>(Context.getAuthenticatedUser().getAllRoles());
+		boolean hasRoleWave = false;
+		
+		for (Role currentRole : roles) {
+			if ((!(currentRole.isRetired()) && currentRole.getName().equals(EhrCashierSecurityMetadata._Role.CAN_WAVE))) {
+				hasRoleWave = true;
+				break;
+			}
+		}
+		model.addAttribute("canWave", hasRoleWave);
 		
 		model.addAttribute("patientSearch", patientSearch);
 		model.addAttribute("date", dateStr);

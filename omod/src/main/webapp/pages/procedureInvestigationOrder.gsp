@@ -26,7 +26,7 @@
 		jq('#agename').html('${patient.age} years ('+ moment('${patient.birthdate}').format('DD,MMM YYYY') +')');
 		
 		jq('.tad').text('Last Visit: '+ moment('${previousVisit}').format('DD.MM.YYYY hh:mm')+' HRS');
-		
+
         jQuery("#waiverCommentDiv").hide();
         jQuery('.serquncalc').keyup(function () {
             var result = 0;
@@ -445,11 +445,13 @@
                                              readOnly="true"/>
                     </td>
                 </tr>
-                <tr>
+				<% if (canWave==true) { %>
+				<tr>
                     <td colspan="6" align="right" style="padding-right: 23px">Waiver Amount</td>
                     <td align="right"><input type="text" id="waiverAmount" name="waiverAmount" size="7"
                                              class="form-textbox rights hasborder" /></td>
                 </tr>
+				<%}%>
             </table>
 
             <div id="waiverCommentDiv" class="form-group">
