@@ -12,6 +12,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.ehrcashier.EhrCashierConstants;
 import org.openmrs.module.ehrcashier.billcalculator.BillCalculatorForBDService;
+import org.openmrs.module.ehrcashier.metadata.EhrCashierSecurityMetadata;
 import org.openmrs.module.hospitalcore.BillingService;
 import org.openmrs.module.hospitalcore.HospitalCoreService;
 import org.openmrs.module.hospitalcore.PatientDashboardService;
@@ -83,8 +84,7 @@ public class ProcedureInvestigationOrderPageController {
 		boolean hasRoleWave = false;
 		
 		for (Role currentRole : roles) {
-			if ((!(currentRole.isRetired()) && currentRole.getName().equals("Can Wave bills"))) {
-				System.out.println("Waiver role is ======>" + currentRole.getName());
+			if ((!(currentRole.isRetired()) && currentRole.getName().equals(EhrCashierSecurityMetadata._Role.CAN_WAVE))) {
 				hasRoleWave = true;
 				break;
 			}
