@@ -41,7 +41,8 @@ public class EhrCashierSecurityMetadata extends AbstractMetadataBundle {
 	@Override
 	public void install() {
 		install(privilege(_Privilege.CASHIER_MODULE_APP, "Able to access EHR Cashier module features"));
-		//		install(privilege(BillingConstants.PRIV_EDIT_BILL_ONCE_PRINTED, "Able to edit Bill once printed"));
+		install(privilege(_Privilege.BILL_WAIVER, "Able to waive patient bills"));
+		install(privilege(BillingConstants.PRIV_EDIT_BILL_ONCE_PRINTED, "Able to edit Bill once printed"));
 		
 		install(role(_Role.CASHIER, "Can access Key EHR Cashier module App",
 		    idSet(org.openmrs.module.kenyaemr.metadata.SecurityMetadata._Role.API_PRIVILEGES_VIEW_AND_EDIT),
