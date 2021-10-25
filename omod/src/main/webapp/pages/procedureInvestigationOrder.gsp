@@ -232,7 +232,7 @@
 			return false;
 		}
 		
-		if (isNaN(waiverAmts) || Number(waiverAmts) < 0) {
+		if ((isNaN(waiverAmts) || Number(waiverAmts) < 0) && ${canWave}) {
 			jq().toastmessage('showErrorToast', "Please enter correct Waiver Amount");
 			return false;
 		}
