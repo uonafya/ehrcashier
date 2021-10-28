@@ -58,6 +58,10 @@ public class ProcedureInvestigationOrderPageController {
 		    "category",
 		    patient.getAttribute(Context.getPersonService().getPersonAttributeTypeByUuid(
 		        "09cd268a-f0f5-11ea-99a8-b3467ddbf779")));
+		model.addAttribute(
+		    "subCategory",
+		    patient.getAttribute(Context.getPersonService().getPersonAttributeTypeByUuid(
+		        "972a32aa-6159-11eb-bc2d-9785fed39154")));
 		model.addAttribute("previousVisit", hospitalCoreService.getLastVisitTime(patient));
 		
 		if (patient.getAttribute(Context.getPersonService().getPersonAttributeTypeByUuid(
@@ -71,7 +75,10 @@ public class ProcedureInvestigationOrderPageController {
 			            + patient.getAttribute(Context.getPersonService().getPersonAttributeTypeByUuid(
 			                "09cd268a-f0f5-11ea-99a8-b3467ddbf779")) + ")");
 		} else {
-			model.addAttribute("fileNumber", "");
+			model.addAttribute(
+			    "fileNumber",
+			    patient.getAttribute(Context.getPersonService().getPersonAttributeTypeByUuid(
+			        "858781dc-282f-11eb-8741-8ff5ddd45b7c")));
 		}
 		
 		if (patient.getGender().equals("M")) {
@@ -140,18 +147,12 @@ public class ProcedureInvestigationOrderPageController {
 		OpdTestOrder opdTestOrder = new OpdTestOrder();
 		HospitalCoreService hcs = Context.getService(HospitalCoreService.class);
 		List<PersonAttribute> pas = hcs.getPersonAttributes(patientId);
-		String patientCategory = null;
-		for (PersonAttribute pa : pas) {
-			PersonAttributeType attributeType = pa.getAttributeType();
-			PersonAttributeType personAttributePCT = hcs.getPersonAttributeTypeByName("Payment Category");
-			
-			if (attributeType.getPersonAttributeTypeId().equals(personAttributePCT.getPersonAttributeTypeId())) {
-				patientCategory = pa.getValue();
-			} else {
-				//TO-DO temporarily set to general paying
-				
-			}
-		}
+		PersonAttributeType patientCategoryAttributeType = Context.getPersonService().getPersonAttributeTypeByUuid(
+		    "09cd268a-f0f5-11ea-99a8-b3467ddbf779");
+		PersonAttributeType payingCategoryAttributeType = Context.getPersonService().getPersonAttributeTypeByUuid(
+		    "972a32aa-6159-11eb-bc2d-9785fed39154");
+		PersonAttribute patientCategoryAttribute = patient.getAttribute(patientCategoryAttributeType);
+		PersonAttribute payingCategoryAttribute = patient.getAttribute(payingCategoryAttributeType);
 		
 		for (Integer i = 1; i <= indCount; i++) {
 			selectservice = request.getParameter(i.toString() + "selectservice");
@@ -220,19 +221,11 @@ public class ProcedureInvestigationOrderPageController {
 		}
 		bill.setComment(waiverComment);
 		bill.setPaymentMode(paymentMode);
-		if ((patientCategory != null && patientCategory.equals("PRISONER"))
-		        || (patientCategory != null && patientCategory.equals("STUDENT SCHEME"))) {
-			bill.setPatientCategory("EXEMPTED PATIENT");
-			bill.setComment("");
+		if (patientCategoryAttribute != null) {
+			bill.setPatientCategory(patientCategoryAttribute.getValue());
 		}
-		
-		bill.setPatientSubCategory(patientCategory);
-		PersonService personService = Context.getPersonService();
-		PersonAttribute pCat = patient.getAttribute(personService
-		        .getPersonAttributeTypeByUuid("0a8ae818-f06a-11ea-ab82-2f183f30d954"));
-		
-		if (pCat != null && pCat.getValue().equals("NHIF CIVIL SERVANT")) {
-			bill.setPatientCategory("NHIF Patient");
+		if (payingCategoryAttribute != null) {
+			bill.setPatientSubCategory(payingCategoryAttribute.getValue());
 		}
 		
 		bill.setFreeBill(2);

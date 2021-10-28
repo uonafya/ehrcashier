@@ -125,6 +125,10 @@ public class BillableServiceBillListForBDPageController {
 			    "category",
 			    patient.getAttribute(Context.getPersonService().getPersonAttributeTypeByUuid(
 			        "09cd268a-f0f5-11ea-99a8-b3467ddbf779")));
+			model.addAttribute(
+			    "subCategory",
+			    patient.getAttribute(Context.getPersonService().getPersonAttributeTypeByUuid(
+			        "972a32aa-6159-11eb-bc2d-9785fed39154")));
 			
 			HospitalCoreService hcs = Context.getService(HospitalCoreService.class);
 			List<PersonAttribute> pas = hcs.getPersonAttributes(patient.getId());

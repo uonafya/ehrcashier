@@ -126,7 +126,7 @@
 			<br>
 			
 			<div class="catg">
-				<i class="icon-tags small" style="font-size: 16px"></i><small>Category:</small> ${category} 
+				<i class="icon-tags small" style="font-size: 16px"></i><small>Category:</small> ${category}/${subCategory}
 			</div>
 		</div>
 		<div class="close"></div>
@@ -154,7 +154,7 @@
                     <i class="icon-signout"></i>${queue.encounter.encounterId}</a></td>
                 <td style="text-align: left">${date}</td>
                 <td style="text-align: left">${queue.fromDept}</td>
-                <td style="text-align: left">N/A</td>
+                <td style="text-align: left">${summaryDetails}</td>
             </tr>
             <% } %>
 

@@ -170,7 +170,7 @@
             <em>Patient ID</em>
             <span>${patient.identifier}</span>
             <em>Payment Category</em>
-            <span>${category}</span>
+            <span>${category}/${subCategory}</span>
         </div>
 
         <div class="identifiers">
