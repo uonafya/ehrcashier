@@ -102,6 +102,7 @@ public class ProcedureInvestigationOrderPageController {
 	        @RequestParam(value = "waiverAmount", required = false) BigDecimal waiverAmount,
 	        @RequestParam(value = "waiverComment", required = false) String waiverComment,
 	        @RequestParam(value = "paymentMode", required = false) String paymentMode,
+	        @RequestParam(value = "transactionCode", required = false) String transactionCode,
 	        @RequestParam(value = "billType", required = false) String billType, UiUtils uiUtils,
 	        @RequestParam(value = "date", required = true) String date) {
 		Map<String, Object> redirectParams = new HashMap<String, Object>();

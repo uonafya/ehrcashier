@@ -250,6 +250,20 @@
 			return true;
 		}
     }
+
+	var mpesaCodeVerificationDialog = emr.setupConfirmationDialog({
+		dialogOpts: {
+			overlayClose: false,
+			close: true
+		},
+		selector: '#mpesaCodeVerificationDialog',
+		actions: {
+			cancel: function () {
+				mpesaCodeVerificationDialog.close();
+			}
+		}
+	});
+
 </script>
 
 <style>
@@ -464,9 +478,11 @@
                            onclick="javascript:window.location.href = 'billingQueue.page?'"
                            value="Cancel">
                 </td>
+				<td style="float: right;">
+					<span id="mpesaPay" name="mpesaPay" class="button  confirm center"  onclick="mpesaCodeVerificationDialog.show();" style="margin: 10px 0">M-Pesa Pay</span>
+				</td>
                 <td>
-
-                    <span id="savebill" name="savebill" class="button confirm right" style="margin: 10px 0"> 
+                    <span id="savebill" name="savebill" class="button confirm right" style="margin: 10px 0">
 						<i class="icon-save small"></i>
 						Save Bill
 					</span>
@@ -474,4 +490,15 @@
             </tr>
         </div>
     </form>
+</div>
+
+<div id="mpesaCodeVerificationDialog" class="dialog" style="display: none; width: 750px">
+	<div class="dialog-header">
+		<i class="icon-folder-open"></i>
+		<h3>M-PESA transaction verification </h3>
+		<i class="icon-remove cancel right " style="padding-right: 10px"></i>
+	</div>
+	<div class="dialog-content">
+		${ui.includeFragment("ehrcashier","mbilling",[billno : "billno"])}
+	</div>
 </div>
