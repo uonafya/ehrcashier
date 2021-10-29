@@ -55,7 +55,18 @@ public class ListOfOrderPageController {
 		    "category",
 		    patient.getAttribute(Context.getPersonService().getPersonAttributeTypeByUuid(
 		        "09cd268a-f0f5-11ea-99a8-b3467ddbf779")));
+		model.addAttribute(
+		    "subCategory",
+		    patient.getAttribute(Context.getPersonService().getPersonAttributeTypeByUuid(
+		        "972a32aa-6159-11eb-bc2d-9785fed39154")));
 		model.addAttribute("previousVisit", hospitalCoreService.getLastVisitTime(patient));
+		String details = "N/A";
+		if (patient.getAttribute(Context.getPersonService().getPersonAttributeTypeByUuid(
+		    "ae603d68-6206-11eb-9e5b-733e5624a1ed")) != null) {
+			details = patient.getAttribute(
+			    Context.getPersonService().getPersonAttributeTypeByUuid("ae603d68-6206-11eb-9e5b-733e5624a1ed")).getValue();
+		}
+		model.addAttribute("summaryDetails", details);
 		
 		if (patient.getAttribute(Context.getPersonService().getPersonAttributeTypeByUuid(
 		    "09cd268a-f0f5-11ea-99a8-b3467ddbf779")) == null) {

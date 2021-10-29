@@ -249,7 +249,7 @@
             <br>
 
             <div class="catg">
-                <i class="icon-tags small" style="font-size: 16px"></i><small>Category:</small> ${category}
+                <i class="icon-tags small" style="font-size: 16px"></i><small>Category:</small> ${category}/${subCategory}
             </div>
         </div>
 
@@ -312,7 +312,7 @@
 				<span class='status active'></span>
 				Payment Catg:
 			</label>
-			<span>${paymentCategoryName} / ${paymentSubCategory}</span>
+			<span>${category} / ${subCategory}</span>
 			<br/>
 			
 			<% if (bill?.voided) { %>
