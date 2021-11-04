@@ -7,6 +7,7 @@ import org.openmrs.*;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.ehrcashier.EhrCashierConstants;
+import org.openmrs.module.ehrconfigs.metadata.EhrCommonMetadata;
 import org.openmrs.module.hospitalcore.HospitalCoreService;
 import org.openmrs.module.hospitalcore.model.*;
 import org.openmrs.module.hospitalcore.util.ActionValue;
@@ -195,26 +196,23 @@ public class ProcessDrugOrderPageController {
 			model.addAttribute("cashier", Context.getAuthenticatedUser().getPersonName());
 			model.addAttribute("prescriber", prescriber);
 			model.addAttribute("lastVisit", hcs.getLastVisitTime(listDrugIssue.get(0).getStoreDrugPatient().getPatient()));
+			PersonAttributeType patientCategoryAttributeType = Context.getPersonService().getPersonAttributeTypeByUuid(
+			    "09cd268a-f0f5-11ea-99a8-b3467ddbf779");
+			PersonAttributeType payingCategoryAttributeType = Context.getPersonService().getPersonAttributeTypeByUuid(
+			    "972a32aa-6159-11eb-bc2d-9785fed39154");
 			
-			for (PersonAttribute pa : pas) {
-				PersonAttributeType attributeType = pa.getAttributeType();
-				if (hcs.getPersonAttributeTypeByName("Paying Category Type").equals(
-				    Context.getPersonService().getPersonAttributeTypeByUuid("e191b0b8-f069-11ea-b498-2bfd800847e8"))) {
-					model.addAttribute("paymentSubCategory", pa.getValue());
-					model.addAttribute("paymentCategory", 1);
-					model.addAttribute("paymentCategoryName", "PAYING");
-				} else if (hcs.getPersonAttributeTypeByName("Non-Paying Category Type").equals(
-				    Context.getPersonService().getPersonAttributeTypeByUuid("0a8ae818-f06a-11ea-ab82-2f183f30d954"))) {
-					model.addAttribute("paymentSubCategory", pa.getValue());
-					model.addAttribute("paymentCategory", 2);
-					model.addAttribute("paymentCategoryName", "NON-PAYING");
-				} else if (hcs.getPersonAttributeTypeByName("Special Scheme Category Type").equals(
-				    Context.getPersonService().getPersonAttributeTypeByUuid("341ee8fa-f06a-11ea-aca0-03d040bd88c8"))) {
-					model.addAttribute("paymentSubCategory", pa.getValue());
-					model.addAttribute("paymentCategory", 3);
-					model.addAttribute("paymentCategoryName", "SPECIAL SCHEMES");
-				}
+			int paymentCategory = 0;
+			if (pi.getPatient().getAttribute(patientCategoryAttributeType).getValue().equals("Paying")) {
+				paymentCategory = 1;
+			} else if (pi.getPatient().getAttribute(patientCategoryAttributeType).getValue().equals("Non paying")) {
+				paymentCategory = 2;
+			} else if (pi.getPatient().getAttribute(patientCategoryAttributeType).getValue().equals("Special scheme")) {
+				paymentCategory = 3;
 			}
+			
+			model.addAttribute("paymentSubCategory", pi.getPatient().getAttribute(payingCategoryAttributeType).getValue());
+			model.addAttribute("paymentCategory", paymentCategory);
+			model.addAttribute("paymentCategoryName", pi.getPatient().getAttribute(patientCategoryAttributeType).getValue());
 		}
 		return null;
 	}
@@ -391,20 +389,16 @@ public class ProcessDrugOrderPageController {
 				HospitalCoreService hcs = Context.getService(HospitalCoreService.class);
 				List<PersonAttribute> pas = hcs.getPersonAttributes(listDrugIssue.get(0).getStoreDrugPatient().getPatient()
 				        .getId());
+				System.out.println("The attributes found are :::" + pas);
+				PersonAttributeType personAttributePCT = Context.getPersonService().getPersonAttributeTypeByUuid(
+				    EhrCommonMetadata._EhrPersonAttributeType.PAYMENT_CATEGORY);
+				
 				for (PersonAttribute pa : pas) {
 					PersonAttributeType attributeType = pa.getAttributeType();
-					PersonAttributeType personAttributePCT = hcs.getPersonAttributeTypeByName("Paying Category Type");
-					PersonAttributeType personAttributeNPCT = hcs.getPersonAttributeTypeByName("Non-Paying Category Type");
-					PersonAttributeType personAttributeSSCT = hcs
-					        .getPersonAttributeTypeByName("Special Scheme Category Type");
+					
 					if (attributeType.getPersonAttributeTypeId().equals(personAttributePCT.getPersonAttributeTypeId())) {
 						pageModel.addAttribute("paymentSubCategory", pa.getValue());
-					} else if (attributeType.getPersonAttributeTypeId().equals(
-					    personAttributeNPCT.getPersonAttributeTypeId())) {
-						pageModel.addAttribute("paymentSubCategory", pa.getValue());
-					} else if (attributeType.getPersonAttributeTypeId().equals(
-					    personAttributeSSCT.getPersonAttributeTypeId())) {
-						pageModel.addAttribute("paymentSubCategory", pa.getValue());
+						break;
 					}
 				}
 			}
