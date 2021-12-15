@@ -111,10 +111,10 @@
 		color: darkgrey;
 	}
 
-	#breadcrumbs a, #breadcrumbs a:link, #breadcrumbs a:visited {
+	/*#breadcrumbs a, #breadcrumbs a:link, #breadcrumbs a:visited {
 		text-decoration: none;
 	}
-
+*/
 	.new-patient-header .demographics .gender-age {
 		font-size: 14px;
 		margin-left: -55px;
@@ -249,7 +249,7 @@
             <br>
 
             <div class="catg">
-                <i class="icon-tags small" style="font-size: 16px"></i><small>Category:</small> ${category}
+                <i class="icon-tags small" style="font-size: 16px"></i><small>Category:</small> ${category}/${subCategory}
             </div>
         </div>
 
@@ -312,7 +312,7 @@
 				<span class='status active'></span>
 				Payment Catg:
 			</label>
-			<span>${paymentCategoryName} / ${paymentSubCategory}</span>
+			<span>${category} / ${subCategory}</span>
 			<br/>
 			
 			<% if (bill?.voided) { %>
@@ -532,9 +532,8 @@
                     </td>
                     <td class='<% if (bill?.voided) { %>retired <% } %>'>
                         <% if (bill?.voided == false || (bill?.printed == true && canEdit == true)) { %>
-                        <a href="editPatientServiceBillForBD.page?billId=${bill?.patientServiceBillId}&patientId=${patient.patientId}">
-                            ${bill?.patientServiceBillId}</a>
-
+                        <a  class="button task"href="editPatientServiceBillForBD.page?billId=${bill?.patientServiceBillId}&patientId=${patient.patientId}">
+						<i class="icon-edit" style="color:white"></i>${bill?.patientServiceBillId}</a>
                         <% } else { %>
                         ${bill?.patientServiceBillId}
                         <% } %>
