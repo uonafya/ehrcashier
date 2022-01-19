@@ -34,7 +34,7 @@
 		<calculationVersion>1.0</calculationVersion>
 		<htmlformentryVersion>2.3</htmlformentryVersion>
 		<htmlwidgetsVersion>1.6.6</htmlwidgetsVersion>
-		<hospitalcoreVersion>1.0.0</hospitalcoreVersion>
+		<hospitalcoreVersion>1.0.7</hospitalcoreVersion>
 		<idgenVersion>2.6</idgenVersion>
 		<metadatadeployVersion>1.2</metadatadeployVersion>
 		<metadatasharingVersion>1.1.8</metadatasharingVersion>
@@ -50,7 +50,7 @@
 		<uilibraryVersion>2.0.4</uilibraryVersion>
 		<inventoryVersion>1.0.0</inventoryVersion>
 		<appuiVersion>1.8.0</appuiVersion>
-		<ehrconfigsVersion>1.0.0</ehrconfigsVersion>
+		<ehrconfigsVersion>1.0.10</ehrconfigsVersion>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
