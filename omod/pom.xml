@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>org.openmrs.module</groupId>
 		<artifactId>ehrcashier</artifactId>
-		<version>1.0.2-SNAPSHOT</version>
+		<version>1.0.2</version>
 	</parent>
 
 	<artifactId>ehrcashier-omod</artifactId>
@@ -15,7 +15,7 @@
         <dependency>
             <groupId>org.openmrs.module</groupId>
             <artifactId>ehrcashier-api</artifactId>
-			<version>1.0.2-SNAPSHOT</version>
+			<version>1.0.2</version>
         </dependency>
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
