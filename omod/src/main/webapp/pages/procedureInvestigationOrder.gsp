@@ -459,6 +459,17 @@
 				<textarea type="text" id="waiverComment" name="waiverComment" size="7" class="hasborder" style="width: 97.7%; height: 60px;"></textarea>
 											
             </div>
+            <div id="paymentModesId" class="form-group">
+                <select name="paymentMode" id="paymentMode">
+					<option value="Cash">Cash</option>
+					<option value="Mpesa">Mpesa</option>
+					<option value="Insurance">Insurance</option>
+				</select>
+            </div>
+			<div>
+			<label for="transactionCode">Transaction Code/Details</label>
+				<input type="text" id="transactionCode" name="transactionCode" />
+			</div>
             <tr>
                 <td><input type="button" class="button cancel"
                            onclick="javascript:window.location.href = 'billingQueue.page?'"
