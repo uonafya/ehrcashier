@@ -455,34 +455,43 @@
             </table>
 
             <div id="waiverCommentDiv" class="form-group">
-                <label for="waiverComment" style="color: rgb(54, 52, 99);">Waiver Number/Comment</label>
-				<textarea type="text" id="waiverComment" name="waiverComment" size="7" class="hasborder" style="width: 97.7%; height: 60px;"></textarea>
+                <label for="waiverComment" style="color: #363463;">Waiver Number/Comment</label>
+				<textarea  id="waiverComment" name="waiverComment" cols="50" rows="5" class="hasborder" style="width: 97.7%; height: 60px;"></textarea>
 											
             </div>
-            <div id="paymentModesId" class="form-group">
-                <select name="paymentMode" id="paymentMode">
-					<option value="Cash">Cash</option>
-					<option value="Mpesa">Mpesa</option>
-					<option value="Insurance">Insurance</option>
-				</select>
-            </div>
-			<div>
-			<label for="transactionCode">Transaction Code/Details</label>
-				<input type="text" id="transactionCode" name="transactionCode" />
-			</div>
-            <tr>
-                <td><input type="button" class="button cancel"
-                           onclick="javascript:window.location.href = 'billingQueue.page?'"
-                           value="Cancel">
-                </td>
-                <td>
+          <table cellpadding="5" cellspacing="0" width="100%" id="myTable" class="tablesorter thickbox">
+		  		<tr>
+					<td colspan="6" align="right" style="padding-right: 23px">Payment Mode</td>
+					<td>
+						<div id="paymentModesId" class="form-group" align="right">
+							<select name="paymentMode" id="paymentMode">
+								<option value="Cash">Cash</option>
+								<option value="Mpesa">Mpesa</option>
+								<option value="Insurance">Insurance</option>
+							</select>
+						</div>
+					</td>	
+				</tr>
+				<tr>
+					<td colspan="6" align="right" style="padding-right: 23px">Transaction Code/Details</td>
+					<td align="right"><input type="text" id="transactionCode" name="transactionCode" size="7" /></td>
+				</tr>	
+			</table>
+			<table border="0">
+				<tr>
+					<td><input type="button" class="button cancel"
+							onclick="javascript:window.location.href = 'billingQueue.page?'"
+							value="Cancel">
+					</td>
+					<td>
 
-                    <span id="savebill" name="savebill" class="button confirm right" style="margin: 10px 0"> 
-						<i class="icon-save small"></i>
-						Save Bill
-					</span>
-                </td>
-            </tr>
+						<span id="savebill" name="savebill" class="button confirm right" style="margin: 10px 0"> 
+							<i class="icon-save small"></i>
+							Save Bill
+						</span>
+					</td>
+				</tr>
+			</table>
         </div>
     </form>
 </div>
