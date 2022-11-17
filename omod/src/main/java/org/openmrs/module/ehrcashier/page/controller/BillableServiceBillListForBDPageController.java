@@ -275,6 +275,7 @@ public class BillableServiceBillListForBDPageController {
 			model.addAttribute("cashier", bill.getCreator().getGivenName());
 			model.addAttribute("bill", bill);
 			model.addAttribute("userLocation", Context.getService(KenyaEmrService.class).getDefaultLocation().getName());
+			model.addAttribute("paymentDescriptionCode", bill.getTransactionCode());
 		}
 		return null;
 	}

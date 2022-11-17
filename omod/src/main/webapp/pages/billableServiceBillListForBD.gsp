@@ -459,6 +459,12 @@
 			</tr>
 			</tbody>
 		</table>
+		<div style="margin: 20px 10px 0 10px">
+			<span>Mode of payment: <b>${paymentMode}</b></span>
+		</div>
+		<div style="margin: 20px 10px 0 10px">
+			<span>Payment description/code: <b>${paymentDescriptionCode}</b></span>
+		</div>
 
 		<div class="print-only" style="margin: 20px 10px 0 10px">				
 			<span>Attending Cashier: <b>${cashier}</b></span>
