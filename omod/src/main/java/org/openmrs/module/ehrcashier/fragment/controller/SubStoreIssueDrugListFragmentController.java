@@ -66,10 +66,10 @@ public class SubStoreIssueDrugListFragmentController {
 	        UiUtils uiUtils) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		InventoryService inventoryService = (InventoryService) Context.getService(InventoryService.class);
-		List<Role> role = new ArrayList<Role>(Context.getAuthenticatedUser().getAllRoles());
-		InventoryStoreRoleRelation srl = null;
-		Role rl = null;
-		for (Role r : role) {
+		//List<Role> role = new ArrayList<Role>(Context.getAuthenticatedUser().getAllRoles());
+		//InventoryStoreRoleRelation srl = null;
+		//Role rl = null;
+		/*for (Role r : role) {
 			if (inventoryService.getStoreRoleByName(r.toString()) != null) {
 				srl = inventoryService.getStoreRoleByName(r.toString());
 				rl = r;
@@ -79,8 +79,8 @@ public class SubStoreIssueDrugListFragmentController {
 		if (srl != null) {
 			store = inventoryService.getStoreById(srl.getStoreid());
 			
-		}
-		int total = inventoryService.countStoreDrugPatient(store.getId(), issueName, fromDate, toDate);
+		}*/
+		int total = inventoryService.countStoreDrugPatient(4, issueName, fromDate, toDate);
 		String temp = "";
 		
 		if (issueName != null) {
@@ -116,8 +116,8 @@ public class SubStoreIssueDrugListFragmentController {
 			fromDate = sdf.format(new Date());
 		}
 		List<SimpleObject> orderList = new ArrayList<SimpleObject>();
-		List<InventoryStoreDrugPatient> listIssue = inventoryService.listStoreDrugPatient(store.getId(), receiptId,
-		    issueName, fromDate, toDate, pagingUtil.getStartPos(), pagingUtil.getPageSize());
+		List<InventoryStoreDrugPatient> listIssue = inventoryService.listStoreDrugPatient(4, receiptId, issueName, fromDate,
+		    toDate, pagingUtil.getStartPos(), pagingUtil.getPageSize());
 		for (InventoryStoreDrugPatient inventoryStoreDrugPatient : listIssue) {
 			//???
 			inventoryStoreDrugPatient = inventoryService.saveStoreDrugPatient(inventoryStoreDrugPatient);

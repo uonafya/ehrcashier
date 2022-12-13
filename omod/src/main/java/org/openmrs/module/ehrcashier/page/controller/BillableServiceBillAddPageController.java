@@ -102,6 +102,7 @@ public class BillableServiceBillAddPageController {
 	public String post(HttpServletRequest request, PageModel model, Object command, BindingResult bindingResult,
 	        @RequestParam("patientId") Integer patientId,
 	        @RequestParam(value = "paymentMode", required = false) String paymentMode,
+	        @RequestParam(value = "transactionCode", required = false) String transactionCode,
 	        @RequestParam(value = "billType", required = false) String billType, UiUtils uiUtils,
 	        @RequestParam(value = "encounterId", required = false) Integer encounterId) {
 		String bills = request.getParameter("bill");
@@ -239,28 +240,18 @@ public class BillableServiceBillAddPageController {
 			bill.setComment(obj.getString("comment"));
 			HospitalCoreService hcs = Context.getService(HospitalCoreService.class);
 			List<PersonAttribute> pas = hcs.getPersonAttributes(patientId);
-			String patientSubCategory = null;
 			PersonService personService = Context.getPersonService();
 			
 			PersonAttributeType paymentSubCategory = personService
 			        .getPersonAttributeTypeByUuid("972a32aa-6159-11eb-bc2d-9785fed39154");
+			PersonAttributeType paymentCategory = personService
+			        .getPersonAttributeTypeByUuid("09cd268a-f0f5-11ea-99a8-b3467ddbf779");
 			
-			for (PersonAttribute pa : pas) {
-				PersonAttributeType attributeType = pa.getAttributeType();
-				PersonAttributeType personAttributePCT = hcs.getPersonAttributeTypeByName("Paying Category Type");
-				PersonAttributeType personAttributeNPCT = hcs.getPersonAttributeTypeByName("Non-Paying Category Type");
-				PersonAttributeType personAttributeSSCT = hcs.getPersonAttributeTypeByName("Special Scheme Category Type");
-				if (attributeType.getPersonAttributeTypeId().equals(personAttributePCT.getPersonAttributeTypeId())) {
-					patientSubCategory = pa.getValue();
-				} else if (attributeType.getPersonAttributeTypeId().equals(personAttributeNPCT.getPersonAttributeTypeId())) {
-					patientSubCategory = pa.getValue();
-				} else if (attributeType.getPersonAttributeTypeId().equals(personAttributeSSCT.getPersonAttributeTypeId())) {
-					patientSubCategory = pa.getValue();
-				}
-			}
 			bill.setPatientSubCategory(patient.getAttribute(paymentSubCategory).getValue());
+			bill.setPatientCategory(patient.getAttribute(paymentCategory).getValue());
 			
 			bill.setPaymentMode(paymentMode);
+			bill.setTransactionCode(transactionCode);
 			
 			bill.setFreeBill(calculator.isFreeBill(billType));
 			logger.info("Is free bill: " + bill.getFreeBill());

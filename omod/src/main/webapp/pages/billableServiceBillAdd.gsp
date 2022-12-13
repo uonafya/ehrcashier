@@ -441,6 +441,33 @@
 					<td style="text-align: right;"></td>
 				</tr>
             </tbody>
+            <tbody>
+                <tr style="border: 1px solid #ddd;">
+                    <td style="text-align: center;"></td>
+                    <td colspan="2"></td>
+                    <td><b>Payment Mode</b></td>
+
+                    <td style="text-align: right;">
+                    <select name="paymentMode" id="paymentMode">
+                        <option value="Cash">Cash</option>
+                        <option value="Mpesa">Mpesa</option>
+                        <option value="Insurance">Insurance</option>
+                    </select>
+                    </td>
+                    <td style="text-align: right;"></td>
+                </tr>
+
+                <tr style="border: 1px solid #ddd;">
+                    <td style="text-align: center;"></td>
+                    <td colspan="2"></td>
+                    <td><b>Transaction Code</b></td>
+
+                    <td style="text-align: right;">
+                        <input id="transactionCode" name="transactionCode" />
+                    </td>
+                    <td style="text-align: right;"></td>
+                </tr>
+            </tbody>
 
         </table>
 		
