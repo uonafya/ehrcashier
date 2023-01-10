@@ -443,8 +443,10 @@
 					<li><a href="#tabs-1">OPD Queue</a></li>
 					<li><a href="#tabs-2">IPD Queue</a></li>
                     <li><a href="#pharmacyTab">Pharmacy</a></li>
+                    <li><a href="#inventoryTab">Non Pharmaceuticals</a></li>
 					<li><a href="#ambulanceTab">Ambulance</a></li>
 					<li><a href="#tabs-5">Walkin-Patients</a></li>
+					<li><a href="#invoiceTab">Invoice</a></li>
 					<li><a href="#tabs-7">Search Patient Bill</a></li>
 				</ul>
 
@@ -517,6 +519,12 @@
 				<div id="tabs-5">
 					${ui.includeFragment("ehrcashier", "walkinCashierQueue")}
 				</div>
+				<div id="inventoryTab">
+                    ${ui.includeFragment("ehrcashier", "subStoreIssueItemList")}
+                </div>
+                <div id="invoiceTab">
+                    ${ui.includeFragment("ehrcashier", "patientInvoice")}
+                </div>
 				
 
 
