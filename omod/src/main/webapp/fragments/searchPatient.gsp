@@ -339,7 +339,7 @@
                 </th>
 
                 <th class="ui-state-default" role="columnheader" style="width: 60px;">
-                    <div class="DataTables_sort_wrapper">Action<span class="DataTables_sort_icon"></span></div>
+                    <div class="DataTables_sort_wrapper">Actions<span class="DataTables_sort_icon"></span></div>
                 </th>
             </tr>
             </thead>
