@@ -446,8 +446,7 @@
                     <li><a href="#inventoryTab">Non Pharmaceuticals</a></li>
 					<li><a href="#ambulanceTab">Ambulance</a></li>
 					<li><a href="#tabs-5">Walkin-Patients</a></li>
-					<li><a href="#invoiceTab">Invoice</a></li>
-					<li><a href="#tabs-7">Search Patient Bill</a></li>
+					<li><a href="#tabs-7">Patient Bill and Invoices</a></li>
 				</ul>
 
 				<div id="tabs-1">
@@ -522,11 +521,6 @@
 				<div id="inventoryTab">
                     ${ui.includeFragment("ehrcashier", "subStoreIssueItemList")}
                 </div>
-                <div id="invoiceTab">
-                    ${ui.includeFragment("ehrcashier", "patientInvoice")}
-                </div>
-				
-
 
                 <div id="tabs-7">
                     ${ui.includeFragment("ehrcashier", "searchPatient")}

@@ -86,6 +86,11 @@
             window.location.href = ui.pageLink("ehrcashier", "billableServiceBillListForBD", {
                 "patientId": patientId
             });
+        },
+        visitViewPatientInvoice: function(patientId){
+            window.location.href = ui.pageLink("financials", "patientInvoice", {
+                "patientId": patientId
+            });
         }
     };
 
@@ -157,6 +162,8 @@
                    %>
             row += '<td> ' +
                     '<a title="View/Add Bill" onclick="ADVSEARCH.visitAddPatientBill('+item.patientId +');"><i class="icon-arrow-right small" ></i></a>'+
+                    '&nbsp;&nbsp;&nbsp;'+
+                    '<a title="View/Create Invoice" onclick="ADVSEARCH.visitViewPatientInvoice('+item.patientId +');"><i class="icon-signout"></i></a>'+
                     '</td>';
             <% } else {%>
             row += '<td>' + item.${ it} + '</td>';

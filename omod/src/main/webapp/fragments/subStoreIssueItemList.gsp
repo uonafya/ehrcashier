@@ -48,7 +48,8 @@
         }
 
         var list = new IssueItemViewModel();
-        ko.applyBindings(list, jq("#orderList")[0]);
+		ko.cleanNode(jq("#orderItemList")[0]);
+        ko.applyBindings(list, jq("#orderItemList")[0]);
     });
 
     function getItemOrderList(issueName, fromDate, toDate, receiptId, processed) {
@@ -110,19 +111,19 @@
 		padding-left: 5px;
 		margin-bottom: 5px;
 	}
-	#orderList th:first-child{
+	#orderItemList th:first-child{
 		width: 5px;
 	}
-	#orderList th:nth-child(2){
+	#orderItemList th:nth-child(2){
 		width: 70px;
 	}
-	#orderList th:nth-child(3){
+	#orderItemList th:nth-child(3){
 		width: 220px;
 	}
-	#orderList th:nth-child(5){
+	#orderItemList th:nth-child(5){
 		width: 100px;
 	}
-	#orderList th:last-child{
+	#orderItemList th:last-child{
 		width: 100px;
 	}
 	#divSeachProcessed{
@@ -187,7 +188,7 @@
 </div>
 
 <form method="get" id="form">
-    <div id="orderList">
+    <div id="orderItemList">
         <table width="100%">
             <thead>
 				<tr>
