@@ -3,10 +3,10 @@ package org.openmrs.module.ehrcashier.fragment.controller;
 import org.apache.commons.lang.StringUtils;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.ehrinventory.InventoryService;
+import org.openmrs.module.ehrinventory.model.InventoryStoreItemPatient;
+import org.openmrs.module.ehrinventory.model.InventoryStoreItemPatientDetail;
 import org.openmrs.module.ehrinventory.util.PagingUtil;
 import org.openmrs.module.ehrinventory.util.RequestUtil;
-import org.openmrs.module.hospitalcore.model.InventoryStoreDrugPatient;
-import org.openmrs.module.hospitalcore.model.InventoryStoreDrugPatientDetail;
 import org.openmrs.module.hospitalcore.util.FlagStates;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
@@ -44,20 +44,7 @@ public class SubStoreIssueItemListFragmentController {
 	        UiUtils uiUtils) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		InventoryService inventoryService = (InventoryService) Context.getService(InventoryService.class);
-		//List<Role> role = new ArrayList<Role>(Context.getAuthenticatedUser().getAllRoles());
-		//InventoryStoreRoleRelation srl = null;
-		//Role rl = null;
-		/*for (Role r : role) {
-			if (inventoryService.getStoreRoleByName(r.toString()) != null) {
-				srl = inventoryService.getStoreRoleByName(r.toString());
-				rl = r;
-			}
-		}
-		InventoryStore store = null;
-		if (srl != null) {
-			store = inventoryService.getStoreById(srl.getStoreid());
-
-		}*/
+		
 		int total = inventoryService.countStoreItemPatient(4, issueName, fromDate, toDate);
 		String temp = "";
 		
@@ -94,17 +81,17 @@ public class SubStoreIssueItemListFragmentController {
 			fromDate = sdf.format(new Date());
 		}
 		List<SimpleObject> orderList = new ArrayList<SimpleObject>();
-		List<InventoryStoreDrugPatient> listIssue = inventoryService.listStoreDrugPatient(4, receiptId, issueName, fromDate,
+		List<InventoryStoreItemPatient> listIssue = inventoryService.listStoreItemPatient(4, receiptId, issueName, fromDate,
 		    toDate, pagingUtil.getStartPos(), pagingUtil.getPageSize());
-		for (InventoryStoreDrugPatient inventoryStoreDrugPatient : listIssue) {
+		for (InventoryStoreItemPatient inventoryStoreItemPatient : listIssue) {
 			//???
-			inventoryStoreDrugPatient = inventoryService.saveStoreDrugPatient(inventoryStoreDrugPatient);
-			List<InventoryStoreDrugPatientDetail> inventoryStoreDrugPatientDetails = inventoryService
-			        .listStoreDrugPatientDetail(inventoryStoreDrugPatient.getId());
+			inventoryStoreItemPatient = inventoryService.saveStoreItemPatient(inventoryStoreItemPatient);
+			List<InventoryStoreItemPatientDetail> inventoryStoreItemPatientDetails = inventoryService
+			        .listStoreItemPatientDetail(inventoryStoreItemPatient.getId());
 			
 			Integer flags = FlagStates.NOT_PROCESSED;
-			if (inventoryStoreDrugPatientDetails.size() > 0) {
-				flags = inventoryStoreDrugPatientDetails.get(inventoryStoreDrugPatientDetails.size() - 1)
+			if (inventoryStoreItemPatientDetails.size() > 0) {
+				flags = inventoryStoreItemPatientDetails.get(inventoryStoreItemPatientDetails.size() - 1)
 				        .getTransactionDetail().getFlag();
 			}
 			if (flags == null) {
@@ -114,20 +101,20 @@ public class SubStoreIssueItemListFragmentController {
 				continue;
 			}
 			
-			String created = sdf.format(inventoryStoreDrugPatient.getCreatedOn());
+			String created = sdf.format(inventoryStoreItemPatient.getCreatedOn());
 			String changed = sdf.format(new Date());
 			int value = changed.compareTo(created);
-			inventoryStoreDrugPatient.setValues(value);
+			inventoryStoreItemPatient.setValues(value);
 			//create simple object
-			SimpleObject orderItem = SimpleObject.create("id", inventoryStoreDrugPatient.getId());
-			orderItem.put("identifier", inventoryStoreDrugPatient.getIdentifier());
-			orderItem.put("patientId", inventoryStoreDrugPatient.getPatient().getId());
-			orderItem.put("givenName", inventoryStoreDrugPatient.getPatient().getGivenName());
-			orderItem.put("familyName", inventoryStoreDrugPatient.getPatient().getFamilyName());
-			orderItem.put("middleName", inventoryStoreDrugPatient.getPatient().getMiddleName());
-			orderItem.put("patient.age", inventoryStoreDrugPatient.getPatient().getAge());
-			orderItem.put("gender", inventoryStoreDrugPatient.getPatient().getGender());
-			orderItem.put("createdOn", inventoryStoreDrugPatient.getCreatedOn());
+			SimpleObject orderItem = SimpleObject.create("id", inventoryStoreItemPatient.getId());
+			orderItem.put("identifier", inventoryStoreItemPatient.getIdentifier());
+			orderItem.put("patientId", inventoryStoreItemPatient.getPatient().getId());
+			orderItem.put("givenName", inventoryStoreItemPatient.getPatient().getGivenName());
+			orderItem.put("familyName", inventoryStoreItemPatient.getPatient().getFamilyName());
+			orderItem.put("middleName", inventoryStoreItemPatient.getPatient().getMiddleName());
+			orderItem.put("patient.age", inventoryStoreItemPatient.getPatient().getAge());
+			orderItem.put("gender", inventoryStoreItemPatient.getPatient().getGender());
+			orderItem.put("createdOn", inventoryStoreItemPatient.getCreatedOn());
 			orderItem.put("flag", flags);
 			orderList.add(orderItem);
 		}

@@ -25,29 +25,29 @@
 
             toReturn		= getItemOrderList(issueName, fromDate, toDate, receiptId, processed);
 
-            list.drugList(toReturn);
+            list.itemList(toReturn);
         }
 
-        function IssueDrugViewModel() {
+        function IssueItemViewModel() {
             var self = this;
             // Editable data
-            self.drugList = ko.observableArray([]);
-            var mappedDrugItems = jQuery.map(receiptsData, function (item) {
+            self.itemList = ko.observableArray([]);
+            var mappedItems = jQuery.map(receiptsData, function (item) {
                 return item;
             });
 
             self.viewDetails = function (item) {
-                window.location.replace("detailedReceiptOfDrug.page?receiptId=" + item.id);
+                window.location.replace("detailedReceiptOfItem.page?receiptId=" + item.id);
             };
-            self.drugList(mappedDrugItems);
-            self.processDrugOrder = function (item) {
+            self.itemList(mappedItems);
+            self.processItemOrder = function (item) {
                 //redirect to processing page
-                var url = '${ui.pageLink("ehrcashier","processDrugOrder")}';
+                var url = '${ui.pageLink("ehrcashier","processItemOrder")}';
                 window.location.href = url + '?orderId=' + item.id + '&patientId=' + item.patientId;
             }
         }
 
-        var list = new IssueDrugViewModel();
+        var list = new IssueItemViewModel();
         ko.applyBindings(list, jq("#orderList")[0]);
     });
 
@@ -199,7 +199,7 @@
 					<th>ACTION</th>
 				</tr>
             </thead>
-            <tbody data-bind="foreach: drugList">
+            <tbody data-bind="foreach: itemList">
 				<tr data-bind="css: {'process-seen': flag > 0}">
 					<td data-bind="text: \$index() + 1"></td>
 					<td data-bind="text: id"></td>
@@ -211,7 +211,7 @@
 					</td>
 					<td data-bind="text: moment(new Date(createdOn)).format('DD/MM/YYYY')"></td>
 					<td>
-						<a class="remover" href="#" data-bind="click: \$root.processDrugOrder"
+						<a class="remover" href="#" data-bind="click: \$root.processItemOrder"
 						   title="Detail issue item to this patient">
 							<span data-bind="visible: flag == 0">
 								<i class="icon-cogs small"></i>PROCESS
