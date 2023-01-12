@@ -34,7 +34,7 @@ public class SubStoreIssueItemListFragmentController {
 	 * @param uiUtils
 	 * @return
 	 */
-	public List<SimpleObject> getOrderList(@RequestParam(value = "pageSize", required = false) Integer pageSize,
+	public List<SimpleObject> getItemOrderList(@RequestParam(value = "pageSize", required = false) Integer pageSize,
 	        @RequestParam(value = "currentPage", required = false) Integer currentPage,
 	        @RequestParam(value = "issueName", required = false) String issueName,
 	        @RequestParam(value = "fromDate", required = false) String fromDate,
