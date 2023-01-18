@@ -26,12 +26,7 @@
 </style>
 <script>
     jq(function () {
-        var listOfDrugToIssue =
-        ${listDrugIssue}.
-        listDrugIssue;
-        var listNonDispensed =
-        ${listOfNotDispensedOrder}.
-        listOfNotDispensedOrder;
+        var listOfItemToIssue = ${listItemIssue}.listItemIssue;
 
         var wAmount = "${waiverAmount}" == "null" ? "0" : "${waiverAmount}";
         var wComment = "${waiverComment}";
@@ -55,19 +50,13 @@
             }
         });
 
-        function DrugOrderViewModel() {
+        function ItemOrderViewModel() {
             var self = this;
             self.availableOrders = ko.observableArray([]);
             self.nonDispensed = ko.observableArray([]);
-            var mappedOrders = jQuery.map(listOfDrugToIssue, function (item) {
-                return new DrugOrder(item);
+            var mappedOrders = jQuery.map(listOfItemToIssue, function (item) {
+                return new ItemOrder(item);
             });
-            var mappedNonDispensed = jQuery.map(listNonDispensed, function (item) {
-                return new NonDrugOrder(item);
-            });
-
-            self.availableOrders(mappedOrders);
-            self.nonDispensed(mappedNonDispensed);
 
             //observable waiver
             self.waiverAmount = ko.observable(wAmount);
@@ -129,7 +118,7 @@
             });
         }
 
-        function DrugOrder(item) {
+        function ItemOrder(item) {
             var self = this;
             self.initialBill = ko.observable(item);
             self.orderTotal = ko.computed(function () {
@@ -144,8 +133,8 @@
             self.initialNonBill = ko.observable(item);
         }
 
-        var orders = new DrugOrderViewModel();
-        ko.applyBindings(orders, jq("#dispensedDrugs")[0]);
+        var orders = new ItemOrderViewModel();
+        ko.applyBindings(orders, jq("#dispensedItem")[0]);
 
     });//end of document ready
 </script>
@@ -266,7 +255,7 @@ th:first-child {
 
             <li>
                 <i class="icon-chevron-right link"></i>
-                Pharmacy Order
+                Item Order
             </li>
         </ul>
     </div>
@@ -304,7 +293,7 @@ th:first-child {
             <br>
 
             <div class="catg">
-                <i class="icon-tags small" style="font-size: 16px"></i><small>Category:</small>${paymentSubCategory}
+                <i class="icon-tags small" style="font-size: 16px"></i><small>Category:</small>${paymentCategory}/${paymentSubCategory}
             </div>
         </div>
 
@@ -326,7 +315,7 @@ th:first-child {
         </span>
     </div>
 
-    <div class="dashboard clear" id="dispensedDrugs">
+    <div class="dashboard clear" id="dispensedItem">
         <div id="printSection">
             <center class="print-only">
                 <h2>
@@ -391,12 +380,9 @@ th:first-child {
                 <thead>
                 <tr align="center">
                     <th>#</th>
-                    <th>DRUG</th>
-                    <th>FORMULATION</th>
-                    <th>FREQUENCY</th>
-                    <th>#DAYS</th>
-                    <th>COMMENTS</th>
-                    <th>EXPIRY</th>
+                    <th>ITEM</th>
+                    <th>SUB-CATEGORY</th>
+                    <th>SPECIFICATION</th>
                     <th>QNTY</th>
                     <th>PRICE</th>
                     <th>TOTAL</th>
@@ -406,15 +392,12 @@ th:first-child {
                 <tbody data-bind="foreach: availableOrders, visible: availableOrders().length > 0">
                 <tr>
                     <td data-bind="text: \$index()+1"></td>
-                    <td data-bind="text: initialBill().transactionDetail.drug.name"></td>
+                    <td data-bind="text: initialBill().transactionDetail.item.name"></td>
                     <td>
-                        <span data-bind="text: initialBill().transactionDetail.formulation.name"></span> -
-                        <span data-bind="text: initialBill().transactionDetail.formulation.dozage"></span>
+                        <span data-bind="text: initialBill().transactionDetail.item.name"></span> -
+                        <span data-bind="text: initialBill().transactionDetail.item.name"></span>
                     </td>
-                    <td data-bind="text: initialBill().transactionDetail.frequency.name"></td>
-                    <td data-bind="text: initialBill().transactionDetail.noOfDays"></td>
-                    <td data-bind="text: initialBill().transactionDetail.comments"></td>
-                    <td data-bind="text: initialBill().transactionDetail.dateExpiry.substring(0, 11)"></td>
+                    <td data-bind="text: initialBill().transactionDetail.item.name"></td>
                     <td data-bind="text: initialBill().quantity"></td>
                     <td data-bind="text: initialBill().transactionDetail.costToPatient.toFixed(2)"></td>
                     <td data-bind="text: orderTotal().toFixed(2)"></td>
@@ -554,7 +537,7 @@ th:first-child {
             <input id="receiptid" name="receiptid" type="text" value="${receiptid}">
             <input id="flag" name="flag" type="text" value="${flag}">
 
-            <textarea name="drugOrder" data-bind="value: ko.toJSON(\$root)"></textarea>
+            <textarea name="itemOrder" data-bind="value: ko.toJSON(\$root)"></textarea>
         </form>
 
 		<span class="button cancel" onclick="javascript:window.location.href = 'billingQueue.page?'">Cancel</span>
