@@ -46,7 +46,7 @@ public class ProcessItemOrderPageController {
 		List<InventoryStoreItemPatientDetail> listItemIssue = inventoryService.listStoreItemPatientDetail(orderId);
 		if (listItemIssue != null && listItemIssue.size() > 0) {
 			InventoryStoreItemTransaction transaction = new InventoryStoreItemTransaction();
-			transaction.setDescription("ISSUE DRUG TO PATIENT " + DateUtils.getDDMMYYYY());
+			transaction.setDescription("ISSUE ITEM TO PATIENT " + DateUtils.getDDMMYYYY());
 			transaction.setStore(store);
 			transaction.setTypeTransaction(ActionValue.TRANSACTION[1]);
 			transaction.setCreatedBy(Context.getAuthenticatedUser().getGivenName());
@@ -61,9 +61,6 @@ public class ProcessItemOrderPageController {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				System.out.println("Item is >>" + pDetail.getTransactionDetail().getItem().getId());
-				System.out.println("Store is >>" + store.getId());
-				System.out.println("Specification is is >>" + pDetail.getTransactionDetail().getSpecification());
 				Integer totalQuantity = inventoryService
 				        .sumStoreItemCurrentQuantity(store.getId(), pDetail.getTransactionDetail().getItem().getId(),
 				            pDetail.getTransactionDetail().getSpecification().getId());
@@ -108,6 +105,7 @@ public class ProcessItemOrderPageController {
 				transDetail.setReceiptDate(pDetail.getTransactionDetail().getReceiptDate());
 				transDetail.setCreatedOn(date1);
 				transDetail.setAttribute(pDetail.getTransactionDetail().getItem().getAttributeName());
+				transDetail.setSpecification(pDetail.getTransactionDetail().getSpecification());
 				transDetail.setFlag(FlagStates.PARTIALLY_PROCESSED);
 				BigDecimal moneyUnitPrice = pDetail.getTransactionDetail().getCostToPatient()
 				        .multiply(new BigDecimal(pDetail.getQuantity()));
@@ -125,8 +123,8 @@ public class ProcessItemOrderPageController {
 		
 		List<SimpleObject> dispensedItems = SimpleObject.fromCollection(listItemIssue, ui, "quantity",
 		    "transactionDetail.costToPatient", "transactionDetail.item.name", "transactionDetail.specification.name",
-		    "transactionDetail.category.name", "transactionDetail.subCategory.name", "transactionDetail.noOfDays",
-		    "transactionDetail.companyName");
+		    "transactionDetail.item.category.name", "transactionDetail.item.subCategory.name",
+		    "transactionDetail.item.specifications.name");
 		model.addAttribute("listItemIssue", SimpleObject.create("listItemIssue", dispensedItems).toJson());
 		if (CollectionUtils.isNotEmpty(listItemIssue)) {
 			model.addAttribute("issueItemPatient", listItemIssue.get(0).getStoreItemPatient());
@@ -143,17 +141,7 @@ public class ProcessItemOrderPageController {
 			PatientIdentifier pi = listItemIssue.get(0).getStoreItemPatient().getPatient().getPatientIdentifier();
 			int patientId = pi.getPatient().getPatientId();
 			Date issueDate = listItemIssue.get(0).getStoreItemPatient().getCreatedOn();
-			/*Encounter encounterId = listItemIssue.get(0).getTransactionDetail().getEncounter();
-			List<OpdDrugOrder> listOfNotDispensedOrder = new ArrayList<OpdDrugOrder>();
-			if (encounterId != null) {
-				listOfNotDispensedOrder = inventoryService.listOfNotDispensedOrder(patientId, issueDate, encounterId);
-			}*/
 			
-			/*List<SimpleObject> notDispensed = SimpleObject
-			        .fromCollection(listOfNotDispensedOrder, ui, "inventoryDrug.name", "inventoryDrugFormulation.name",
-			            "inventoryDrugFormulation.dozage", "frequency.name", "noOfDays", "comments");
-			model.addAttribute("listOfNotDispensedOrder", SimpleObject.create("listOfNotDispensedOrder", notDispensed)
-			        .toJson());*/
 			//TODO ends here
 			pageModel.addAttribute("birthdate", listItemIssue.get(0).getStoreItemPatient().getPatient().getBirthdate());
 			
@@ -215,7 +203,6 @@ public class ProcessItemOrderPageController {
 		int receiptid = Integer.parseInt(request.getParameter("receiptid"));
 		pageModel.addAttribute("receiptid", receiptid);
 		InventoryService inventoryService = (InventoryService) Context.getService(InventoryService.class);
-		//InventoryStore store =  inventoryService.getStoreByCollectionRole(new ArrayList<Role>(Context.getAuthenticatedUser().getAllRoles()));
 		List<Role> role = new ArrayList<Role>(Context.getAuthenticatedUser().getAllRoles());
 		//InventoryStoreRoleRelation srl = null;
 		InventoryStore store = inventoryService.getStoreById(4);
@@ -265,18 +252,11 @@ public class ProcessItemOrderPageController {
 				transDetail.setCostToPatient(pDetail.getTransactionDetail().getCostToPatient());
 				transDetail.setUnitPrice(pDetail.getTransactionDetail().getUnitPrice());
 				transDetail.setItem(pDetail.getTransactionDetail().getItem());
-				//transDetail.setFormulation(pDetail.getTransactionDetail().getFormulation());
-				//transDetail.setBatchNo(pDetail.getTransactionDetail().getBatchNo());
 				transDetail.setCompanyName(pDetail.getTransactionDetail().getCompanyName());
 				transDetail.setDateManufacture(pDetail.getTransactionDetail().getDateManufacture());
-				//transDetail.setDateExpiry(pDetail.getTransactionDetail().getDateExpiry());
 				transDetail.setReceiptDate(pDetail.getTransactionDetail().getReceiptDate());
 				transDetail.setCreatedOn(date1);
-				//transDetail.setReorderPoint(pDetail.getTransactionDetail().getDrug().getReorderQty());
 				transDetail.setAttribute(pDetail.getTransactionDetail().getItem().getAttributeName());
-				//transDetail.setFrequency(pDetail.getTransactionDetail().getFrequency());
-				//transDetail.setNoOfDays(pDetail.getTransactionDetail().getNoOfDays());
-				//transDetail.setComments(pDetail.getTransactionDetail().getComments());
 				transDetail.setFlag(1);
 				
 				BigDecimal moneyUnitPrice = pDetail.getTransactionDetail().getCostToPatient()
@@ -284,6 +264,7 @@ public class ProcessItemOrderPageController {
 				
 				transDetail.setTotalPrice(moneyUnitPrice);
 				transDetail.setParent(pDetail.getTransactionDetail());
+				transDetail.setSpecification(pDetail.getTransactionDetail().getSpecification());
 				transDetail = inventoryService.saveStoreItemTransactionDetail(transDetail);
 				pDetail.setQuantity(pDetail.getQuantity());
 				
@@ -322,18 +303,6 @@ public class ProcessItemOrderPageController {
 				
 				int patientId = pi.getPatient().getPatientId();
 				Date issueDate = listItemIssue.get(0).getStoreItemPatient().getCreatedOn();
-				//Encounter encounterId = listDrugIssue.get(0).getTransactionDetail().getEncounter();
-				
-				/*List<OpdDrugOrder> listOfNotDispensedOrder = new ArrayList<OpdDrugOrder>();
-				if (encounterId != null) {
-					listOfNotDispensedOrder = inventoryService.listOfNotDispensedOrder(patientId, issueDate, encounterId);
-				}*/
-				
-				/*List<SimpleObject> notDispensed = SimpleObject.fromCollection(listOfNotDispensedOrder, ui,
-				    "inventoryDrug.name", "inventoryDrugFormulation.name", "inventoryDrugFormulation.dozage",
-				    "frequency.name", "noOfDays", "comments");
-				pageModel.addAttribute("listOfNotDispensedOrder",
-				    SimpleObject.create("listOfNotDispensedOrder", notDispensed).toJson());*/
 				
 				//TODO ends here
 				

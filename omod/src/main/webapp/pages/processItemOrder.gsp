@@ -57,7 +57,7 @@
             var mappedOrders = jQuery.map(listOfItemToIssue, function (item) {
                 return new ItemOrder(item);
             });
-
+            self.availableOrders(mappedOrders);
             //observable waiver
             self.waiverAmount = ko.observable(wAmount);
 
@@ -381,6 +381,7 @@ th:first-child {
                 <tr align="center">
                     <th>#</th>
                     <th>ITEM</th>
+                    <th>CATEGORY</th>
                     <th>SUB-CATEGORY</th>
                     <th>SPECIFICATION</th>
                     <th>QNTY</th>
@@ -393,11 +394,9 @@ th:first-child {
                 <tr>
                     <td data-bind="text: \$index()+1"></td>
                     <td data-bind="text: initialBill().transactionDetail.item.name"></td>
-                    <td>
-                        <span data-bind="text: initialBill().transactionDetail.item.name"></span> -
-                        <span data-bind="text: initialBill().transactionDetail.item.name"></span>
-                    </td>
-                    <td data-bind="text: initialBill().transactionDetail.item.name"></td>
+                    <td data-bind="text: initialBill().transactionDetail.item.category.name"></td>
+                    <td data-bind="text: initialBill().transactionDetail.item.subCategory.name"></td>
+                    <td data-bind="text: initialBill().transactionDetail.specification.name"></td>
                     <td data-bind="text: initialBill().quantity"></td>
                     <td data-bind="text: initialBill().transactionDetail.costToPatient.toFixed(2)"></td>
                     <td data-bind="text: orderTotal().toFixed(2)"></td>
@@ -408,7 +407,7 @@ th:first-child {
                 <tr>
                     <td></td>
 
-                    <td colspan="8">
+                    <td colspan="6">
                         <b>TOTAL AMOUNT</b>
                     </td>
 
@@ -421,7 +420,7 @@ th:first-child {
                 <tr>
                     <td></td>
 
-                    <td colspan="8">
+                    <td colspan="6">
                         <span data-bind="visible: flag() == 0"><b>TOTAL PAYABLE</b></span>
                         <span data-bind="visible: flag() == 1"><b>TOTAL TENDERED</b></span>
                     </td>
@@ -433,40 +432,6 @@ th:first-child {
                 </tr>
                 </tbody>
             </table>
-
-            <div data-bind="visible: nonDispensed().length > 0" class="print-only">
-                <h2>
-                    DRUGS NOT ISSUED
-                </h2>
-
-                <table width="100%" id="nonDispensedDrugsTable" class="tablesorter thickbox">
-                    <thead>
-                    <tr align="center">
-                        <th>#</th>
-                        <th>DRUG</th>
-                        <th>FORMULATION</th>
-                        <th>FREQUENCY</th>
-                        <th>#DAYS</th>
-                        <th>COMMENTS</th>
-                    </tr>
-                    </thead>
-
-                    <tbody data-bind="foreach: nonDispensed">
-                    <tr>
-                        <td data-bind="text: \$index()+1"></td>
-                        <td data-bind="text: initialNonBill().inventoryDrug.name"></td>
-                        <td>
-                            <span data-bind="text: initialNonBill().inventoryDrugFormulation.name"></span> -
-                            <span data-bind="text: initialNonBill().inventoryDrugFormulation.dozage"></span> -
-                        </td>
-                        <td data-bind="text: initialNonBill().frequency.name"></td>
-                        <td data-bind="text: initialNonBill().noOfDays"></td>
-                        <td data-bind="text: initialNonBill().comments"></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-
 
             <div class="print-only" style="margin: 20px 10px 0 10px">
                 <span style="float:right;">Attending Pharmacist: <b>${pharmacist}</b></span>
@@ -487,42 +452,6 @@ th:first-child {
             </div>
         </div>
 
-        <div id="nonDispensedDrugs" data-bind="visible: nonDispensed().length > 0" style="display: none;">
-            <div class="title" style="margin-top: 10px;">
-                <i class="icon-remove-sign" style="color: #f00"></i>
-                <span>
-                    DRUGS NOT ISSUED
-                    <em>&nbsp; from pharmacy</em>
-                </span>
-            </div>
-
-            <table width="100%" id="nonDispensedDrugsTable1" class="tablesorter thickbox">
-                <thead>
-                <tr align="center">
-                    <th>#</th>
-                    <th>DRUG</th>
-                    <th>FORMULATION</th>
-                    <th>FREQUENCY</th>
-                    <th>#DAYS</th>
-                    <th>COMMENTS</th>
-                </tr>
-                </thead>
-
-                <tbody data-bind="foreach: nonDispensed">
-                <tr>
-                    <td data-bind="text: \$index()+1"></td>
-                    <td data-bind="text: initialNonBill().inventoryDrug.name"></td>
-                    <td>
-                        <span data-bind="text: initialNonBill().inventoryDrugFormulation.name"></span> -
-                        <span data-bind="text: initialNonBill().inventoryDrugFormulation.dozage"></span> -
-                    </td>
-                    <td data-bind="text: initialNonBill().frequency.name"></td>
-                    <td data-bind="text: initialNonBill().noOfDays"></td>
-                    <td data-bind="text: initialNonBill().comments"></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
 
         <div style="margin: 10px">
             <i class="icon-user small"></i>
