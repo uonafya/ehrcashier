@@ -445,7 +445,7 @@
                                              readOnly="true"/>
                     </td>
                 </tr>
-				<% if (canWave==true) { %>
+				<% if (canWave) { %>
 				<tr>
                     <td colspan="6" align="right" style="padding-right: 23px">Waiver Amount</td>
                     <td align="right"><input type="text" id="waiverAmount" name="waiverAmount" size="7"

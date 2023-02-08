@@ -120,15 +120,22 @@ public class BillableServiceBillListForBDPageController {
 			model.addAttribute("categoryList", categoryList);
 			model.addAttribute("encounterId", encounterId);
 			model.addAttribute("patientId", patientId);
-			
-			model.addAttribute(
-			    "category",
-			    patient.getAttribute(Context.getPersonService().getPersonAttributeTypeByUuid(
-			        "09cd268a-f0f5-11ea-99a8-b3467ddbf779")));
-			model.addAttribute(
-			    "subCategory",
-			    patient.getAttribute(Context.getPersonService().getPersonAttributeTypeByUuid(
-			        "972a32aa-6159-11eb-bc2d-9785fed39154")));
+			String categoryValue = "Paying";
+			String subCategoryValue = "General";
+			if (patient.getAttribute(Context.getPersonService().getPersonAttributeTypeByUuid(
+			    "09cd268a-f0f5-11ea-99a8-b3467ddbf779")) != null) {
+				categoryValue = patient.getAttribute(
+				    Context.getPersonService().getPersonAttributeTypeByUuid("09cd268a-f0f5-11ea-99a8-b3467ddbf779"))
+				        .getValue();
+			}
+			if (patient.getAttribute(Context.getPersonService().getPersonAttributeTypeByUuid(
+			    "972a32aa-6159-11eb-bc2d-9785fed39154")) != null) {
+				subCategoryValue = patient.getAttribute(
+				    Context.getPersonService().getPersonAttributeTypeByUuid("972a32aa-6159-11eb-bc2d-9785fed39154"))
+				        .getValue();
+			}
+			model.addAttribute("category", categoryValue);
+			model.addAttribute("subCategory", subCategoryValue);
 			
 			HospitalCoreService hcs = Context.getService(HospitalCoreService.class);
 			List<PersonAttribute> pas = hcs.getPersonAttributes(patient.getId());
@@ -359,26 +366,30 @@ public class BillableServiceBillListForBDPageController {
 				BigDecimal wavAmt = new BigDecimal(0);
 				bill.setWaiverAmount(wavAmt);
 			}
+			String categoryValue = "Paying";
+			String subCategoryValue = "General";
+			if (patient.getAttribute(Context.getPersonService().getPersonAttributeTypeByUuid(
+			    "09cd268a-f0f5-11ea-99a8-b3467ddbf779")) != null) {
+				categoryValue = patient.getAttribute(
+				    Context.getPersonService().getPersonAttributeTypeByUuid("09cd268a-f0f5-11ea-99a8-b3467ddbf779"))
+				        .getValue();
+			}
+			if (patient.getAttribute(Context.getPersonService().getPersonAttributeTypeByUuid(
+			    "972a32aa-6159-11eb-bc2d-9785fed39154")) != null) {
+				subCategoryValue = patient.getAttribute(
+				    Context.getPersonService().getPersonAttributeTypeByUuid("972a32aa-6159-11eb-bc2d-9785fed39154"))
+				        .getValue();
+			}
 			bill.setEncounter(Context.getEncounterService().getEncounter(encounterId));
 			bill.setPaymentMode(paymentMode);
 			bill.setAdmittedDays(admittedDays);
 			bill.setRebateAmount(rebateAmount);
-			bill.setPatientCategory(patientCategory);
+			bill.setPatientCategory(categoryValue);
 			bill.setComment(comment);
 			
 			HospitalCoreService hcs = Context.getService(HospitalCoreService.class);
 			List<PersonAttribute> pas = hcs.getPersonAttributes(patientId);
-			String patientSubCategory = null;
-			for (PersonAttribute pa : pas) {
-				PersonAttributeType attributeType = pa.getAttributeType();
-				PersonAttributeType personAttributePCT = hcs.getPersonAttributeTypeByName("Payment Category");
-				
-				if (attributeType.getPersonAttributeTypeId().equals(personAttributePCT.getPersonAttributeTypeId())) {
-					patientSubCategory = pa.getValue();
-				}
-			}
-			
-			bill.setPatientSubCategory(patientSubCategory);
+			bill.setPatientSubCategory(subCategoryValue);
 			
 			bill = billingService.savePatientServiceBill(bill);
 			

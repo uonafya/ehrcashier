@@ -6,16 +6,15 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.openmrs.Concept;
-import org.openmrs.Patient;
-import org.openmrs.PersonAttribute;
-import org.openmrs.PersonAttributeType;
+import org.openmrs.*;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.PersonService;
+import org.openmrs.api.UserService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.ehrcashier.EhrCashierConstants;
 import org.openmrs.module.ehrcashier.billcalculator.BillCalculatorForBDService;
+import org.openmrs.module.ehrcashier.metadata.EhrCashierSecurityMetadata;
 import org.openmrs.module.hospitalcore.BillingService;
 import org.openmrs.module.hospitalcore.HospitalCoreService;
 import org.openmrs.module.hospitalcore.IpdService;
@@ -53,6 +52,14 @@ public class BillableServiceBillAddPageController {
 		Map<String, String> attributes = PatientUtils.getAttributes(patient);
 		BillingService billingService = Context.getService(BillingService.class);
 		HospitalCoreService hcs = Context.getService(HospitalCoreService.class);
+		boolean canWaiveBills = false;
+		User user = Context.getAuthenticatedUser();
+		for (Role roles : user.getAllRoles()) {
+			if (roles.getName().equalsIgnoreCase(EhrCashierSecurityMetadata._Role.CAN_WAVE)) {
+				canWaiveBills = true;
+				break;
+			}
+		}
 		
 		List<BillableService> services = billingService.getAllServices();
 		pageModel.addAttribute("services", services);
@@ -76,12 +83,23 @@ public class BillableServiceBillAddPageController {
 		}
 		pageModel.addAttribute("age", patient.getAge());
 		pageModel.addAttribute("currentDate", new Date());
-		pageModel.addAttribute(
-		    "category",
-		    patient.getAttribute(Context.getPersonService().getPersonAttributeTypeByUuid(
-		        "09cd268a-f0f5-11ea-99a8-b3467ddbf779")));
+		String category = "Paying";
+		String subCategory = "General";
+		if (patient.getAttribute(Context.getPersonService().getPersonAttributeTypeByUuid(
+		    "09cd268a-f0f5-11ea-99a8-b3467ddbf779")) != null) {
+			category = patient.getAttribute(
+			    Context.getPersonService().getPersonAttributeTypeByUuid("09cd268a-f0f5-11ea-99a8-b3467ddbf779")).getValue();
+		}
+		if (patient.getAttribute(Context.getPersonService().getPersonAttributeTypeByUuid(
+		    "972a32aa-6159-11eb-bc2d-9785fed39154")) != null) {
+			subCategory = patient.getAttribute(
+			    Context.getPersonService().getPersonAttributeTypeByUuid("972a32aa-6159-11eb-bc2d-9785fed39154")).getValue();
+		}
+		pageModel.addAttribute("category", category);
+		pageModel.addAttribute("subCategory", subCategory);
 		pageModel.addAttribute("lastBillId", lastBillId);
 		pageModel.addAttribute("previousVisit", hcs.getLastVisitTime(patient));
+		pageModel.addAttribute("canWaiveBills", canWaiveBills);
 		
 		if (patient.getAttribute(Context.getPersonService().getPersonAttributeTypeByUuid(
 		    "09cd268a-f0f5-11ea-99a8-b3467ddbf779")) == null) {

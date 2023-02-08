@@ -364,7 +364,7 @@
             <br>
 
             <div class="catg">
-                <i class="icon-tags small" style="font-size: 16px"></i><small>Category:</small> ${category}
+                <i class="icon-tags small" style="font-size: 16px"></i><small>Category:</small> ${subCategory}
             </div>
         </div>
 
@@ -409,7 +409,7 @@
 					</td>
 
 					<td style="text-align: right;">
-						<span data-bind="text: itemTotal().toFixed(2)"></span>
+						<span data-bind="text: (itemTotal()).toFixed(2)"></span>
 					</td>
 
 					<td style="text-align: center;">
@@ -426,20 +426,22 @@
 					<td colspan="3"><b>Total surcharge: Kshs</b></td>
 
 					<td style="text-align: right;">
-						<span data-bind="text: totalSurcharge().toFixed(2)"></span>
+						<span data-bind="text: (totalSurcharge()).toFixed(2)"></span>
 					</td>
 					<td style="text-align: right;"></td>
 				</tr>
 
-				<tr style="border: 1px solid #ddd;">
-					<td style="text-align: center;"></td>
-					<td colspan="3"><b>Waiver Amount: Kshs</b></td>
+               <% if(canWaiveBills) {%> 
+                    <tr style="border: 1px solid #ddd;">
+                        <td style="text-align: center;"></td>
+                        <td colspan="3"><b>Waiver Amount: Kshs</b></td>
 
-					<td style="text-align: right;">
-						<input id="waiverAmount" data-bind="value: waiverAmount"/>
-					</td>
-					<td style="text-align: right;"></td>
-				</tr>
+                        <td style="text-align: right;">
+                            <input id="waiverAmount" data-bind="value: waiverAmount"/>
+                        </td>
+                        <td style="text-align: right;"></td>
+                    </tr>
+                <%}%>
             </tbody>
             <tbody>
                 <tr style="border: 1px solid #ddd;">
