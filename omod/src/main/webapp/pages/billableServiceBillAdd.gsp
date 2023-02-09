@@ -364,7 +364,7 @@
             <br>
 
             <div class="catg">
-                <i class="icon-tags small" style="font-size: 16px"></i><small>Category:</small> ${subCategory}
+                <i class="icon-tags small" style="font-size: 16px"></i><small>Category:</small> ${category}/${subCategory}
             </div>
         </div>
 

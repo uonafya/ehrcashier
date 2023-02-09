@@ -259,14 +259,21 @@ public class BillableServiceBillAddPageController {
 			HospitalCoreService hcs = Context.getService(HospitalCoreService.class);
 			List<PersonAttribute> pas = hcs.getPersonAttributes(patientId);
 			PersonService personService = Context.getPersonService();
-			
+			String paymentSubCategoryValue = "General";
+			String paymentCategoryValue = "Paying";
 			PersonAttributeType paymentSubCategory = personService
 			        .getPersonAttributeTypeByUuid("972a32aa-6159-11eb-bc2d-9785fed39154");
+			if (patient.getAttribute(paymentSubCategory) != null) {
+				paymentSubCategoryValue = patient.getAttribute(paymentSubCategory).getValue();
+			}
 			PersonAttributeType paymentCategory = personService
 			        .getPersonAttributeTypeByUuid("09cd268a-f0f5-11ea-99a8-b3467ddbf779");
+			if (patient.getAttribute(paymentCategory) != null) {
+				paymentCategoryValue = patient.getAttribute(paymentCategory).getValue();
+			}
 			
-			bill.setPatientSubCategory(patient.getAttribute(paymentSubCategory).getValue());
-			bill.setPatientCategory(patient.getAttribute(paymentCategory).getValue());
+			bill.setPatientSubCategory(paymentSubCategoryValue);
+			bill.setPatientCategory(paymentCategoryValue);
 			
 			bill.setPaymentMode(paymentMode);
 			bill.setTransactionCode(transactionCode);
