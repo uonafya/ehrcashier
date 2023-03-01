@@ -2,7 +2,6 @@ package org.openmrs.module.ehrcashier.fragment.controller;
 
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.ehrcashier.PatientWrapper;
 import org.openmrs.module.hospitalcore.BillingService;
 import org.openmrs.module.hospitalcore.HospitalCoreService;
 import org.openmrs.module.hospitalcore.model.PatientServiceBill;
@@ -13,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import org.openmrs.module.ehrcashier.PatientWrapper;
 
 public class WalkinCashierQueueFragmentQueue {
 	
@@ -56,6 +58,8 @@ public class WalkinCashierQueueFragmentQueue {
 		HospitalCoreService hcs = (HospitalCoreService) Context.getService(HospitalCoreService.class);
 		BillingService billingService = (BillingService) Context.getService(BillingService.class);
 		List<Patient> patients = new ArrayList<Patient>();
+		Set<Integer> patientIds = new HashSet<Integer>();
+		Set<Patient> filteredPatients = new HashSet<Patient>();
 		
 		int billId;
 		
@@ -70,8 +74,17 @@ public class WalkinCashierQueueFragmentQueue {
 			    maritalStatus, phoneNumber, nationalId, fileNumber);
 			e.printStackTrace();
 		}
-		
-		List<PatientWrapper> wrapperList = patientsWithLastVisit(patients);
+		if (!patients.isEmpty()) {
+			for (Patient patient : patients) {
+				patientIds.add(patient.getPatientId());
+			}
+		}
+		if (!patientIds.isEmpty()) {
+			for (Integer patientId : patientIds) {
+				filteredPatients.add(Context.getPatientService().getPatient(patientId));
+			}
+		}
+		List<PatientWrapper> wrapperList = patientsWithLastVisit((List<Patient>) filteredPatients);
 		
 		return SimpleObject.fromCollection(wrapperList, uiUtils, "patientId", "wrapperIdentifier", "names", "age", "gender",
 		    "formartedVisitDate");

@@ -15,12 +15,15 @@
 package org.openmrs.module.ehrcashier;
 
 import org.openmrs.Patient;
-import org.openmrs.Person;
+import org.openmrs.PatientIdentifier;
+import org.openmrs.api.context.Context;
 
 import java.io.Serializable;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 public class PatientWrapper extends Patient implements Serializable {
 	
@@ -32,10 +35,10 @@ public class PatientWrapper extends Patient implements Serializable {
 		this.lastVisitTime = lastVisitTime;
 	}
 	
-	public PatientWrapper(Person person, Date lastVisitTime) {
+	public PatientWrapper(Patient person, Date lastVisitTime) {
 		super(person);
 		this.lastVisitTime = lastVisitTime;
-		this.wrapperIdentifier = ((Patient) person).getPatientIdentifier().getIdentifier();
+		this.wrapperIdentifier = patientIdentifierValue(person);
 	}
 	
 	public PatientWrapper(Integer patientId, Date lastVisitTime) {
@@ -70,4 +73,18 @@ public class PatientWrapper extends Patient implements Serializable {
 		this.formartedVisitDate = formartedVisitDate;
 	}
 	
+	private String patientIdentifierValue(Patient patient) {
+		String identifier = "";
+		String clinicalNumberUuid = "b4d66522-11fc-45c7-83e3-39a1af21ae0d";
+		Set<PatientIdentifier> patientIdentifierList = new HashSet<PatientIdentifier>(patient.getIdentifiers());
+		
+		for (PatientIdentifier patientIdentifier : patientIdentifierList) {
+			if (patientIdentifier.getIdentifierType().equals(
+			    Context.getPatientService().getPatientIdentifierTypeByUuid(clinicalNumberUuid))) {
+				identifier = patientIdentifier.getIdentifier();
+				break;
+			}
+		}
+		return identifier;
+	}
 }

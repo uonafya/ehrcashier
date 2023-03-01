@@ -25,8 +25,6 @@
         var nationalId = jQuery("#nationalId").val();
         var fileNumber = jQuery("#fileNumber").val();
 
-        console.log(lastDayOfVisit);
-
         jQuery.ajax({
             type: "POST",
             url: "${ui.actionLink('ehrcashier','searchPatient','searchSystemPatient')}",
@@ -49,6 +47,7 @@
             success: function (data) {
                 jQuery("#ajaxLoader").hide();
                 pData = data;
+                console.log(pData);
                 getPatientWalkinQueue(data);
             },
             error: function (xhr, ajaxOptions, thrownError) {
