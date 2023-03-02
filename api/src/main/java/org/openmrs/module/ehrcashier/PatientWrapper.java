@@ -21,9 +21,7 @@ import org.openmrs.api.context.Context;
 import java.io.Serializable;
 import java.text.Format;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class PatientWrapper extends Patient implements Serializable {
 	
@@ -77,12 +75,15 @@ public class PatientWrapper extends Patient implements Serializable {
 		String identifier = "";
 		String clinicalNumberUuid = "b4d66522-11fc-45c7-83e3-39a1af21ae0d";
 		Set<PatientIdentifier> patientIdentifierList = new HashSet<PatientIdentifier>(patient.getIdentifiers());
-		
-		for (PatientIdentifier patientIdentifier : patientIdentifierList) {
-			if (patientIdentifier.getIdentifierType().equals(
-			    Context.getPatientService().getPatientIdentifierTypeByUuid(clinicalNumberUuid))) {
-				identifier = patientIdentifier.getIdentifier();
-				break;
+		List<PatientIdentifier> patientIdentifiersList = new ArrayList<PatientIdentifier>(patient.getIdentifiers());
+		if (!patientIdentifiersList.isEmpty()) {
+			identifier = patientIdentifiersList.get(0).getIdentifier();
+			for (PatientIdentifier patientIdentifier : patientIdentifiersList) {
+				if (patientIdentifier.getIdentifierType().equals(
+				    Context.getPatientService().getPatientIdentifierTypeByUuid(clinicalNumberUuid))) {
+					identifier = patientIdentifier.getIdentifier();
+					break;
+				}
 			}
 		}
 		return identifier;
