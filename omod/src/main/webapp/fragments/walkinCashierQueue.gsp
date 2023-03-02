@@ -47,7 +47,6 @@
             success: function (data) {
                 jQuery("#ajaxLoader").hide();
                 pData = data;
-                console.log(pData);
                 getPatientWalkinQueue(data);
             },
             error: function (xhr, ajaxOptions, thrownError) {
