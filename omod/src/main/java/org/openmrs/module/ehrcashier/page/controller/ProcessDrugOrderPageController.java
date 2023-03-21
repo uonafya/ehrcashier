@@ -46,10 +46,8 @@ public class ProcessDrugOrderPageController {
 				rl = r;
 			}
 		}
-		InventoryStore
-			store = inventoryService.getStoreById(4);
-			
-
+		InventoryStore store = inventoryService.getStoreById(4);
+		
 		List<InventoryStoreDrugPatientDetail> listDrugIssue = inventoryService.listStoreDrugPatientDetail(orderId);
 		if (listDrugIssue != null && listDrugIssue.size() > 0) {
 			InventoryStoreDrugTransaction transaction = new InventoryStoreDrugTransaction();
@@ -127,7 +125,7 @@ public class ProcessDrugOrderPageController {
 			}
 			
 		}
-		if (listDrugIssue.size() > 0) {
+		if (listDrugIssue != null && listDrugIssue.size() > 0) {
 			model.addAttribute("waiverAmount", listDrugIssue.get(0).getStoreDrugPatient().getWaiverAmount());
 			model.addAttribute("waiverComment", listDrugIssue.get(0).getStoreDrugPatient().getComment());
 		}
@@ -243,11 +241,8 @@ public class ProcessDrugOrderPageController {
 				rl = r;
 			}
 		}
-		InventoryStore store = null;
-		if (srl != null) {
-			store = inventoryService.getStoreById(srl.getStoreid());
-			
-		}
+		InventoryStore store = inventoryService.getStoreById(4);
+		
 		List<InventoryStoreDrugPatientDetail> listDrugIssue = inventoryService.listStoreDrugPatientDetail(receiptid);
 		InventoryStoreDrugPatient inventoryStoreDrugPatient = null;
 		
@@ -328,8 +323,10 @@ public class ProcessDrugOrderPageController {
 				pageModel.addAttribute("flag", flags);
 			}
 			// update patient detail
-			inventoryStoreDrugPatient.setWaiverAmount(waiverAmount);
-			inventoryStoreDrugPatient.setComment(comment);
+			if (inventoryStoreDrugPatient != null) {
+				inventoryStoreDrugPatient.setWaiverAmount(waiverAmount);
+				inventoryStoreDrugPatient.setComment(comment);
+			}
 			inventoryService.saveStoreDrugPatient(inventoryStoreDrugPatient);
 			
 			List<SimpleObject> dispensedDrugs = SimpleObject.fromCollection(listDrugIssue, ui, "quantity",

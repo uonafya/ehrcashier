@@ -116,7 +116,7 @@ public class ProcessItemOrderPageController {
 			}
 			
 		}
-		if (listItemIssue.size() > 0) {
+		if (listItemIssue != null && listItemIssue.size() > 0) {
 			model.addAttribute("waiverAmount", 0);
 			model.addAttribute("waiverComment", "");
 		}
