@@ -46,11 +46,10 @@ public class ProcessDrugOrderPageController {
 				rl = r;
 			}
 		}
-		InventoryStore store = null;
-		if (srl != null) {
-			store = inventoryService.getStoreById(srl.getStoreid());
+		InventoryStore
+			store = inventoryService.getStoreById(4);
 			
-		}
+
 		List<InventoryStoreDrugPatientDetail> listDrugIssue = inventoryService.listStoreDrugPatientDetail(orderId);
 		if (listDrugIssue != null && listDrugIssue.size() > 0) {
 			InventoryStoreDrugTransaction transaction = new InventoryStoreDrugTransaction();
