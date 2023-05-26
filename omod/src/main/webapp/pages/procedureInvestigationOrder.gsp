@@ -471,6 +471,9 @@
 								<option value="Cash">Cash</option>
 								<option value="Mpesa">Mpesa</option>
 								<option value="Insurance">Insurance</option>
+								<option value="NHIF">NHIF</option>
+								<option value="Visa">Visa Card</option>
+								<option value="AirTel Money">AirTel Money</option>
 							</select>
 						</div>
 					</td>	
