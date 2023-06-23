@@ -462,9 +462,9 @@
 					</div>
 				</td>
 			</table>
-          <table cellpadding="5" cellspacing="0" width="50%" align="right">
+          <table cellpadding="0" cellspacing="0" width="50%" align="right">
 		  		<tr>
-					<td colspan="6" align="right" style="padding-right: 23px">Payment Mode</td>
+					<td align="right" style="padding-right: 23px">Payment Mode</td>
 					<td>
 						<div id="paymentModesId" class="form-group" align="right">
 							<select name="paymentMode" id="paymentMode">
@@ -479,13 +479,13 @@
 					</td>	
 				</tr>
 				<tr>
-					<td colspan="6" align="right" style="padding-right: 23px">Transaction Code</td>
-					<td align="right"><input type="text" id="transactionCode" name="transactionCode" size="7" /></td>
+					<td align="right" style="padding-right: 23px">Transaction Code</td>
+					<td align="right"><input type="text" id="transactionCode" name="transactionCode" size="20" /></td>
 				</tr>
 				<tr>
-                    <td colspan="6" align="right" style="padding-right: 23px">Transaction Description</td>
+                    <td align="right" style="padding-right: 23px">Description</td>
                     <td>
-                        <textarea  id="transactionDescription" name="transactionDescription" cols="50" rows="5">
+                        <textarea  id="transactionDescription" name="transactionDescription" cols="30" rows="3">
                         </textarea>
                     </td>
                 </tr>
@@ -503,6 +503,7 @@
 					</span>
 				</td>
 			</tr>
+        </table>
 			
         </div>
     </form>
