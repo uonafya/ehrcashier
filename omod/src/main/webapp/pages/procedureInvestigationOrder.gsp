@@ -479,9 +479,16 @@
 					</td>	
 				</tr>
 				<tr>
-					<td colspan="6" align="right" style="padding-right: 23px">Transaction Code/Details</td>
+					<td colspan="6" align="right" style="padding-right: 23px">Transaction Code</td>
 					<td align="right"><input type="text" id="transactionCode" name="transactionCode" size="7" /></td>
-				</tr>	
+				</tr>
+				<tr>
+                    <td colspan="6" align="right" style="padding-right: 23px">Transaction Description</td>
+                    <td>
+                        <textarea  id="transactionDescription" name="transactionDescription" cols="50" rows="5">
+                        </textarea>
+                    </td>
+                </tr>
 			</table>
 			<tr>
 				<td><input type="button" class="button cancel"

@@ -55,7 +55,7 @@ public class BillableServiceBillAddPageController {
 		boolean canWaiveBills = false;
 		User user = Context.getAuthenticatedUser();
 		for (Role roles : user.getAllRoles()) {
-			if (roles.getName().equalsIgnoreCase(EhrCashierSecurityMetadata._Role.CAN_WAVE)) {
+			if (roles.getName() != null && roles.getName().equalsIgnoreCase(EhrCashierSecurityMetadata._Role.CAN_WAVE)) {
 				canWaiveBills = true;
 				break;
 			}
@@ -121,6 +121,8 @@ public class BillableServiceBillAddPageController {
 	        @RequestParam("patientId") Integer patientId,
 	        @RequestParam(value = "paymentMode", required = false) String paymentMode,
 	        @RequestParam(value = "transactionCode", required = false) String transactionCode,
+	        @RequestParam(value = "transactionDescription", required = false) String transactionDescription,
+	        @RequestParam(value = "waiverComment", required = false) String waiverComment,
 	        @RequestParam(value = "billType", required = false) String billType, UiUtils uiUtils,
 	        @RequestParam(value = "encounterId", required = false) Integer encounterId) {
 		String bills = request.getParameter("bill");
@@ -276,8 +278,15 @@ public class BillableServiceBillAddPageController {
 			bill.setPatientCategory(paymentCategoryValue);
 			
 			bill.setPaymentMode(paymentMode);
-			bill.setTransactionCode(transactionCode);
-			
+			if (StringUtils.isNotBlank(transactionCode)) {
+				bill.setTransactionCode(transactionCode);
+			}
+			if (StringUtils.isNotBlank(transactionDescription)) {
+				bill.setTransactionCode(transactionDescription);
+			}
+			if (StringUtils.isNotBlank(waiverComment)) {
+				bill.setComment(waiverComment);
+			}
 			bill.setFreeBill(calculator.isFreeBill(billType));
 			logger.info("Is free bill: " + bill.getFreeBill());
 			

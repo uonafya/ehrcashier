@@ -446,7 +446,7 @@
             <tbody>
                 <tr style="border: 1px solid #ddd;">
                     <td style="text-align: center;"></td>
-                    <td colspan="2"></td>
+                    <td colspan="3"></td>
                     <td><b>Payment Mode</b></td>
 
                     <td style="text-align: right;">
@@ -454,6 +454,9 @@
                         <option value="Cash">Cash</option>
                         <option value="Mpesa">Mpesa</option>
                         <option value="Insurance">Insurance</option>
+                        <option value="NHIF">NHIF</option>
+                        <option value="Visa">Visa Card</option>
+                        <option value="AirTel Money">AirTel Money</option>
                     </select>
                     </td>
                     <td style="text-align: right;"></td>
@@ -461,11 +464,22 @@
 
                 <tr style="border: 1px solid #ddd;">
                     <td style="text-align: center;"></td>
-                    <td colspan="2"></td>
+                    <td colspan="3"></td>
                     <td><b>Transaction Code</b></td>
 
                     <td style="text-align: right;">
                         <input id="transactionCode" name="transactionCode" />
+                    </td>
+                    <td style="text-align: right;"></td>
+                </tr>
+                <tr style="border: 1px solid #ddd;">
+                    <td style="text-align: center;"></td>
+                    <td colspan="2"></td>
+                    <td><b>Transaction Description</b></td>
+
+                    <td style="text-align: right;" colspan="2">
+                        <textarea  id="transactionDescription" name="transactionDescription" cols="50" rows="5">
+                        </textarea>
                     </td>
                     <td style="text-align: right;"></td>
                 </tr>
@@ -475,7 +489,7 @@
 		
 		<div id="waiverCommentDiv" style="padding-top: 10px;">
 			<label for="waiverComment" style="color: rgb(54, 52, 99);">Waiver Number/Comment</label>
-			<textarea type="text" id="waiverComment" name="waiverComment" size="7" class="hasborder" style="width: 99.4%; height: 60px;" data-bind="value: comment"></textarea>
+			<textarea id="waiverComment" name="waiverComment" size="7" class="hasborder" style="width: 99.4%; height: 60px;" data-bind="value: comment"></textarea>
 		</div>
 
 

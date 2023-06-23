@@ -7,7 +7,6 @@ import org.openmrs.PersonAttribute;
 import org.openmrs.PersonAttributeType;
 import org.openmrs.Role;
 import org.openmrs.api.PatientService;
-import org.openmrs.api.PersonService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.ehrcashier.EhrCashierConstants;
@@ -29,12 +28,13 @@ import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.page.PageModel;
 import org.openmrs.ui.framework.page.PageRequest;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Map;
 
 @AppPage(EhrCashierConstants.APP_EHRCASHIER)
@@ -91,7 +91,8 @@ public class ProcedureInvestigationOrderPageController {
 		boolean hasRoleWave = false;
 		
 		for (Role currentRole : roles) {
-			if ((!(currentRole.isRetired()) && currentRole.getName().equals(EhrCashierSecurityMetadata._Role.CAN_WAVE))) {
+			if ((!(currentRole.getRetired()) && currentRole.getName() != null && currentRole.getName().equals(
+			    EhrCashierSecurityMetadata._Role.CAN_WAVE))) {
 				hasRoleWave = true;
 				break;
 			}
@@ -111,7 +112,8 @@ public class ProcedureInvestigationOrderPageController {
 	        @RequestParam(value = "paymentMode", required = false) String paymentMode,
 	        @RequestParam(value = "transactionCode", required = false) String transactionCode,
 	        @RequestParam(value = "billType", required = false) String billType, UiUtils uiUtils,
-	        @RequestParam(value = "date", required = true) String date) {
+	        @RequestParam(value = "date", required = false) String date,
+	        @RequestParam(value = "transactionDescription", required = false) String transactionDescription) {
 		Map<String, Object> redirectParams = new HashMap<String, Object>();
 		
 		BillingService billingService = Context.getService(BillingService.class);
@@ -222,7 +224,12 @@ public class ProcedureInvestigationOrderPageController {
 		}
 		bill.setComment(waiverComment);
 		bill.setPaymentMode(paymentMode);
-		bill.setTransactionCode(transactionCode);
+		if (StringUtils.isNotBlank(transactionCode)) {
+			bill.setTransactionCode(transactionCode);
+		}
+		if (StringUtils.isNotBlank(transactionDescription)) {
+			bill.setDescription(transactionDescription);
+		}
 		if (patientCategoryAttribute != null) {
 			bill.setPatientCategory(patientCategoryAttribute.getValue());
 		}
