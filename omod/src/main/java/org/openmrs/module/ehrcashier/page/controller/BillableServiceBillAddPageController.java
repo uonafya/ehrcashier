@@ -119,9 +119,9 @@ public class BillableServiceBillAddPageController {
 	
 	public String post(HttpServletRequest request, PageModel model, Object command, BindingResult bindingResult,
 	        @RequestParam("patientId") Integer patientId,
-	        @RequestParam(value = "paymentMode", required = false) String paymentMode,
-	        @RequestParam(value = "transactionCode", required = false) String transactionCode,
-	        @RequestParam(value = "transactionDescription", required = false) String transactionDescription,
+	        @RequestParam(value = "paymentMode1", required = false) String paymentMode,
+	        @RequestParam(value = "transactionCode1", required = false) String transactionCode,
+	        @RequestParam(value = "transactionDescription1", required = false) String transactionDescription,
 	        @RequestParam(value = "waiverComment", required = false) String waiverComment,
 	        @RequestParam(value = "billType", required = false) String billType, UiUtils uiUtils,
 	        @RequestParam(value = "encounterId", required = false) Integer encounterId) {
@@ -276,12 +276,19 @@ public class BillableServiceBillAddPageController {
 			
 			bill.setPatientSubCategory(paymentSubCategoryValue);
 			bill.setPatientCategory(paymentCategoryValue);
-			
-			bill.setPaymentMode(paymentMode);
+			System.out.println("The payment mode is out >>" + paymentMode.trim());
+			System.out.println("The payment code is out >>" + transactionCode.trim());
+			System.out.println("The payment description is out >>" + transactionDescription.trim());
+			if (StringUtils.isNotBlank(paymentMode)) {
+				System.out.println("The payment mode is >>" + paymentMode);
+				bill.setPaymentMode(paymentMode);
+			}
 			if (StringUtils.isNotBlank(transactionCode)) {
+				System.out.println("The payment code is >>" + transactionCode);
 				bill.setTransactionCode(transactionCode);
 			}
 			if (StringUtils.isNotBlank(transactionDescription)) {
+				System.out.println("The payment description is >>" + transactionDescription);
 				bill.setTransactionCode(transactionDescription);
 			}
 			if (StringUtils.isNotBlank(waiverComment)) {

@@ -15,11 +15,14 @@ import org.openmrs.module.ehrcashier.metadata.EhrCashierSecurityMetadata;
 import org.openmrs.module.hospitalcore.BillingService;
 import org.openmrs.module.hospitalcore.HospitalCoreService;
 import org.openmrs.module.hospitalcore.PatientDashboardService;
+import org.openmrs.module.hospitalcore.PatientQueueService;
 import org.openmrs.module.hospitalcore.model.BillableService;
+import org.openmrs.module.hospitalcore.model.OpdPatientQueue;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.PatientSearch;
 import org.openmrs.module.hospitalcore.model.PatientServiceBill;
 import org.openmrs.module.hospitalcore.model.PatientServiceBillItem;
+import org.openmrs.module.hospitalcore.model.TriagePatientQueue;
 import org.openmrs.module.hospitalcore.util.HospitalCoreUtils;
 import org.openmrs.module.hospitalcore.util.Money;
 import org.openmrs.module.hospitalcore.util.PatientUtils;
@@ -119,6 +122,8 @@ public class ProcedureInvestigationOrderPageController {
 		BillingService billingService = Context.getService(BillingService.class);
 		
 		PatientDashboardService patientDashboardService = Context.getService(PatientDashboardService.class);
+		
+		PatientQueueService patientQueueService = Context.getService(PatientQueueService.class);
 		
 		PatientService patientService = Context.getPatientService();
 		
@@ -240,6 +245,18 @@ public class ProcedureInvestigationOrderPageController {
 		bill.setFreeBill(2);
 		bill.setReceipt(billingService.createReceipt());
 		bill = billingService.savePatientServiceBill(bill);
+		//update the patient queues from here
+		TriagePatientQueue triagePatientQueue = patientQueueService.getTriagePatientQueueByPatient(patient);
+		OpdPatientQueue opdPatientQueue = patientQueueService.getOpdPatientQueueByPatient(patient);
+		if (triagePatientQueue != null && triagePatientQueue.getClearedToNextServicePoint() == 0) {
+			triagePatientQueue.setClearedToNextServicePoint(1);
+			patientQueueService.saveTriagePatientQueue(triagePatientQueue);
+		}
+		if (opdPatientQueue != null && opdPatientQueue.getClearedToNextServicePoint() == 0) {
+			opdPatientQueue.setClearedToNextServicePoint(1);
+			patientQueueService.saveOpdPatientQueue(opdPatientQueue);
+		}
+		
 		redirectParams.put("patientId", patientId);
 		redirectParams.put("billId", bill.getPatientServiceBillId());
 		redirectParams.put("billType", billType);

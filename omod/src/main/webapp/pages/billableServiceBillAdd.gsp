@@ -450,13 +450,12 @@
                     <td><b>Payment Mode</b></td>
 
                     <td style="text-align: right;" colspan="2">
-                    <select name="paymentMode" id="paymentMode">
+                    <select name="paymentMode1" id="paymentMode1">
                         <option value="Cash">Cash</option>
                         <option value="Mpesa">Mpesa</option>
                         <option value="Insurance">Insurance</option>
                         <option value="NHIF">NHIF</option>
                         <option value="Visa">Visa Card</option>
-                        <option value="AirTel Money">AirTel Money</option>
                     </select>
                     </td>
                     <td style="text-align: right;"></td>
@@ -468,7 +467,7 @@
                     <td><b>Transaction Code</b></td>
 
                     <td style="text-align: right;" colspan="2">
-                        <input id="transactionCode" name="transactionCode" size="20" />
+                        <input id="transactionCode1" name="transactionCode1" size="20" />
                     </td>
                     <td style="text-align: right;"></td>
                 </tr>
@@ -478,7 +477,7 @@
                     <td><b>Description</b></td>
 
                     <td style="text-align: right;" colspan="2">
-                        <textarea  id="transactionDescription" name="transactionDescription" cols="50" rows="2">
+                        <textarea  id="transactionDescription1" name="transactionDescription1" cols="50" rows="2">
                         </textarea>
                     </td>
                     <td style="text-align: right;"></td>

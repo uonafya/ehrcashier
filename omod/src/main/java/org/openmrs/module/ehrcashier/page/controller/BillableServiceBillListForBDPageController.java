@@ -17,12 +17,15 @@ import org.openmrs.module.hospitalcore.BillingConstants;
 import org.openmrs.module.hospitalcore.BillingService;
 import org.openmrs.module.hospitalcore.HospitalCoreService;
 import org.openmrs.module.hospitalcore.IpdService;
+import org.openmrs.module.hospitalcore.PatientQueueService;
 import org.openmrs.module.hospitalcore.model.IndoorPatientServiceBill;
 import org.openmrs.module.hospitalcore.model.IndoorPatientServiceBillItem;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmissionLog;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmitted;
+import org.openmrs.module.hospitalcore.model.OpdPatientQueue;
 import org.openmrs.module.hospitalcore.model.PatientServiceBill;
 import org.openmrs.module.hospitalcore.model.PatientServiceBillItem;
+import org.openmrs.module.hospitalcore.model.TriagePatientQueue;
 import org.openmrs.module.hospitalcore.util.ConceptAnswerComparator;
 import org.openmrs.module.hospitalcore.util.Money;
 import org.openmrs.module.hospitalcore.util.PagingUtil;
@@ -299,6 +302,7 @@ public class BillableServiceBillListForBDPageController {
 	        @RequestParam(value = "patientCategory", required = false) String patientCategory,
 	        @RequestParam(value = "voidedAmount", required = false) BigDecimal voidedAmount, HttpServletRequest request,
 	        UiUtils uiUtils) {
+		PatientQueueService patientQueueService = Context.getService(PatientQueueService.class);
 		if (encounterId != null) {
 			BillingService billingService = Context.getService(BillingService.class);
 			IpdService ipdService = Context.getService(IpdService.class);
@@ -393,6 +397,18 @@ public class BillableServiceBillListForBDPageController {
 			
 			bill = billingService.savePatientServiceBill(bill);
 			
+			//update the patient queues from here
+			TriagePatientQueue triagePatientQueue = patientQueueService.getTriagePatientQueueByPatient(patient);
+			OpdPatientQueue opdPatientQueue = patientQueueService.getOpdPatientQueueByPatient(patient);
+			if (triagePatientQueue != null && triagePatientQueue.getClearedToNextServicePoint() == 0) {
+				triagePatientQueue.setClearedToNextServicePoint(1);
+				patientQueueService.saveTriagePatientQueue(triagePatientQueue);
+			}
+			if (opdPatientQueue != null && opdPatientQueue.getClearedToNextServicePoint() == 0) {
+				opdPatientQueue.setClearedToNextServicePoint(1);
+				patientQueueService.saveOpdPatientQueue(opdPatientQueue);
+			}
+			
 			if (bill != null) {
 				for (IndoorPatientServiceBill ipsb : bills) {
 					billingService.deleteIndoorPatientServiceBill(ipsb);
@@ -435,6 +451,20 @@ public class BillableServiceBillListForBDPageController {
 				}
 				
 				billingService.saveBillEncounterAndOrder(patientServiceBill);
+				
+				//PatientQueueService patientQueueService = Context.getService(PatientQueueService.class);
+				TriagePatientQueue triagePatientQueue = patientQueueService
+				        .getTriagePatientQueueByPatient(patientServiceBill.getPatient());
+				OpdPatientQueue opdPatientQueue = patientQueueService.getOpdPatientQueueByPatient(patientServiceBill
+				        .getPatient());
+				if (triagePatientQueue != null && triagePatientQueue.getClearedToNextServicePoint() == 0) {
+					triagePatientQueue.setClearedToNextServicePoint(1);
+					patientQueueService.saveTriagePatientQueue(triagePatientQueue);
+				}
+				if (opdPatientQueue != null && opdPatientQueue.getClearedToNextServicePoint() == 0) {
+					opdPatientQueue.setClearedToNextServicePoint(1);
+					patientQueueService.saveOpdPatientQueue(opdPatientQueue);
+				}
 			}
 			//			return "redirect:/module/billing/patientServiceBillForBD.list?patientId=" + patientId;
 			//            return "redirect:/module/billing/billingqueue.form";
