@@ -120,6 +120,7 @@
                     alert("Please enter correct Waiver Amount");
                 } else {
                     //submit the details to the server
+                    jq("#hiddenPaymentMode").val( jq("#paymentMode").val());
                     jq("#billsForm").submit();
 
                 }
@@ -495,6 +496,7 @@
 
         <form method="post" id="billsForm" style="padding-top: 10px">
             <input id="patientId" type="hidden" value="${patientId}">
+            <input style="display: none" name="paymentMode" id="hiddenPaymentMode">
             <textarea name="bill" data-bind="value: ko.toJSON(\$root)" style="display:none;"></textarea>
             <button data-bind="click: submitBill, enable: billItems().length > 0 " class="confirm">Save</button>
             <button data-bind="click: cancelBillAddition" class="cancel">Cancel</button>
