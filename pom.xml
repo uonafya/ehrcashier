@@ -45,7 +45,6 @@
 		<kenyaemrVersion>18.5.1</kenyaemrVersion>
 		<jodaTimeVersion>2.9.1</jodaTimeVersion>
 		<webservices.restVersion>2.1</webservices.restVersion>
-		<uilibraryVersion>2.0.4</uilibraryVersion>
 		<inventoryVersion>2.0.1-SNAPSHOT</inventoryVersion>
 		<appuiVersion>1.8.0</appuiVersion>
 		<ehrconfigsVersion>2.0.1-SNAPSHOT</ehrconfigsVersion>
@@ -207,13 +206,6 @@
 				<version>${webservicesRestVersion}</version>
 				<scope>provided</scope>
 			</dependency>
-			<dependency>
-				<groupId>org.openmrs.module</groupId>
-				<artifactId>uilibrary-api</artifactId>
-				<version>${uilibraryVersion}</version>
-				<scope>provided</scope>
-			</dependency>
-
 
 			<dependency>
 				<groupId>org.openmrs.module</groupId>
