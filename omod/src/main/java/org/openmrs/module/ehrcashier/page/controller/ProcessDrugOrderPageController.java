@@ -199,24 +199,35 @@ public class ProcessDrugOrderPageController {
 			    "972a32aa-6159-11eb-bc2d-9785fed39154");
 			
 			int paymentCategory = 0;
-			if (pi.getPatient().getAttribute(patientCategoryAttributeType).getValue().equals("Paying")) {
+			String paymentSubCategory = "General";
+			String paymentCategoryName = "General";
+			if (pi.getPatient().getAttribute(patientCategoryAttributeType) != null
+			        && StringUtils.isNotBlank(pi.getPatient().getAttribute(patientCategoryAttributeType).getValue())) {
+				paymentCategoryName = pi.getPatient().getAttribute(patientCategoryAttributeType).getValue();
+				if (pi.getPatient().getAttribute(patientCategoryAttributeType).getValue().equals("Paying")) {
+					paymentCategory = 1;
+				} else if (pi.getPatient().getAttribute(patientCategoryAttributeType).getValue().equals("Non paying")) {
+					paymentCategory = 2;
+				} else if (pi.getPatient().getAttribute(patientCategoryAttributeType).getValue().equals("Special scheme")) {
+					paymentCategory = 3;
+				}
+			} else {
 				paymentCategory = 1;
-			} else if (pi.getPatient().getAttribute(patientCategoryAttributeType).getValue().equals("Non paying")) {
-				paymentCategory = 2;
-			} else if (pi.getPatient().getAttribute(patientCategoryAttributeType).getValue().equals("Special scheme")) {
-				paymentCategory = 3;
+			}
+			if (pi.getPatient().getAttribute(payingCategoryAttributeType) != null
+			        && StringUtils.isNotBlank(pi.getPatient().getAttribute(payingCategoryAttributeType).getValue())) {
+				paymentSubCategory = pi.getPatient().getAttribute(payingCategoryAttributeType).getValue();
 			}
 			
-			model.addAttribute("paymentSubCategory", pi.getPatient().getAttribute(payingCategoryAttributeType).getValue());
+			model.addAttribute("paymentSubCategory", paymentSubCategory);
 			model.addAttribute("paymentCategory", paymentCategory);
-			model.addAttribute("paymentCategoryName", pi.getPatient().getAttribute(patientCategoryAttributeType).getValue());
+			model.addAttribute("paymentCategoryName", paymentCategoryName);
 		}
 		return null;
 	}
 	
 	public String post(HttpServletRequest request, PageModel pageModel, UiUtils ui) {
-		pageModel.addAttribute("userLocation", Context.getAdministrationService()
-		        .getGlobalProperty("hospital.location_user"));
+		pageModel.addAttribute("userLocation", Context.getService(KenyaEmrService.class).getDefaultLocation().getName());
 		String drugOrder = request.getParameter("drugOrder");
 		JSONObject jsonObject = new JSONObject(drugOrder);
 		
