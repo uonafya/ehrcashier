@@ -111,7 +111,10 @@
                 numberDataTables();
             }
             self.cancelBillAddition = function () {
-                window.location.replace("billableServiceBillListForBD.page?patientId=${patientId}&billId=${lastBillId}")
+                self.billItems.removeAll();
+                self.waiverAmount(0.00);
+                self.comment("");
+                window.location.replace("billableServiceBillListForBD.page?patientId=${patientId}")
             }
             self.submitBill = function () {
                 if (self.totalSurcharge() < self.waiverAmount()) {
